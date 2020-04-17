@@ -11,6 +11,8 @@ import UIText from './data/text.json';
 
 import makeid from './js/makeid';
 import Event from './js/event';
+import styles from './js/styles';
+import themes from './js/themes';
 
 // For test cases
 const NETWORK_STATUS = true;
@@ -31,6 +33,10 @@ storage = new Storage({
 
 class Api {
   constructor(){
+		this.styles = styles;
+		this.config = {
+			theme: themes.light
+		}
 		if(!_DEVELOPMENT){
 		}else{
 			this.segment = {screen: () => {}, trackWithProperties: () => {}, screenWithProperties: () => {}}
