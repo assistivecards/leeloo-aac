@@ -12,6 +12,7 @@
     "x": "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID 7989C828-4F80-4389-885F-DD5BE30C074F"
   },
   "dependencies": {
+    "@moqada/rn-twemoji": "^0.2.1",
     "events": "^3.0.0",
     "expo": "^37.0.0",
     "expo-av": "~8.1.0",

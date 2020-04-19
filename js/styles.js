@@ -17,6 +17,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 21
   },
+  bBig: {
+    color: themes.light.pFontColor,
+    fontWeight: "bold",
+    fontSize: 16,
+    lineHeight: 21,
+    flexWrap: "wrap",
+    flexGrow: 1,
+    flex: 1
+  },
   h1: {
     marginHorizontal: 30,
     color: themes.light.hFontColor,

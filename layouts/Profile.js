@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, LayoutAnimation } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, LayoutAnimation, Image as RNImage } from 'react-native';
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
@@ -37,7 +37,25 @@ export default class App extends React.Component {
     return (
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}} stickyHeaderIndices={[0]}>
+
+        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}} stickyHeaderIndices={[1]}>
+          <View style={styles.childCarrier}>
+            <RNImage source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
+              style={styles.child}
+              />
+            <RNImage source={{uri: "https://www.pngrepo.com/png/31150/180/boy.png"}}
+              style={styles.child}
+              />
+            <RNImage source={{uri: "https://www.pngrepo.com/png/66793/180/girl.png"}}
+              style={styles.child}
+              />
+            <RNImage source={{uri: "https://www.pngrepo.com/png/45938/180/girl.png"}}
+              style={styles.child}
+              />
+            <View
+              style={styles.child}
+              ><Text style={{fontSize: 40, color: "#aaa", textAlign: "center", lineHeight: 41}}>+</Text></View>
+          </View>
           <View style={styles.head}>
             {user &&
               <TouchableWithoutFeedback onPress={() => this.openAccountSettings()}>
@@ -92,7 +110,7 @@ export default class App extends React.Component {
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
                   <Path fill={"#666"} d="M18 4v1h-2V4c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v1H6V4c0-.55-.45-1-1-1s-1 .45-1 1v16c0 .55.45 1 1 1s1-.45 1-1v-1h2v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h2v1c0 .55.45 1 1 1s1-.45 1-1V4c0-.55-.45-1-1-1s-1 .45-1 1zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></Path>
                 </Svg>
-                <Text style={[API.styles.b, {fontSize: 15}]}>Video Preferences</Text>
+                <Text style={[API.styles.b, {fontSize: 15}]}>Sound Preferences</Text>
               </View>
 
               <View style={styles.selectionItem}>
@@ -270,5 +288,15 @@ const styles = StyleSheet.create({
     top: -10,
     left: 0,
     zIndex: 99
+  },
+  child: {
+    width: 60,
+    height: 60,
+    marginRight: 10, borderRadius: 10,
+    padding: 10, backgroundColor: "#eee"},
+  childCarrier: {
+    flexDirection: "row",
+    padding: 15,
+    paddingHorizontal: 30
   }
 });

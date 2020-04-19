@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   categories: {
     backgroundColor: "#F7F9FB",
-    height: 10    
+    height: 10
   },
   avatar: {
     marginRight: 20, padding: 2, backgroundColor: "#a5d5ff", borderRadius: 40, overflow: "hidden"
