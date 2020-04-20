@@ -30,7 +30,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    let user = true;
+    let user = API.user;
 
     let width = Dimensions.get("window").width;
 
@@ -61,13 +61,13 @@ export default class App extends React.Component {
               <TouchableWithoutFeedback onPress={() => this.openAccountSettings()}>
                 <View style={styles.userCarrier}>
                   <View style={styles.userLeft}>
-                    <Image
+                    <RNImage
                       style={styles.image}
                       source={{uri: user.avatar}}
                       PlaceholderContent={<ActivityIndicator />}/>
                     <View style={styles.userRight}>
-                      <Text style={API.styles.h4}>Sarah Marian</Text>
-                      <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>sarahmarian@gmail.com</Text>
+                      <Text style={API.styles.h4}>{user.name}</Text>
+                      <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{user.email}</Text>
                     </View>
                   </View>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={{margin: 10, marginRight: 0}}>

@@ -11,15 +11,19 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
     },
     "ios": {
       "bundleIdentifier": "org.dreamoriented.leeloo",
       "icon": "./assets/app-icon-ios.png",
+      "usesAppleSignIn": true,
       "buildNumber": "2.0.0",
       "supportsTablet": true,
-      "isRemoteJSEnabled": false,
-      "loadJSInBackgroundExperimental": true
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.977244603146-870klpgbiahpkoe8d0iq6ls6e4o5qg7l"
+        }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "icon": "./assets/app-icon.png",
@@ -27,11 +31,11 @@
       "permissions": [
         "WAKE_LOCK"
       ],
-      "versionCode": 200
+      "versionCode": 200,
+      "googleServicesFile": "./google-services.json",
     },
     "assetBundlePatterns": [
-      "assets/*",
-      "data/images/*"
+      "**/*"
     ],
     "privacy": "public"
   }

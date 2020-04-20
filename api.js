@@ -19,6 +19,7 @@ const NETWORK_STATUS = true;
 const _FLUSH = true;
 const _DEVELOPMENT = true;
 const _DEVLANG = "";
+const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 
 let storage;
 
@@ -33,173 +34,63 @@ storage = new Storage({
 
 class Api {
   constructor(){
+		//AsyncStorage.clear();
 		this.styles = styles;
 		this.config = {
 			theme: themes.light
 		}
-		if(!_DEVELOPMENT){
-		}else{
-			this.segment = {screen: () => {}, trackWithProperties: () => {}, screenWithProperties: () => {}}
-		}
 		this.event = Event;
     console.log("API: Created instance");
-    this.currentLang = _DEVLANG;
+  }
 
-    this.initApiCurrents();
-    if(_FLUSH){
-			this.flush();
+	async signIn(identifier, type, user){
+    var url = API_ENDPOINT + "user/";
+    var formData = new FormData();
+		formData.append('identifier', identifier);
+
+		if(type == "apple"){
+			formData.append('type', type);
+			formData.append('email', user.email);
+			formData.append('name', user.fullName.givenName + " " +user.fullName.familyName);
+
+		}else if(type == "google"){
+			formData.append('type', type);
+			formData.append('email', user.email);
+			formData.append('name', user.displayName);
+			formData.append('avatar', user.photoURL);
+
 		}
-  }
 
-	flush(){
-		// Flush to the begining state
-		this.setData("lang", "");
-		this.setData("setup", "start");
-		console.log("API: flushed");
-	}
-
-  initApiCurrents(){
-    this.getData("userId").then(uid => {
-				if(!_DEVELOPMENT){
-					this.segment.identify(uid);
-				}
-				if(_FLUSH || uid == "" || uid == null){
-	        let uid = makeid(8);
-	        this.setData("userId", uid);
-				}
-				console.log("Segment: User identified" + uid);
-    }, err => {
-      if(err.name == "NotFoundError"){
-        let uid = makeid(8);
-        this.setData("userId", uid);
-				if(!_DEVELOPMENT){
-					this.segment.identify(uid);
-				}
-				console.log("API: First time userId set");
-				console.log("Segment: User identified" + uid);
-      }
-    });
-
-    this.getData("setup").then(setupStatus => {
-        console.log("Setup status is: ", setupStatus);
-				if(_FLUSH || setupStatus == "" || setupStatus == null){
-					this.setData("setup", "start");
-				}
-    }, err => {
-      if(err.name == "NotFoundError"){
-        this.setData("setup", "start");
-				console.log("Setup status set for the first time");
-      }
-    });
-
-    this.getData("lang").then(lang => {
-        console.log("API: serve with lang: ", lang);
-				if(lang.includes("tr")){
-					this.currentLang = "tr";
-				}else if(lang.includes("de")){
-					this.currentLang = "de";
-				}else if(lang.includes("fr")){
-					this.currentLang = "fr";
-				}else if(lang.includes("es")){
-					this.currentLang = "es";
-				}else{
-					this.currentLang = "en";
-				}
-				if(_DEVLANG){ this.currentLang = _DEVLANG; }
-    }, err => {
-      if(err.name == "NotFoundError"){
-					lang = Localization.locale;
-          this.setData("lang", lang);
-          console.log("API: first time lang init", lang);
-					if(lang.includes("tr")){
-						this.currentLang = "tr";
-					}else if(lang.includes("de")){
-						this.currentLang = "de";
-					}else if(lang.includes("fr")){
-						this.currentLang = "fr";
-					}else{
-						this.currentLang = "en";
-					}
-					if(_DEVLANG){ this.currentLang = _DEVLANG; }
-      }
-    });
-
-		this.getData("pitch").then(pitch => {
-				this.speakPitch = pitch;
-				if(_FLUSH || pitch == "" || pitch == null){
-					this.setData("pitch", 1.0);
-				}
-		}, err => {
-			if(err.name == "NotFoundError"){
-				this.speakPitch = 1.0;
+		let userResponse;
+		try {
+			userResponse = await fetch(url, { method: 'POST', credentials: 'include', body: formData })
+	    .then(res => res.json());
+			this.setData("user", JSON.stringify(userResponse));
+		} catch(error){
+			console.log("Offline, Falling back to cached userdata!");
+			let userResponseString = await this.getData("user");
+			if(userResponseString){
+				userResponse = JSON.parse(userResponseString);
 			}
-		});
-
-		this.getData("rate").then(rate => {
-				this.speakRate = rate;
-				if(_FLUSH || rate == "" || rate == null){
-					this.setData("rate", 1.0);
-				}
-		}, err => {
-			if(err.name == "NotFoundError"){
-				this.speakRate = 1.0;
-			}
-		});
-
-		this.getData("gridSize").then(gs => {
-				this.gridSize = gs;
-				if(_FLUSH || gs == "" || gs == null){
-					this.setData("gridSize", [3, 5]);
-				}
-		}, err => {
-			if(err.name == "NotFoundError"){
-				this.gridSize = [3, 5];
-			}
-		});
-
-  }
-
-	speak(speakText){
-		console.log("Speak With", {
-			language: this.currentLang,
-			pitch: this.speakPitch,
-			rate: this.speakRate
-		});
-		Speech.speak(speakText, {
-			language: this.currentLang,
-			pitch: this.speakPitch,
-			rate: this.speakRate
-		});
-	}
-
-  UIText(identifier, forcedLang){
-		if(UIText[identifier]){
-			if(forcedLang){
-				return UIText[identifier][forcedLang];
-			}else if(UIText[identifier][this.currentLang]){
-				return UIText[identifier][this.currentLang];
-			}else{
-				return UIText[identifier].en;
-			}
-		}else{
-			return "UndefinedUIText";
 		}
-  }
 
-	changeLang(toLang){
-		this.setData("lang", toLang);
-		this.currentLang = toLang;
+		this.user = userResponse;
+		return userResponse;
+
 	}
 
-	// These are like kinda private;
-  // But xxx it, use them in the general app, who cares.
   setData(key, data){
+		console.log(key, data)
 		return storage.save({key, data});
   }
 
-  getData(key){
+  async getData(key){
     // returns promise
-		return storage.load({key});
+		try {
+			return await storage.load({key});
+		} catch (error) {
+			return "";
+		}
   }
 }
 

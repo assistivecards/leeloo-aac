@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
 
 import API from '../api';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
 import Search from '../components/Search'
 
@@ -24,6 +25,22 @@ export default class Setting extends React.Component {
           </TouchableOpacity>
         </SafeAreaView>
         <View style={styles.categories}></View>
+
+        <TouchableOpacity onPress={async () => {
+          try {
+            const ret = await AppleAuthentication.getCredentialStateAsync(this.credential.user)
+            console.log("resting", ret);
+            // signed in
+          } catch (e) {
+            if (e.code === 'ERR_CANCELED') {
+              // handle that the user canceled the sign-in flow
+            } else {
+              // handle other errors
+            }
+          }
+        }}>
+          <Text>Test status</Text>
+        </TouchableOpacity>
         <ScrollView>
         {set.map(setItem => {
           return <TouchableOpacity key={setItem.id} onPress={() => this.props.navigation.push("Announcer", {card: setItem})}>
