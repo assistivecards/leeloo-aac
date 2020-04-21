@@ -10,7 +10,7 @@
     ],
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "contain"
     },
     "ios": {
       "bundleIdentifier": "org.dreamoriented.leeloo",
@@ -32,7 +32,7 @@
         "WAKE_LOCK"
       ],
       "versionCode": 200,
-      "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "./google-services.json"
     },
     "assetBundlePatterns": [
       "**/*"

@@ -3,6 +3,7 @@ import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, An
 
 import API from '../api';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import Search from '../components/Search'
 
@@ -44,7 +45,7 @@ export default class Setting extends React.Component {
         <ScrollView>
         {set.map(setItem => {
           return <TouchableOpacity key={setItem.id} onPress={() => this.props.navigation.push("Announcer", {card: setItem})}>
-            <Image source={{uri: `https://www.pngrepo.com/png/${setItem.id}/180/${setItem.slug}.png`}} style={{width: 100, height: 100}}/>
+            <CachedImage uri = {`https://www.pngrepo.com/png/${setItem.id}/180/${setItem.slug}.png`} style={{width: 100, height: 100}}/>
             <Text>{setItem.title}</Text>
           </TouchableOpacity>
         })}

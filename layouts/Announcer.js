@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Animated, ActivityIndicator, Dimens
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
+import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import API from '../api'
 import titleCase from '../js/titleCase';
@@ -65,8 +66,8 @@ export default class App extends React.Component {
               </Svg>
             </Animated.View>
             <View style={styles.cardMid}>
-              <Animated.View style={{width: this._getInterpolation(150, 50), height: this._getInterpolation(150, 50), borderRadius: this._getInterpolation(30, 0), overflow: "hidden", backgroundColor: "transparent", padding: this._getInterpolation(10, 0)}}>
-                <Animated.Image source={{uri: `https://www.pngrepo.com/png/${card.id}/300/${card.slug}.png`}} style={{width: this._getInterpolation(130, 50), height: this._getInterpolation(130, 50)}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
+              <Animated.View style={{height: this._getInterpolation(150, 50), width: this._getInterpolation(150, 50), borderRadius: this._getInterpolation(30, 0), overflow: "hidden", backgroundColor: "transparent", padding: this._getInterpolation(10, 0)}}>
+                <CachedImage uri={`https://www.pngrepo.com/png/${card.id}/300/${card.slug}.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
               </Animated.View>
             </View>
             <Animated.View style={[styles.button, {left: this._getInterpolation(0, 30)}]}>
