@@ -7,6 +7,7 @@ import { Image } from 'react-native-elements';
 import API from '../api'
 
 import TopBar from '../components/TopBar'
+import Profiles from '../components/Profiles'
 
 var CustomLayoutLinear = {
   duration: 150,
@@ -37,25 +38,8 @@ export default class App extends React.Component {
     return (
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
-
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}} stickyHeaderIndices={[1]}>
-          <View style={styles.childCarrier}>
-            <RNImage source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
-              style={styles.child}
-              />
-            <RNImage source={{uri: "https://www.pngrepo.com/png/31150/180/boy.png"}}
-              style={styles.child}
-              />
-            <RNImage source={{uri: "https://www.pngrepo.com/png/66793/180/girl.png"}}
-              style={styles.child}
-              />
-            <RNImage source={{uri: "https://www.pngrepo.com/png/45938/180/girl.png"}}
-              style={styles.child}
-              />
-            <View
-              style={styles.child}
-              ><Text style={{fontSize: 40, color: "#aaa", textAlign: "center", lineHeight: 41}}>+</Text></View>
-          </View>
+        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+          <Profiles pop={this.props.navigation.pop.bind(this)}/>
           <View style={styles.head}>
             {user &&
               <TouchableWithoutFeedback onPress={() => this.openAccountSettings()}>
@@ -83,7 +67,7 @@ export default class App extends React.Component {
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
                     <Path fill={"#666"} d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1v-5h16v5c0 .55-.45 1-1 1zm1-10H4V7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v1z"></Path>
                   </Svg>
-                  <Text style={[API.styles.b, {fontSize: 15}]}>Payment & Subscriptions</Text>
+                  <Text style={[API.styles.b, {fontSize: 15}]}>Subscriptions</Text>
                 </View>
 
                 <TouchableOpacity onPress={() => API.logout()}>
@@ -103,21 +87,21 @@ export default class App extends React.Component {
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
                   <Path fill={"#666"} d="M17.73 12.02l3.98-3.98c.39-.39.39-1.02 0-1.41l-4.34-4.34c-.39-.39-1.02-.39-1.41 0l-3.98 3.98L8 2.29C7.8 2.1 7.55 2 7.29 2c-.25 0-.51.1-.7.29L2.25 6.63c-.39.39-.39 1.02 0 1.41l3.98 3.98L2.25 16c-.39.39-.39 1.02 0 1.41l4.34 4.34c.39.39 1.02.39 1.41 0l3.98-3.98 3.98 3.98c.2.2.45.29.71.29.26 0 .51-.1.71-.29l4.34-4.34c.39-.39.39-1.02 0-1.41l-3.99-3.98zM12 9c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-4.71 1.96L3.66 7.34l3.63-3.63 3.62 3.62-3.62 3.63zM10 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 2c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2-4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2.66 9.34l-3.63-3.62 3.63-3.63 3.62 3.62-3.62 3.63z"></Path>
                 </Svg>
-                <Text style={[API.styles.b, {fontSize: 15}]}>Medical Data</Text>
+                <Text style={[API.styles.b, {fontSize: 15}]}>Profile Information</Text>
               </View>
 
               <View style={styles.selectionItem}>
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
                   <Path fill={"#666"} d="M18 4v1h-2V4c0-.55-.45-1-1-1H9c-.55 0-1 .45-1 1v1H6V4c0-.55-.45-1-1-1s-1 .45-1 1v16c0 .55.45 1 1 1s1-.45 1-1v-1h2v1c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-1h2v1c0 .55.45 1 1 1s1-.45 1-1V4c0-.55-.45-1-1-1s-1 .45-1 1zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></Path>
                 </Svg>
-                <Text style={[API.styles.b, {fontSize: 15}]}>Sound Preferences</Text>
+                <Text style={[API.styles.b, {fontSize: 15}]}>Voice Preferences</Text>
               </View>
 
               <View style={styles.selectionItem}>
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
-                  <Path fill={"#666"} d="M20 12c0-2.54-1.19-4.81-3.04-6.27l-.68-4.06C16.12.71 15.28 0 14.31 0H9.7c-.98 0-1.82.71-1.98 1.67l-.67 4.06C5.19 7.19 4 9.45 4 12s1.19 4.81 3.05 6.27l.67 4.06c.16.96 1 1.67 1.98 1.67h4.61c.98 0 1.81-.71 1.97-1.67l.68-4.06C18.81 16.81 20 14.54 20 12zM6 12c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6z"></Path>
+                  <Path fill={"#666"} d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"></Path>
                 </Svg>
-                <Text style={[API.styles.b, {fontSize: 15}]}>Devices & Watch</Text>
+                <Text style={[API.styles.b, {fontSize: 15}]}>Language</Text>
               </View>
 
               <View style={styles.selectionItem}>
@@ -138,13 +122,6 @@ export default class App extends React.Component {
 
             <View style={styles.appSettings}>
               <View style={styles.selectionCarrier}>
-
-                <View style={styles.selectionItem}>
-                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
-                    <Path fill={"#666"} d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"></Path>
-                  </Svg>
-                  <Text style={[API.styles.b, {fontSize: 15}]}>Change Language</Text>
-                </View>
 
                 <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://workoapp.com/pages/feedback.html"})}>
                   <View style={styles.selectionItem}>
@@ -190,21 +167,6 @@ export default class App extends React.Component {
                 </View>
               </View>
             </View>
-
-            <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://workoapp.com/pages/privacy-policy.html"})}>
-              <View style={styles.privacy}>
-                <Svg height={30} width={30} viewBox="0 0 46 46" style={{margin: 10}}>
-                  <Path fill={"#fff"} d="M34.199,3.83c-3.944,0-7.428,1.98-9.51,4.997c0,0-0.703,1.052-1.818,1.052c-1.114,0-1.817-1.052-1.817-1.052
-                		c-2.083-3.017-5.565-4.997-9.51-4.997C5.168,3.83,0,8.998,0,15.376c0,1.506,0.296,2.939,0.82,4.258
-                		c3.234,10.042,17.698,21.848,22.051,22.279c4.354-0.431,18.816-12.237,22.052-22.279c0.524-1.318,0.82-2.752,0.82-4.258
-                		C45.743,8.998,40.575,3.83,34.199,3.83z"></Path>
-                </Svg>
-                <View style={{width: Dimensions.get("window").width - 100}}>
-                  <Text style={[API.styles.b, {color: "#fff", paddingHorizontal: 10}]}>Your every activity on worko is safely encrypted and will never be shared with third party entities.</Text>
-                  <Text style={[API.styles.b, {color: "#fff", paddingHorizontal: 10, opacity: 0.7, marginTop: 5}]}>Touch to learn more</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </>
@@ -213,6 +175,22 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  childCover: {
+    backgroundColor: "rgba(0,0,0,0.5)",
+    flex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%", height: "100%",
+    zIndex: 99,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  childCoverInner: {
+    width: "100%",
+    height: 300,
+    backgroundColor: "#fff"
+  },
   head: {
     backgroundColor: "#F7F9FB",
     marginBottom: 10,
@@ -241,23 +219,6 @@ const styles = StyleSheet.create({
   userRight: {
     flexDirection: "column",
     justifyContent: "flex-start"
-  },
-  privacy: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#43B1D9",
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    padding: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 2.54,
-    elevation: 3
   },
   selectionCarrier: {
     marginTop: 10
@@ -288,15 +249,5 @@ const styles = StyleSheet.create({
     top: -10,
     left: 0,
     zIndex: 99
-  },
-  child: {
-    width: 60,
-    height: 60,
-    marginRight: 10, borderRadius: 10,
-    padding: 10, backgroundColor: "#eee"},
-  childCarrier: {
-    flexDirection: "row",
-    padding: 15,
-    paddingHorizontal: 30
   }
 });

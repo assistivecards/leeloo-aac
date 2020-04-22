@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
 
 import API from '../api';
+import TopBar from '../components/TopBar'
 
 export default class Setting extends React.Component {
   constructor(props){
@@ -9,18 +10,24 @@ export default class Setting extends React.Component {
   }
 
   render() {
-    return(<View style={{flex: 1}}><Text>test settings</Text></View>)
+    return(
+      <>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+          <View style={styles.head}>
+          </View>
+        </ScrollView>
+      </>
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  carrier: {
-    flex: 1,
-    backgroundColor: "#fff",
-    height: "100%"
-  },
-  carrierSV: {
-    width: "100%",
-    height: Dimensions.get("window").height - 50
+  head: {
+    backgroundColor: "#F7F9FB",
+    marginBottom: 10,
+    paddingVertical: 10,
+    paddingBottom: 5,
+    paddingHorizontal: 30
   }
 });

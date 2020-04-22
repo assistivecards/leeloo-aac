@@ -1,29 +1,15 @@
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import { Easing, Animated } from 'react-native';
 
-import Setting from './setting'
-import Menu from './setting/Menu'
-
 import Cards from './layouts/Cards'
 import Profile from './layouts/Profile'
 import Settings from './layouts/Settings'
 import Browser from './layouts/Browser'
 import Announcer from './layouts/Announcer'
 
-const SettingNavigator = createBottomTabNavigator({
-  One: { screen: Setting.One },
-  Two: { screen: Setting.Two }
-}, {
-  tabBarComponent: Menu,
-  tabBarPosition: 'bottom',
-});
-
-
-const SettingComponent = createAppContainer(SettingNavigator);
-
 const AppNavigator = createStackNavigator({
     Cards: { screen: Cards },
-    Settings: { screen: SettingComponent },
+    Settings: { screen: Settings },
     Browser: { screen: Browser },
     Profile: { screen: Profile }
   },

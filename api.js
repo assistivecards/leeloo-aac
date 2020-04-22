@@ -34,6 +34,9 @@ storage = new Storage({
 
 class Api {
   constructor(){
+		Speech.getAvailableVoicesAsync().then(res => {
+			console.log(res);
+		})
 		//AsyncStorage.clear();
 		this.styles = styles;
 		this.config = {
@@ -75,8 +78,32 @@ class Api {
 		}
 
 		this.user = userResponse;
+		this.user.active_profile = await this.getCurrentProfile();
 		return userResponse;
+	}
 
+	async getCurrentProfile(){
+		if(this.user){
+			let profiles = this.user.profiles;
+			let currentProfileId = await this.getData("currentProfileId");
+			if(currentProfileId){
+				return profiles.find(profile => profile.id == currentProfileId);
+			}else{
+				let fallbackProfile = profiles[0];
+				this.setData("currentProfileId", fallbackProfile.id);
+				return fallbackProfile;
+			}
+		}else{
+			return null;
+		}
+	}
+
+	async setCurrentProfile(profileId){
+		if(this.user){
+			let profiles = this.user.profiles;
+			this.user.active_profile = profiles.find(profile => profile.id == profileId);
+			await this.setData("currentProfileId", profileId);
+		}
 	}
 
   setData(key, data){
