@@ -19,7 +19,7 @@ export default class Setting extends React.Component {
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.header}>
           <Search/>
-          <TouchableOpacity style={styles.avatar} onPress={() => this.props.navigation.navigate("Profile")}>
+          <TouchableOpacity style={styles.avatar} onPress={() => this.props.navigation.navigate("Drawer")}>
             <Image source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
               style={{width: 40, height: 40, position: "relative", top: 4}}
               />

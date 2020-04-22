@@ -4,12 +4,12 @@ import themes from './themes'
 
 const styles = StyleSheet.create({
   p: {
-    marginHorizontal: 30,
     marginTop: 5,
     marginBottom: 10,
     color: themes.light.pFontColor,
     fontSize: 16,
-    lineHeight: 25
+    lineHeight: 25,
+    marginHorizontal: 30
   },
   b: {
     color: themes.light.pFontColor,
@@ -27,11 +27,11 @@ const styles = StyleSheet.create({
     flex: 1
   },
   h1: {
-    marginHorizontal: 30,
     color: themes.light.hFontColor,
     letterSpacing: -1,
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginHorizontal: 30
   },
   h2: {
     marginHorizontal: 30,
@@ -100,6 +100,16 @@ const styles = StyleSheet.create({
   },
   br: {
     marginVertical: 10
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#eee",
+    color: "#555",
+    height: 45,
+    padding: 8,
+    fontSize: 18,
+    marginHorizontal: 30,
+    borderRadius: 6
   }
 });
 

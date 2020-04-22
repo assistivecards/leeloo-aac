@@ -10,7 +10,6 @@ export default class Setting extends React.Component {
     this.state = {
       newName: null,
     }
-    this.profile = this.props.navigation.getParam("profile");
   }
 
   save(){
@@ -44,7 +43,7 @@ export default class Setting extends React.Component {
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
-              <Text style={API.styles.h1}>{this.profile.name}</Text>
+              <Text style={API.styles.h1}>Account</Text>
               <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
             </View>
             <View style={{flex: 1, backgroundColor: "#fff"}}>

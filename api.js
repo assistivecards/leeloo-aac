@@ -82,6 +82,32 @@ class Api {
 		return userResponse;
 	}
 
+	async update(fields, values){
+		if(this.user.identifier){
+	    var url = API_ENDPOINT + "update/";
+	    var formData = new FormData();
+			formData.append('identifier', this.user.identifier);
+
+			for (var i = 0; i < fields.length; i++) {
+				formData.append(fields[i], values[i]);
+			}
+
+			try {
+				let userResponse = await fetch(url, { method: 'POST', credentials: 'include', body: formData })
+		    .then(res => res.json());
+				this.setData("user", JSON.stringify(userResponse));
+				this.user = userResponse;
+				this.user.active_profile = await this.getCurrentProfile();
+			} catch(error){
+				alert("Please check your internet connectivity!");
+			}
+
+			this.event.emit("refresh");
+
+			return true;
+		}
+	}
+
 	async getCurrentProfile(){
 		if(this.user){
 			let profiles = this.user.profiles;
