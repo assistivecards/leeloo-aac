@@ -31,28 +31,28 @@
       "native": "Italiano"
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "ja",
+      "locale": ["ja-JP"],
       "title": "Japanese",
-      "native": ""
+      "native": "日本語"
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "ko",
+      "locale": ["ko_KR"],
       "title": "Korean",
-      "native": ""
+      "native": "한국어"
     },
     {
       "code": "zh",
-      "locale": ["zh-cn", "zh-hk"],
+      "locale": ["zh-CN", "zh-HK"],
       "title": "Mandarin Chinese",
       "native": "普通话"
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "yue",
+      "locale": ["yue-HK"],
       "title": "Cantonese",
-      "native": ""
+      "native": "??????"
     },
     {
       "code": "ar",
@@ -61,10 +61,10 @@
       "native": "العربية"
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "cs",
+      "locale": ["cs-CZ"],
       "title": "Czech",
-      "native": ""
+      "native": "čeština"
     },
     {
       "code": "",

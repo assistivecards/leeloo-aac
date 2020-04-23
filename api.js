@@ -42,6 +42,7 @@ class Api {
 			theme: themes.light
 		}
 		this.event = Event;
+
     console.log("API: Created instance");
   }
 
@@ -73,12 +74,12 @@ class Api {
 			formData.append('email', user.email);
 			formData.append('name', user.displayName);
 			formData.append('avatar', user.photoURL);
-
 		}
 
 		let userResponse;
+
 		try {
-			userResponse = await fetch(url, { method: 'POST', credentials: 'include', body: formData })
+			userResponse = await fetch(url, { method: 'POST', body: formData })
 	    .then(res => res.json());
 			this.setData("user", JSON.stringify(userResponse));
 		} catch(error){
@@ -127,7 +128,12 @@ class Api {
 			if(currentProfileId){
 				return profiles.find(profile => profile.id == currentProfileId);
 			}else{
-				let fallbackProfile = profiles[0];
+				let fallbackProfile;
+				if(profiles.length != 0){
+					fallbackProfile = profiles[0];
+				}else{
+					fallbackProfile = {id: 0};
+				}
 				this.setData("currentProfileId", fallbackProfile.id);
 				return fallbackProfile;
 			}

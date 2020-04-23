@@ -56,11 +56,10 @@ export default class App extends React.Component {
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
-        this._syncUserWithStateAsync();
         const credential = await GoogleSignIn.signInSilentlyAsync();
-        let user = await API.signIn(credential.user, "google", credential);
-        alert('credential:' + JSON.stringify(credential));
-
+        let googleSignin = await API.signIn(credential.uid, "google", credential);
+        API.setData("identifier", credential.uid);
+        this.setState({screen: "logged"});
       }
     } catch ({ message }) {
       alert('login: Error:' + message);
@@ -82,7 +81,7 @@ export default class App extends React.Component {
         <TouchableOpacity
           style={{ width: 200, height: 44 }}
           onPress={this.signInWithGoogle.bind(this)}
-        ><Text>Signin with google</Text></TouchableOpacity>
+        ><Text>Signin with google8</Text></TouchableOpacity>
       </View>
     )
   }
