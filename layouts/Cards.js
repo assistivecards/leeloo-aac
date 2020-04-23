@@ -11,7 +11,7 @@ const set = require("../data/set.json");
 
 export default class Setting extends React.Component {
   constructor(props){
-    super(props);
+    super(props); 
   }
 
   render() {
