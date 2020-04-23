@@ -1,49 +1,55 @@
 {
   "languages": [
     {
-      "language": "en",
+      "code": "en",
       "locale": ["en-US", "en-GB", "en-AU"],
       "title": "English",
       "native": "English"
     },
     {
-      "language": "es",
+      "code": "es",
       "locale": ["es-MX", "es-ES"],
       "title": "Spanish",
       "native": "Español"
     },
     {
-      "language": "de",
+      "code": "de",
       "locale": ["de-DE"],
       "title": "German",
       "native": "Deutsch"
     },
     {
-      "language": "fr",
+      "code": "fr",
       "locale": ["fr-FR"],
       "title": "French",
       "native": "Français"
     },
     {
-      "language": "pt",
+      "code": "pt",
       "locale": ["pt-PT", "pt-BR"],
       "title": "Portuguese",
       "native": "Português"
     },
     {
-      "language": "it",
+      "code": "it",
       "locale": ["it-it"],
       "title": "Italian",
       "native": "Italiano"
     },
     {
-      "language": "ar",
+      "code": "zh",
+      "locale": ["zh-cn", "zh-hk"],
+      "title": "Mandarin Chinese",
+      "native": "普通话"
+    },
+    {
+      "code": "ar",
       "locale": ["ar-AR"],
       "title": "Arabic",
       "native": "العربية"
     },
     {
-      "language": "tr",
+      "code": "tr",
       "locale": ["tr-TR"],
       "title": "Turkish",
       "native": "Türkçe"

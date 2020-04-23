@@ -9,30 +9,30 @@ import TopBar from '../components/TopBar'
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      language: API.user.language
+    }
   }
 
   save(){
-    let { newName, newEmail } = this.state;
+    API.haptics("touch");
+    let { language } = this.state;
     let changedFields = [];
     let changedValues = [];
 
-    if(newName != null){
-      changedFields.push("name");
-      changedValues.push(newName);
-    }
-
-    if(newEmail != null){
-      changedFields.push("email");
-      changedValues.push(newEmail);
+    if(language != API.user.language){
+      changedFields.push("language");
+      changedValues.push(language);
     }
 
     API.update(changedFields, changedValues).then(res => {
       this.props.navigation.pop();
+      API.haptics("impact");
     })
   }
 
   didChange(){
-    return false;
+    return this.state.language != API.user.language;
   }
 
   render() {
@@ -46,15 +46,32 @@ export default class Setting extends React.Component {
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>Based on your device</Text>
+              <Text style={API.styles.h3}>Based On Your Device</Text>
               <Text style={API.styles.subSmall}>Languages from your native settings</Text>
-              <Text style={API.styles.p}>{JSON.stringify(Localization.locales)}</Text>
+              {Languages.languages.filter(lang => Localization.locales.join('|').includes(lang.code) || lang.code == API.user.language).map((lang, i) => {
+                return (
+                  <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
+                    <View>
+                      <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
+                      <Text style={API.styles.p}>{lang.native}</Text>
+                    </View>
+                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#4e88c5": "#eee"}]}></View>
+                  </TouchableOpacity>
+                )
+              })}
+            </View>
+            <View style={styles.preferenceItem}>
+              <Text style={API.styles.h3}>Supported Languages</Text>
+              <Text style={API.styles.subSmall}>All the languages that Leeloo AAC cards supports</Text>
               {Languages.languages.map((lang, i) => {
                 return (
-                  <View key={i}>
-                    <Text style={API.styles.h3}>{lang.title}</Text>
-                    <Text style={API.styles.p}>{lang.native}</Text>
-                  </View>
+                  <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
+                    <View>
+                      <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
+                      <Text style={API.styles.p}>{lang.native}</Text>
+                    </View>
+                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#4e88c5": "#eee"}]}></View>
+                  </TouchableOpacity>
                 )
               })}
             </View>
@@ -75,5 +92,15 @@ const styles = StyleSheet.create({
   },
   preferenceItem: {
     marginBottom: 10
+  },
+  listItem: {
+    borderBottomWidth: 1, borderColor: "#f5f5f5",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  pointer: {
+    width: 24, height: 24, borderRadius: 12,
+    marginRight: 30
   }
 });

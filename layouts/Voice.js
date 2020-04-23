@@ -11,39 +11,96 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      voice: API.user.voice,
       voices: []
     }
-  }
 
-  componentDidMount(){
-    Speech.getAvailableVoicesAsync().then(voices => {
-      this.setState({voices});
-    })
+    Speech.getAvailableVoicesAsync().then(voices => this.setState({voices: voices.filter(voice => voice.language.includes(API.user.language))}));
+
+    this.testPhrase = "This is a test voice.";
   }
 
   save(){
-    let { newName, newEmail } = this.state;
+    API.haptics("touch");
+    let { voice } = this.state;
     let changedFields = [];
     let changedValues = [];
 
-    if(newName != null){
-      changedFields.push("name");
-      changedValues.push(newName);
-    }
-
-    if(newEmail != null){
-      changedFields.push("email");
-      changedValues.push(newEmail);
+    if(voice != API.user.voice){
+      changedFields.push("voice");
+      changedValues.push(voice);
     }
 
     API.update(changedFields, changedValues).then(res => {
       this.props.navigation.pop();
+      API.haptics("impact");
     })
   }
 
   didChange(){
-    return false;
+    return this.state.voice != API.user.voice;
   }
+
+  listVoices(voices){
+    return voices.map((voice, i) => {
+      return (
+        <TouchableOpacity onPress={() => { API.haptics("touch"); Speech.speak(this.testPhrase, {voice: voice.identifier}); this.setState({voice: voice.identifier})}} key={i} style={styles.listItem}>
+          <View style={{width: "80%"}}>
+            <Text style={[API.styles.h3, {marginVertical: 0}]}>{voice.name}</Text>
+            <Text style={[API.styles.p, {marginBottom: 2}]}>{voice.language}</Text>
+            <Text style={API.styles.sub}>{voice.identifier}</Text>
+          </View>
+          <View style={[styles.pointer, {backgroundColor: this.state.voice == voice.identifier ? "#4e88c5": "#eee"}]}></View>
+        </TouchableOpacity>
+      )
+    })
+  }
+
+  renderVoices(){
+    let voices = this.state.voices;
+
+    if(voices.length == 0){
+      return (<Text>No voice driver</Text>);
+    }else if(voices.length == 1){
+      return this.listVoices(voices);
+    }else{
+      if(voices[0].language.length == 2){
+        return this.listVoices(voices);
+      }else{
+        // locale info is in the expected version en-US|en-us|en_US|en_us
+        let deviceLocaleCodeString = "en-gb".toLowerCase().replace(/_/g, "-");
+
+        let localizedVoices = voices.filter(voice => deviceLocaleCodeString.includes(voice.language.toLowerCase()))
+        if(localizedVoices.length == 0 || (voices.length - localizedVoices.length) == 0){
+          return this.listVoices(voices);
+        }else{
+
+          let non_localizedVoices = voices.filter(voice => !deviceLocaleCodeString.includes(voice.language.toLowerCase()))
+          return (
+            <View>
+              <View style={styles.preferenceItem}>
+                <Text style={API.styles.h3}>Based On Your Location</Text>
+                <Text style={API.styles.subSmall}>Voice drivers that match with both your language and location</Text>
+                {this.listVoices(localizedVoices)}
+              </View>
+
+              <View style={styles.preferenceItem}>
+                <Text style={API.styles.h3}>All Supported Voice Drivers</Text>
+                <Text style={API.styles.subSmall}>List of all accents and supported voice drivers for your language</Text>
+                {this.listVoices(non_localizedVoices)}
+              </View>
+            </View>
+          );
+        }
+      }
+    }
+  }
+
+  // no voice driver x
+  // one voice driver x
+  // no voice for the locale, but multiple for that language
+  // one voice driver for your locale, and one or more for that language
+  // multiple voice driver for your locale, and
 
   render() {
     return(
@@ -51,23 +108,12 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Apply"} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
           <View style={styles.head}>
-            <Text style={API.styles.h1}>TTS Voices</Text>
-            <Text style={API.styles.p}>Voice drives that is supported by your device</Text>
+            <Text style={API.styles.h1}>TTS Voice</Text>
+            <Text style={API.styles.p}>Select the text-to-speech voice driver</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.p}>{JSON.stringify(Localization.locales)}</Text>
-              {this.state.voices.map((voice, i) => {
-                if(voice.language.includes("en")){
-                  return (
-                    <View key={i}>
-                      <Text style={API.styles.h3}>{voice.name}</Text>
-                      <Text style={API.styles.p}>{voice.language}</Text>
-                      <Text style={API.styles.sub}>{voice.identifier}</Text>
-                    </View>
-                  )
-                }
-              })}
+              {this.renderVoices()}
             </View>
             <View style={{height: 600}}></View>
           </View>
@@ -86,5 +132,15 @@ const styles = StyleSheet.create({
   },
   preferenceItem: {
     marginBottom: 10
+  },
+  listItem: {
+    borderBottomWidth: 1, borderColor: "#f5f5f5",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  pointer: {
+    width: 24, height: 24, borderRadius: 12,
+    marginRight: 30
   }
 });

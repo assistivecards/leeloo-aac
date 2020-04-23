@@ -3,9 +3,8 @@ import Storage from 'react-native-storage';
 import { AsyncStorage } from 'react-native';
 
 import * as Speech from 'expo-speech';
-
 import * as Localization from 'expo-localization';
-// Check segment credentials
+import * as Haptics from 'expo-haptics';
 
 import UIText from './data/text.json';
 
@@ -45,6 +44,19 @@ class Api {
 		this.event = Event;
     console.log("API: Created instance");
   }
+
+	haptics(style){
+		switch (style) {
+			case "touch":
+				Haptics.selectionAsync()
+				break;
+			case "impact":
+				Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+				break;
+			default:
+				Haptics.selectionAsync()
+		}
+	}
 
 	async signIn(identifier, type, user){
     var url = API_ENDPOINT + "user/";
