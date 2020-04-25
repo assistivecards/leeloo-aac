@@ -205,12 +205,30 @@ class Api {
 		}
 	}
 
+	async getAvailableVoicesAsync(recall){
+		let voices = await Speech.getAvailableVoicesAsync();
+
+		if(voices.length == 0){
+			if(recall){
+				return "unsupported";
+			}else{
+				await new Promise(function(resolve) {
+		        setTimeout(resolve, 1000);
+		    });
+				console.log("WAITED FOR IT MAN.. KINDA WIERD");
+				return await this.getAvailableVoicesAsync(true);
+			}
+		}else{
+			return voices;
+		}
+	}
+
 	async getBestAvailableVoiceDriver(language){
-		let allVoices = await Speech.getAvailableVoicesAsync();
+		let allVoices = await this.getAvailableVoicesAsync();
 		let voices = allVoices.filter(voice => voice.language.includes(language));
 
 		if(voices.length == 0){
-			return "";
+			return "unsupported";
 		}else if(voices.length == 1){
 			return voices[0];
 		}else if(voices.length > 1){

@@ -15,7 +15,7 @@ export default class Setting extends React.Component {
       voices: []
     }
 
-    Speech.getAvailableVoicesAsync().then(voices => this.setState({
+    API.getAvailableVoicesAsync().then(voices => this.setState({
       voices: voices.filter(voice => voice.language.includes(API.user.language)).sort((a, b) => {
           let aQ = !(a.quality == "Enhanced");
           let bQ = !(b.quality == "Enhanced");

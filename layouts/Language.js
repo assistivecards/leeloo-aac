@@ -14,7 +14,7 @@ export default class Setting extends React.Component {
     }
   }
 
-  save(){
+  async save(){
     API.haptics("touch");
     let { language } = this.state;
     let changedFields = [];
@@ -25,19 +25,19 @@ export default class Setting extends React.Component {
       changedValues.push(language);
     }
 
-    API.getBestAvailableVoiceDriver(language).then(res => {
-      console.log(res);
-      if(res == ""){
-        alert("Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!");
-      }
-      changedFields.push("voice");
-      changedValues.push(res ? res.identifier : "unsupported");
+    let voiceDriver = await API.getBestAvailableVoiceDriver(language);
+    console.log("returnedVoice driver ######", voiceDriver);
 
-      API.update(changedFields, changedValues).then(res => {
-        this.props.navigation.pop();
-        API.haptics("impact");
-      })
-    })
+    if(voiceDriver == "unsupported"){
+      alert("Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!");
+    }
+
+    changedFields.push("voice");
+    changedValues.push(voiceDriver != "unsupported" ? voiceDriver.identifier : "unsupported");
+
+    let updateRes = await API.update(changedFields, changedValues);
+    this.props.navigation.pop();
+    API.haptics("impact");
   }
 
   didChange(){
