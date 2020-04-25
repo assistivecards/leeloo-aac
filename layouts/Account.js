@@ -29,6 +29,7 @@ export default class Setting extends React.Component {
 
     API.update(changedFields, changedValues).then(res => {
       this.props.navigation.pop();
+      API.haptics("impact");
     })
   }
 

@@ -15,7 +15,16 @@ export default class Setting extends React.Component {
       voices: []
     }
 
-    Speech.getAvailableVoicesAsync().then(voices => this.setState({voices: voices.filter(voice => voice.language.includes(API.user.language))}));
+    Speech.getAvailableVoicesAsync().then(voices => this.setState({
+      voices: voices.filter(voice => voice.language.includes(API.user.language)).sort((a, b) => {
+          let aQ = !(a.quality == "Enhanced");
+          let bQ = !(b.quality == "Enhanced");
+          if (aQ < bQ) return -1
+          if (aQ > bQ) return 1
+          return 0
+      })
+    }));
+    // Move this so somewhere better + add a loading indicator
 
     this.testPhrase = "This is a test voice.";
   }
@@ -47,7 +56,7 @@ export default class Setting extends React.Component {
         <TouchableOpacity onPress={() => { API.haptics("touch"); Speech.speak(this.testPhrase, {voice: voice.identifier}); this.setState({voice: voice.identifier})}} key={i} style={styles.listItem}>
           <View style={{width: "80%"}}>
             <Text style={[API.styles.h3, {marginVertical: 0}]}>{voice.name}</Text>
-            <Text style={[API.styles.p, {marginBottom: 2}]}>{voice.language}</Text>
+            <Text style={[API.styles.p, {marginBottom: 2}]}>{voice.language} - {voice.quality}</Text>
             <Text style={API.styles.sub}>{voice.identifier}</Text>
           </View>
           <View style={[styles.pointer, {backgroundColor: this.state.voice == voice.identifier ? "#4e88c5": "#eee"}]}></View>
@@ -68,7 +77,7 @@ export default class Setting extends React.Component {
         return this.listVoices(voices);
       }else{
         // locale info is in the expected version en-US|en-us|en_US|en_us
-        let deviceLocaleCodeString = "en-gb".toLowerCase().replace(/_/g, "-");
+        let deviceLocaleCodeString = API.localeString().toLowerCase().replace(/_/g, "-");
 
         let localizedVoices = voices.filter(voice => deviceLocaleCodeString.includes(voice.language.toLowerCase()))
         if(localizedVoices.length == 0 || (voices.length - localizedVoices.length) == 0){

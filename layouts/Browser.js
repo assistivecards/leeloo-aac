@@ -7,18 +7,15 @@ import TopBar from '../components/TopBar'
 
 export default class App extends React.Component {
 
-  componentWillMount(){
-    this.link = this.props.navigation.getParam("link");
-  }
-
   render() {
+    this.link = this.props.navigation.getParam("link");
     return (
-      <>
+      <View style={{flex: 1, flexDirection: "column"}}>
         <TopBar backgroundColor={"#fff"} back={() => {
           this.props.navigation.pop();
         }}/>
-        <WebView source={{uri: this.link}}/>
-      </>
+        <WebView source={{uri: this.link}} style={{flex: 1}}/>
+      </View>
     );
   }
 }

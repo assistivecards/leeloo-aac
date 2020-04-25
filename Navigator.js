@@ -9,6 +9,7 @@ import Announcer from './layouts/Announcer'
 import Account from './layouts/Account'
 import Language from './layouts/Language'
 import Voice from './layouts/Voice'
+import Notification from './layouts/Notification'
 import Browser from './layouts/Browser'
 
 const AppNavigator = createStackNavigator({
@@ -19,6 +20,7 @@ const AppNavigator = createStackNavigator({
     Browser: { screen: Browser },
     Language: { screen: Language },
     Voice: { screen: Voice },
+    Notification: { screen: Notification },
   },
   {
     headerMode: 'none',

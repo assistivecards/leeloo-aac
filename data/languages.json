@@ -4,169 +4,204 @@
       "code": "en",
       "locale": ["en-US", "en-GB", "en-AU"],
       "title": "English",
-      "native": "English"
+      "native": "English",
+      "rightToLeft": false
     },
     {
       "code": "es",
       "locale": ["es-MX", "es-ES"],
       "title": "Spanish",
-      "native": "Español"
+      "native": "Español",
+      "rightToLeft": false
     },
     {
       "code": "fr",
       "locale": ["fr-FR"],
       "title": "French",
-      "native": "Français"
+      "native": "Français",
+      "rightToLeft": false
     },
     {
       "code": "de",
       "locale": ["de-DE"],
       "title": "German",
-      "native": "Deutsch"
+      "native": "Deutsch",
+      "rightToLeft": false
     },
     {
       "code": "it",
       "locale": ["it-it"],
       "title": "Italian",
-      "native": "Italiano"
+      "native": "Italiano",
+      "rightToLeft": false
     },
     {
       "code": "ja",
       "locale": ["ja-JP"],
       "title": "Japanese",
-      "native": "日本語"
+      "native": "日本語",
+      "rightToLeft": false
     },
     {
       "code": "ko",
       "locale": ["ko_KR"],
       "title": "Korean",
-      "native": "한국어"
+      "native": "한국어",
+      "rightToLeft": false
     },
     {
       "code": "zh",
       "locale": ["zh-CN", "zh-HK"],
       "title": "Mandarin Chinese",
-      "native": "普通话"
+      "native": "普通话",
+      "rightToLeft": false
     },
     {
       "code": "yue",
       "locale": ["yue-HK"],
       "title": "Cantonese",
-      "native": "??????"
+      "native": "??????",
+      "rightToLeft": false
     },
     {
       "code": "ar",
       "locale": ["ar-AR"],
       "title": "Arabic",
-      "native": "العربية"
+      "native": "العربية",
+      "rightToLeft": true
     },
     {
       "code": "cs",
       "locale": ["cs-CZ"],
       "title": "Czech",
-      "native": "čeština"
+      "native": "čeština",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "da",
+      "locale": ["da-DK"],
       "title": "Danish",
-      "native": ""
+      "native": "dansk",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "nl-NL",
+      "locale": ["nl-NL", "nl-BE"],
       "title": "Dutch",
-      "native": ""
+      "native": "Nederlands",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "fi",
+      "locale": ["fi-FI"],
       "title": "Finnish",
-      "native": ""
+      "native": "suomi",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "nl-BE",
+      "locale": ["nl-BE"],
       "title": "Flemish",
-      "native": ""
+      "native": "Vlaams",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "el",
+      "locale": ["el-GR"],
       "title": "Greek",
-      "native": ""
+      "native": "ελληνικά",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "he",
+      "locale": ["he-IL"],
       "title": "Hebrew",
-      "native": ""
+      "native": "עברית",
+      "rightToLeft": true
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "hi",
+      "locale": ["hi-IN"],
       "title": "Hindi",
-      "native": ""
+      "native": "हिन्दी",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "hu",
+      "locale": ["hu-HUX"],
       "title": "Hungarian",
-      "native": ""
+      "native": "magyar",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "id",
+      "locale": ["id-ID"],
       "title": "Indonesian",
-      "native": ""
+      "native": "Bahasa Indonesia",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "nb",
+      "locale": ["nb-NO"],
       "title": "Norwegian",
-      "native": ""
+      "native": "norsk",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "pl",
+      "locale": ["pl-PL"],
       "title": "Polish",
-      "native": ""
+      "native": "polski",
+      "rightToLeft": false
     },
     {
       "code": "pt",
       "locale": ["pt-PT", "pt-BR"],
       "title": "Portuguese",
-      "native": "Português"
+      "native": "Português",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "ro",
+      "locale": ["ro-RO"],
       "title": "Romanian",
-      "native": ""
+      "native": "limba română",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "sk",
+      "locale": ["sk-SK"],
       "title": "Slovak",
-      "native": ""
+      "native": "slovenčina",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "sv",
+      "locale": ["sv-FI", "sv-SE"],
       "title": "Swedish",
-      "native": ""
+      "native": "svenska",
+      "rightToLeft": false
     },
     {
-      "code": "",
-      "locale": ["xx-XX"],
+      "code": "th",
+      "locale": ["th-TH"],
       "title": "Thai",
-      "native": ""
+      "native": "ภาษาไทย",
+      "rightToLeft": false
     },
     {
       "code": "tr",
       "locale": ["tr-TR"],
       "title": "Turkish",
-      "native": "Türkçe"
+      "native": "Türkçe",
+      "rightToLeft": false
+    },
+    {
+      "code": "ur",
+      "locale": ["ur-IN"],
+      "title": "Urdu",
+      "native": "Urdu",
+      "rightToLeft": false
     }
   ]
 }

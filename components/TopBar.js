@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: Platform.OS === 'android' ? 24 : 0,
+    paddingTop: Platform.OS === 'android' ? 5 : 0,
   },
   buttonHolder: {
     paddingTop: 12,

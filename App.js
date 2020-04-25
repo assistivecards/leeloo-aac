@@ -18,8 +18,18 @@ export default class App extends React.Component {
 
   }
 
-  async componentDidMount(){
-    let identifier = await API.getData("identifier");
+  componentDidMount(){
+    this.checkIdentifier();
+
+    API.event.on("refresh", (type) => {
+      if(type == "signout"){
+        this.setState({screen: "login"});
+      }
+    })
+  }
+
+  async checkIdentifier(){
+    let identifier = await API.getIdentifier();
     if(identifier != ""){
       let user = await API.signIn(identifier);
       this.setState({screen: "logged"});

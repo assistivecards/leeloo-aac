@@ -1,10 +1,14 @@
 import Storage from 'react-native-storage';
 
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Platform, Alert } from 'react-native';
 
 import * as Speech from 'expo-speech';
 import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
+import * as Permissions from 'expo-permissions';
+
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
 
 import UIText from './data/text.json';
 
@@ -17,7 +21,8 @@ import themes from './js/themes';
 const NETWORK_STATUS = true;
 const _FLUSH = true;
 const _DEVELOPMENT = true;
-const _DEVLANG = "";
+const _DEVUSERIDENTIFIER = "114203700870626824237";
+const _DEVLOCALE = "fr-FR";
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 
 let storage;
@@ -33,9 +38,6 @@ storage = new Storage({
 
 class Api {
   constructor(){
-		Speech.getAvailableVoicesAsync().then(res => {
-			console.log(res);
-		})
 		//AsyncStorage.clear();
 		this.styles = styles;
 		this.config = {
@@ -58,6 +60,39 @@ class Api {
 				Haptics.selectionAsync()
 		}
 	}
+
+	async registerForPushNotificationsAsync(){
+	    if(Constants.isDevice) {
+	      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+	      let finalStatus = existingStatus;
+	      if(existingStatus !== 'granted'){
+	        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+	        finalStatus = status;
+	      }
+	      if(finalStatus !== 'granted'){
+	        return "ungranted";
+	      }
+
+	      let token = await Notifications.getExpoPushTokenAsync();
+
+		    if(Platform.OS === 'android'){
+		      Notifications.createChannelAndroidAsync('default', {
+		        name: 'default',
+		        sound: true,
+		        priority: 'max',
+		        vibrate: [0, 250, 250, 250],
+		      });
+		    }
+
+				this.update(["notificationToken"], [token]).then(res => {
+					console.log("updated notification token");
+		    })
+
+	    }else{
+	      console.log('Must use physical device for Push Notifications');
+				return "";
+	    }
+	  }
 
 	async signIn(identifier, type, user){
     var url = API_ENDPOINT + "user/";
@@ -94,6 +129,26 @@ class Api {
 		this.user.active_profile = await this.getCurrentProfile();
 		return userResponse;
 	}
+
+
+  signout(){
+    Alert.alert(
+      "Confirm Sign Out",
+      "Keep in mind you can keep signed in, and don't have to sign out of your account every time.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => {
+					AsyncStorage.clear();
+					this.event.emit("refresh", "signout");
+				} }
+      ],
+      { cancelable: true }
+    );
+  }
 
 	async update(fields, values){
 		if(this.user.identifier){
@@ -148,6 +203,57 @@ class Api {
 			this.user.active_profile = profiles.find(profile => profile.id == profileId);
 			await this.setData("currentProfileId", profileId);
 		}
+	}
+
+	async getBestAvailableVoiceDriver(language){
+		let allVoices = await Speech.getAvailableVoicesAsync();
+		let voices = allVoices.filter(voice => voice.language.includes(language));
+
+		if(voices.length == 0){
+			return "";
+		}else if(voices.length == 1){
+			return voices[0];
+		}else if(voices.length > 1){
+			let localeString = this.localeString().toLowerCase().replace(/_/g, "-");
+			let localeVoices = voices.filter(voice => localeString.includes(voice.language.toLowerCase().replace(/_/g, "-")));
+
+			if(localeVoices.length == 0){
+				// check if there is an enhanced one
+				return voices.sort((a, b) => {
+	          let aQ = !(a.quality == "Enhanced");
+	          let bQ = !(b.quality == "Enhanced");
+	          if (aQ < bQ) return -1
+	          if (aQ > bQ) return 1
+	          return 0
+	      })[0];
+			}else if(localeVoices.length == 1){
+				return localeVoices[0];
+			}else if(localeVoices.length > 1){
+				// check if there is an enhanced one
+				return localeVoices.sort((a, b) => {
+	          let aQ = !(a.quality == "Enhanced");
+	          let bQ = !(b.quality == "Enhanced");
+	          if (aQ < bQ) return -1
+	          if (aQ > bQ) return 1
+	          return 0
+	      })[0];
+			}
+		}
+	}
+
+	localeString(){
+		if(_DEVELOPMENT){
+			return _DEVLOCALE;
+		}else{
+			return Localization.locales.join("|");
+		}
+	}
+
+	async getIdentifier(){
+		if(_DEVELOPMENT && Platform.OS === 'android'){
+			return _DEVUSERIDENTIFIER;
+		}
+		return await this.getData("identifier");
 	}
 
   setData(key, data){

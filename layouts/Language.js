@@ -25,9 +25,18 @@ export default class Setting extends React.Component {
       changedValues.push(language);
     }
 
-    API.update(changedFields, changedValues).then(res => {
-      this.props.navigation.pop();
-      API.haptics("impact");
+    API.getBestAvailableVoiceDriver(language).then(res => {
+      console.log(res);
+      if(res == ""){
+        alert("Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!");
+      }
+      changedFields.push("voice");
+      changedValues.push(res ? res.identifier : "unsupported");
+
+      API.update(changedFields, changedValues).then(res => {
+        this.props.navigation.pop();
+        API.haptics("impact");
+      })
     })
   }
 
