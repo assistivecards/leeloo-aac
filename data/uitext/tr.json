@@ -1,0 +1,15 @@
+{
+	"appName": "Leeloo",
+	"settings_packs": "$1 paket",
+	"settings_profile_active": "Aktif",
+	"settings_selection_language": "Uygulama Dili",
+	"settings_selection_voice": "Metin-Konuşma Sesi",
+	"settings_selection_notifications": "Bildirimler",
+	"settings_selection_subscriptions": "Abonelikler",
+	"settings_selection_signout": "Oturumu Kapat",
+	"settings_selection_sendFeedback": "Geribildirim Gönder",
+	"settings_selection_openSourceLicenses": "Açık Kaynak Lisansları",
+	"settings_selection_privacyPolicy": "Gizlilik Politikası",
+	"settings_selection_termsOfService": "Kullanım Şartları",
+	"settings_selection_removeMyData": "Verilerimi Kaldır",
+}

@@ -11,7 +11,7 @@ const set = require("../data/set.json");
 
 export default class Setting extends React.Component {
   constructor(props){
-    super(props); 
+    super(props);
   }
 
   render() {
@@ -19,7 +19,7 @@ export default class Setting extends React.Component {
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.header}>
           <Search/>
-          <TouchableOpacity style={styles.avatar} onPress={() => this.props.navigation.navigate("Drawer")}>
+          <TouchableOpacity style={styles.avatar} onPress={() => this.props.navigation.navigate("Settings")}>
             <Image source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
               style={{width: 40, height: 40, position: "relative", top: 4}}
               />

@@ -1,0 +1,16 @@
+{
+	"appName": "Leeloo",
+	"settings_packs": "$1 packs",
+	"settings_profile_active": "Active",
+	"settings_selection_account": "Account",
+	"settings_selection_language": "Language",
+	"settings_selection_voice": "Text-to-Speech Voice",
+	"settings_selection_notifications": "Notifications",
+	"settings_selection_subscriptions": "Subscriptions",
+	"settings_selection_signout": "Sign Out",
+	"settings_selection_sendFeedback": "Send Feedback",
+	"settings_selection_openSourceLicenses": "Open Source Licenses",
+	"settings_selection_privacyPolicy": "Privacy Policy",
+	"settings_selection_termsOfService": "Terms of Service",
+	"settings_selection_removeMyData": "Remove my Data",
+}

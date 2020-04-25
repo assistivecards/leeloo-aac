@@ -44,7 +44,7 @@ export default class Setting extends React.Component {
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
-              <Text style={API.styles.h1}>Account</Text>
+              <Text style={API.styles.h1}>{API.t("settings_selection_account")}</Text>
               <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
             </View>
             <View style={{flex: 1, backgroundColor: "#fff"}}>

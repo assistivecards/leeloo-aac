@@ -2,7 +2,7 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 import { Easing, Animated } from 'react-native';
 
 import Cards from './layouts/Cards'
-import Drawer from './layouts/Drawer'
+import Settings from './layouts/Settings'
 import Profile from './layouts/Profile'
 import Announcer from './layouts/Announcer'
 
@@ -13,14 +13,14 @@ import Notification from './layouts/Notification'
 import Browser from './layouts/Browser'
 
 const AppNavigator = createStackNavigator({
-    Cards: { screen: Cards },
-    Drawer: { screen: Drawer },
-    Profile: { screen: Profile },
-    Account: { screen: Account },
-    Browser: { screen: Browser },
-    Language: { screen: Language },
-    Voice: { screen: Voice },
-    Notification: { screen: Notification },
+    Cards:        { screen: Cards         },
+    Settings:     { screen: Settings      },
+    Profile:      { screen: Profile       },
+    Account:      { screen: Account       },
+    Browser:      { screen: Browser       },
+    Language:     { screen: Language      },
+    Voice:        { screen: Voice         },
+    Notification: { screen: Notification  },
   },
   {
     headerMode: 'none',

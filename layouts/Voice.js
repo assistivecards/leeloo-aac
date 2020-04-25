@@ -117,7 +117,7 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Apply"} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
           <View style={styles.head}>
-            <Text style={API.styles.h1}>TTS Voice</Text>
+            <Text style={API.styles.h1}>{API.t("settings_selection_voice")}</Text>
             <Text style={API.styles.p}>Select the text-to-speech voice driver</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>

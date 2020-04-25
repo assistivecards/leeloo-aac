@@ -31,11 +31,11 @@ export default class App extends React.Component {
                 </View>
                 <View>
                   <Text style={API.styles.h4}>{profile.name}</Text>
-                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{JSON.parse(profile.packs).length} packs</Text>
+                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_packs", JSON.parse(profile.packs).length)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
                   {API.user.active_profile.id == profile.id &&
-                    <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>Active</Text></View>
+                    <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>{API.t("settings_profile_active")}</Text></View>
                   }
                   <Svg height={36} width={36} viewBox="0 0 24 24">
                     <Path fill={"#395A85"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>

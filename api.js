@@ -10,7 +10,7 @@ import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 
-import UIText from './data/text.json';
+import UIText from './js/uitext.js';
 
 import makeid from './js/makeid';
 import Event from './js/event';
@@ -22,7 +22,7 @@ const NETWORK_STATUS = true;
 const _FLUSH = true;
 const _DEVELOPMENT = true;
 const _DEVUSERIDENTIFIER = "114203700870626824237";
-const _DEVLOCALE = "fr-FR";
+const _DEVLOCALE = "en-US";
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 
 let storage;
@@ -254,6 +254,37 @@ class Api {
 			return _DEVUSERIDENTIFIER;
 		}
 		return await this.getData("identifier");
+	}
+
+	t(UITextIdentifier, variableArray){
+		let lang = "en";
+		if(this.user.language){
+			lang = this.user.language
+		}else{
+			lang = Localization.locale.substr(0, 2);
+		}
+
+		if(typeof variableArray == "string" || typeof variableArray == "number"){
+			let text = UIText[lang][UITextIdentifier];
+			if(text) return text.replace("$1", variableArray);
+			return "UnSupportedIdentifier";
+		}else if(typeof variableArray == "array"){
+			let text = UIText[lang][UITextIdentifier];
+			if(text){
+				variableArray.forEach((variable, i) => {
+					let variableIdentifier = `${i+1}`;
+				 	text = text.replace(variableIdentifier, variable);
+				});
+				return text;
+			}else{
+				return "UnSupportedIdentifier";
+			}
+
+		}else{
+			let text = UIText[lang][UITextIdentifier];
+			if(text) return text;
+			return "UnSupportedIdentifier";
+		}
 	}
 
   setData(key, data){
