@@ -130,18 +130,17 @@ class Api {
 		return userResponse;
 	}
 
-
   signout(){
     Alert.alert(
-      "Confirm Sign Out",
-      "Keep in mind you can keep signed in, and don't have to sign out of your account every time.",
+      this.t("alert_signout_title"),
+      this.t("alert_signout_description"),
       [
         {
-          text: "Cancel",
+          text: this.t("alert_cancel"),
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "OK", onPress: () => {
+        { text: this.t("alert_ok"), onPress: () => {
 					AsyncStorage.clear();
 					this.event.emit("refresh", "signout");
 				} }
@@ -207,15 +206,13 @@ class Api {
 
 	async getAvailableVoicesAsync(recall){
 		let voices = await Speech.getAvailableVoicesAsync();
-
 		if(voices.length == 0){
 			if(recall){
-				return "unsupported";
+				return [];
 			}else{
 				await new Promise(function(resolve) {
 		        setTimeout(resolve, 1000);
 		    });
-				console.log("WAITED FOR IT MAN.. KINDA WIERD");
 				return await this.getAvailableVoicesAsync(true);
 			}
 		}else{
@@ -306,7 +303,6 @@ class Api {
 	}
 
   setData(key, data){
-		console.log(key, data)
 		return storage.save({key, data});
   }
 

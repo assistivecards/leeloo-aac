@@ -46,7 +46,6 @@ export default class App extends React.Component {
           AppleAuthentication.AppleAuthenticationScope.EMAIL,
         ],
       });
-      console.log(credential);
       let user = await API.signIn(credential.user, "apple", credential);
       API.setData("identifier", credential.user);
       this.setState({screen: "logged"});
@@ -104,7 +103,7 @@ export default class App extends React.Component {
     }else if(screen == "logged"){
       return (
         <View style={{flex: 1}}>
-          <StatusBar backgroundColor="blue" barStyle={"dark-content"} />
+          <StatusBar backgroundColor="#F7F9FB" barStyle={"dark-content"} />
           <Navigator/>
         </View>
       );

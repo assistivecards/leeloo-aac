@@ -40,7 +40,7 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Save"} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
@@ -64,7 +64,7 @@ export default class Setting extends React.Component {
                 <TextInput style={[API.styles.input, {backgroundColor: "#f1f1f1"}]} value={API.user.identifier.substr(0, 3) + "-" + API.user.type + "-" + API.user.id} selectTextOnFocus={true}/>
               </View>
 
-              <View style={{height: 300}}></View>
+              <View style={API.styles.iosBottomPadder}></View>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

@@ -88,14 +88,14 @@ export default class Setting extends React.Component {
           return (
             <View>
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Based On Your Location</Text>
-                <Text style={API.styles.subSmall}>Voice drivers that match with both your language and location</Text>
+                <Text style={API.styles.h3}>{API.t("settings_voice_basedOnYourLocation")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_voice_basedOnYourLocation_description")}</Text>
                 {this.listVoices(localizedVoices)}
               </View>
 
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>All Supported Voice Drivers</Text>
-                <Text style={API.styles.subSmall}>List of all accents and supported voice drivers for your language</Text>
+                <Text style={API.styles.h3}>{API.t("settings_voice_supportedVoice")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_voice_supportedVoice_description")}</Text>
                 {this.listVoices(non_localizedVoices)}
               </View>
             </View>
@@ -114,17 +114,17 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Apply"} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_voice")}</Text>
-            <Text style={API.styles.p}>Select the text-to-speech voice driver</Text>
+            <Text style={API.styles.p}>{API.t("settings_voice_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
             <View style={styles.preferenceItem}>
               {this.renderVoices()}
             </View>
-            <View style={{height: 600}}></View>
+            <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
       </>

@@ -59,58 +59,58 @@ export default class Setting extends React.Component {
     let nsBinded = this.state.notificationSettings;
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Apply"} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_notifications")}</Text>
-            <Text style={API.styles.p}>Choose when and why you would like to be notified by the app</Text>
+            <Text style={API.styles.p}>{API.t("settings_notifications_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
             {this.state.notificationToken == "ungranted" &&
               <Text>You need to enable notification from your device settings for this app.</Text>
             }
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>Reminders</Text>
-              <Text style={API.styles.subSmall}>We will remind you to use and practice the app</Text>
+              <Text style={API.styles.h3}>{API.t("settings_notifications_reminders")}</Text>
+              <Text style={API.styles.subSmall}>{API.t("settings_notifications_reminders_description")}</Text>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[0] = "d"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
                 <View style={{width: "80%"}}>
-                  <Text style={[API.styles.h3, {marginVertical: 0}]}>Daily Reminders</Text>
-                  <Text style={API.styles.p}>We will send you reminder to practice daily</Text>
+                  <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_reminders_daily")}</Text>
+                  <Text style={API.styles.p}>{API.t("settings_notifications_reminders_daily_description")}</Text>
                 </View>
                 <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "d" ? "#4e88c5": "#eee"}]}></View>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[0] = "w"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
                 <View style={{width: "80%"}}>
-                  <Text style={[API.styles.h3, {marginVertical: 0}]}>Weekly Reminders</Text>
-                  <Text style={API.styles.p}>We will send you reminder to practice weekly</Text>
+                  <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_reminders_weekly")}</Text>
+                  <Text style={API.styles.p}>{API.t("settings_notifications_reminders_weekly_description")}</Text>
                 </View>
                 <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "w" ? "#4e88c5": "#eee"}]}></View>
               </TouchableOpacity>
 
             </View>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>Tips & Promotions</Text>
-              <Text style={API.styles.subSmall}>Decide if you like us to send you tips for using the app or new promotions</Text>
+              <Text style={API.styles.h3}>{API.t("settings_notifications_tipsAndPromo")}</Text>
+              <Text style={API.styles.subSmall}>{API.t("settings_notifications_tipsAndPromo_description")}</Text>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[1] = ns[1] === "1" ? "0" : "1"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
                 <View style={{width: "80%"}}>
-                  <Text style={[API.styles.h3, {marginVertical: 0}]}>Usability Tips</Text>
-                  <Text style={API.styles.p}>How to effectively use the app</Text>
+                  <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_tipsAndPromo_tips")}</Text>
+                  <Text style={API.styles.p}>{API.t("settings_notifications_tipsAndPromo_tips_description")}</Text>
                 </View>
                 <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[1] == "1" ? "#4e88c5": "#eee"}]}></View>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[2] = ns[2] === "1" ? "0" : "1"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
                 <View style={{width: "80%"}}>
-                  <Text style={[API.styles.h3, {marginVertical: 0}]}>Promotions</Text>
-                  <Text style={API.styles.p}>Let us notify you when we have a discount for the subscription</Text>
+                  <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_tipsAndPromo_promotion")}</Text>
+                  <Text style={API.styles.p}>{API.t("settings_notifications_tipsAndPromo_promotion_description")}</Text>
                 </View>
                 <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[2] == "1" ? "#4e88c5": "#eee"}]}></View>
               </TouchableOpacity>
             </View>
-            <View style={{height: 600}}></View>
+            <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
       </>

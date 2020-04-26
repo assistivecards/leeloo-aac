@@ -1,15 +1,69 @@
 {
 	"appName": "Leeloo",
 	"settings_packs": "$1 paket",
-	"settings_profile_active": "Aktif",
-	"settings_selection_language": "Uygulama Dili",
+	"settings_profile_active": "Etkin",
+
+	"settings_selection_account": "Hesap",
+	"settings_account_description": "Bu hesabın sahibinde değişiklik yapın.",
+	"settings_account_section1_title": "Adınız",
+	"settings_account_section1_description": "Hesap işleyicisinin veya ebeveynin adı",
+	"settings_account_section2_title": "E-posta Adresi",
+	"settings_account_section2_description": "Güncellemeler ve analizler göndereceğiz",
+	"settings_account_section3_title": "Hesap Kimliği",
+	"settings_account_section3_description": "Bu sizden isteyebileceğimiz değiştirilemez bir kimlik",
+
+	"settings_selection_language": "Dil",
+	"settings_language_description": "Uygulama arayüzü ve yardımcı kartlar için dili seçin",
+	"settings_language_basedOnYourDevice": "Cihazınıza Dayalı",
+	"settings_language_basedOnYourDevice_description": "Yerel ayarlarınızdan diller",
+	"settings_language_supportedLanguages": "Desteklenen Diller",
+	"settings_language_supportedLanguages_description": "Yardımcı kartların desteklediği tüm diller",
+
 	"settings_selection_voice": "Metin-Konuşma Sesi",
+	"settings_voice_description": "Metin-Konuşma sesli sürücüsünü seçin",
+	"settings_voice_basedOnYourLocation": "Konumunuza Göre",
+	"settings_voice_basedOnYourLocation_description": "Hem diliniz hem de konumunuzla eşleşen ses sürücüleri",
+	"settings_voice_supportedVoice": "Desteklenen Tüm Ses Sürücüleri",
+	"settings_voice_supportedVoice_description": "Diliniz için tüm aksanların ve desteklenen ses sürücülerinin listesi",
+
 	"settings_selection_notifications": "Bildirimler",
+	"settings_notifications_description": "Uygulama tarafından ne zaman ve neden bildirilmek istediğinizi seçin",
+	"settings_notifications_reminders": "Hatırlatıcılar",
+	"settings_notifications_reminders_description": "Uygulamayı kullanmanızı ve uygulamayı hatırlatırız",
+	"settings_notifications_reminders_daily": "Günlük Hatırlatıcılar",
+	"settings_notifications_reminders_daily_description": "Her gün pratik yapmanız için size hatırlatıcı göndeririz",
+	"settings_notifications_reminders_weekly": "Haftalık Hatırlatıcılar",
+	"settings_notifications_reminders_weekly_description": "Haftalık alıştırmalar için size hatırlatma göndereceğiz",
+	"settings_notifications_tipsAndPromo": "İpuçları ve Promosyonlar",
+	"settings_notifications_tipsAndPromo_description": "Uygulamayı veya yeni promosyonları kullanmayla ilgili ipuçları göndermemizi isteyip istemediğinize karar verin",
+	"settings_notifications_tipsAndPromo_tips": "Kullanılabilirlik İpuçları",
+	"settings_notifications_tipsAndPromo_tips_description": "Uygulamayı etkin bir şekilde kullanma",
+	"settings_notifications_tipsAndPromo_promotion": "Promosyonlar",
+	"settings_notifications_tipsAndPromo_promotion_description": "Abonelik için indirim yaptığımızda sizi bilgilendirelim",
+
 	"settings_selection_subscriptions": "Abonelikler",
+	"settings_subscriptions_description": "Abonelikler",
+
 	"settings_selection_signout": "Oturumu Kapat",
-	"settings_selection_sendFeedback": "Geribildirim Gönder",
+	"settings_selection_sendFeedback": "Geri Bildirim Gönder",
 	"settings_selection_openSourceLicenses": "Açık Kaynak Lisansları",
 	"settings_selection_privacyPolicy": "Gizlilik Politikası",
-	"settings_selection_termsOfService": "Kullanım Şartları",
+	"settings_selection_termsOfService": "Hizmet Şartları",
 	"settings_selection_removeMyData": "Verilerimi Kaldır",
+
+	"settings_removeMyData_description": "Nasıl veri topladığımızı öğrenin ve toplanan verileri kaldırmamızı isteyin",
+	"settings_removeMyData_p1": "Görevlendirilmiş vasileri olan çocuklar, küçükler veya zihinsel engelli kullanıcılar için Kişisel Olarak Tanımlanabilir Bilgileri (PII) toplamıyoruz.",
+	"settings_removeMyData_p2": "Çocukların Çevrimiçi Gizliliğini Koruma Yasası (COPPA) yönergelerini izleyerek, istediğiniz zaman tüm sizin veya çocuğunuzun anonim verilerini kaldırmamızı isteyebilirsiniz.",
+	"settings_removeMyData_p3": "Daha fazla bilgi için önceki menüdeki Gizlilik Politikamızı okuyun.",
+	"settings_removeMyData_p4": "Verilerinizi kaldırmamızı istediğinizde, hesabınızı ve siz veya çocuğunuz hakkında topladığımız verileri kaldıracağız. Ek olarak bir aboneliğiniz varsa, sonlandırılacak ve kaldırılan veriler kurtarılamayacak.",
+	"settings_removeMyData_button": "Anlıyorum, verilerimi kaldır.",
+
+
+
+
+	"alert_yourDeviceDoesNotSupportTTS": "Cihazınız bu dil için ses sürücüsünü desteklemiyor. TTS özelliklerini kullanmak için bir ses sürücüsü yüklemeniz gerekiyor. Sürücüleri yüklemek ve yönetmek için 'Google TTS' uygulamasını deneyebilirsiniz!",
+	"alert_signout_title": "Oturumu Kapatmayı Onayla",
+	"alert_signout_description": "Oturum açmaya devam edebileceğinizi ve her seferinde hesabınızdan çıkış yapmanız gerekmediğini unutmayın.",
+	"alert_ok": "Tamam",
+	"alert_cancel": "İptal",
 }

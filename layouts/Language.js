@@ -26,10 +26,9 @@ export default class Setting extends React.Component {
     }
 
     let voiceDriver = await API.getBestAvailableVoiceDriver(language);
-    console.log("returnedVoice driver ######", voiceDriver);
 
     if(voiceDriver == "unsupported"){
-      alert("Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!");
+      alert(API.t("alert_yourDeviceDoesNotSupportTTS"));
     }
 
     changedFields.push("voice");
@@ -47,16 +46,16 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Apply"} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_language")}</Text>
-            <Text style={API.styles.p}>Choose the language for app interface and assistive cards</Text>
+            <Text style={API.styles.p}>{API.t("settings_language_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>Based On Your Device</Text>
-              <Text style={API.styles.subSmall}>Languages from your native settings</Text>
+              <Text style={API.styles.h3}>{API.t("settings_language_basedOnYourDevice")}</Text>
+              <Text style={API.styles.subSmall}>{API.t("settings_language_basedOnYourDevice_description")}</Text>
               {Languages.languages.filter(lang => Localization.locales.join('|').includes(lang.code) || lang.code == API.user.language).map((lang, i) => {
                 return (
                   <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
@@ -70,8 +69,8 @@ export default class Setting extends React.Component {
               })}
             </View>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>Supported Languages</Text>
-              <Text style={API.styles.subSmall}>All the languages that Leeloo AAC cards supports</Text>
+              <Text style={API.styles.h3}>{API.t("settings_language_supportedLanguages")}</Text>
+              <Text style={API.styles.subSmall}>{API.t("settings_language_supportedLanguages_description")}</Text>
               {Languages.languages.map((lang, i) => {
                 return (
                   <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
@@ -84,7 +83,7 @@ export default class Setting extends React.Component {
                 )
               })}
             </View>
-            <View style={{height: 600}}></View>
+            <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
       </>

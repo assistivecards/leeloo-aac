@@ -40,31 +40,31 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonText={"Save"} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
               <Text style={API.styles.h1}>{API.t("settings_selection_account")}</Text>
-              <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
+              <Text style={API.styles.p}>{API.t("settings_account_description")}</Text>
             </View>
             <View style={{flex: 1, backgroundColor: "#fff"}}>
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Your Name</Text>
-                <Text style={API.styles.subSmall}>Name of account handler or parent</Text>
+                <Text style={API.styles.h3}>{API.t("settings_account_section1_title")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_account_section1_description")}</Text>
                 <TextInput style={API.styles.input} defaultValue={API.user.name} onChangeText={(text) => this.setState({newName: text})}/>
               </View>
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Email Address</Text>
-                <Text style={API.styles.subSmall}>We will send updates and analytics</Text>
+                <Text style={API.styles.h3}>{API.t("settings_account_section2_title")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_account_section2_description")}</Text>
                 <TextInput style={API.styles.input} defaultValue={API.user.email} onChangeText={(text) => this.setState({newEmail: text})} autoCapitalize="none"/>
               </View>
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Account ID</Text>
-                <Text style={API.styles.subSmall}>This is an unchangeable ID we might ask from you</Text>
+                <Text style={API.styles.h3}>{API.t("settings_account_section3_title")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_account_section3_description")}</Text>
                 <TextInput style={[API.styles.input, {backgroundColor: "#f1f1f1"}]} value={API.user.identifier.substr(0, 3) + "-" + API.user.type + "-" + API.user.id} selectTextOnFocus={true}/>
               </View>
 
-              <View style={{height: 300}}></View>
+              <View style={API.styles.iosBottomPadder}></View>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

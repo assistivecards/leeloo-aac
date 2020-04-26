@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, LayoutAnimation, Image as RNImage } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, Image as RNImage } from 'react-native';
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
@@ -8,17 +8,6 @@ import API from '../api'
 
 import TopBar from '../components/TopBar'
 import Profiles from '../components/Profiles'
-
-var CustomLayoutLinear = {
-  duration: 150,
-  create: {
-    type: LayoutAnimation.Types.easeInEaseOut,
-    property: LayoutAnimation.Properties.opacity,
-  },
-  update: {
-    type: LayoutAnimation.Types.easeInEaseOut,
-  }
-};
 
 export default class App extends React.Component {
 
@@ -153,15 +142,15 @@ export default class App extends React.Component {
                   </View>
                 </TouchableOpacity>
 
-                <View style={[styles.selectionItem, {borderBottomWidth: 0}]}>
+                <TouchableOpacity style={[styles.selectionItem, {borderBottomWidth: 0}]} onPress={() => this.props.navigation.push("Remove")}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon}>
                     <Path fill={"#666"} d="M16 16h2c.55 0 1 .45 1 1s-.45 1-1 1h-2c-.55 0-1-.45-1-1s.45-1 1-1zm0-8h5c.55 0 1 .45 1 1s-.45 1-1 1h-5c-.55 0-1-.45-1-1s.45-1 1-1zm0 4h4c.55 0 1 .45 1 1s-.45 1-1 1h-4c-.55 0-1-.45-1-1s.45-1 1-1zM3 18c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V8H3v10zM13 5h-2l-.71-.71c-.18-.18-.44-.29-.7-.29H6.41c-.26 0-.52.11-.7.29L5 5H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"></Path>
                   </Svg>
                   <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_removeMyData")}</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={{height: 300}}></View>
+            <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
       </>
@@ -194,8 +183,7 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: "#fff",
-    position: "relative",
-    padding: 10
+    position: "relative"
   },
   userCarrier: {
     flexDirection: "row",
@@ -227,13 +215,15 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   userSettings: {
-    marginHorizontal: 20,
-    paddingBottom: 10,
+    marginHorizontal: 30,
+    paddingBottom: 15,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: API.config.theme.mainBorderColor
   },
   appSettings: {
-    marginHorizontal: 20,
+    marginHorizontal: 30,
+    paddingTop: 5,
   },
   cover: {
     width: "110%",

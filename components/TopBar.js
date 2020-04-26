@@ -34,7 +34,9 @@ export default class App extends React.Component {
                     <ActivityIndicator color={"#fff"}/>
                   }
                   {!this.state.rightButtonActivity &&
-                    <Text style={{color: "#fff", fontWeight: "600"}}>{this.props.rightButtonText}</Text>
+                    <Svg width={25} height={25} viewBox="0 0 25 25" strokeWidth={1} stroke={"#fff"}>
+                      <Path fill={"#fff"} d="M9 16.2l-3.5-3.5c-.39-.39-1.01-.39-1.4 0-.39.39-.39 1.01 0 1.4l4.19 4.19c.39.39 1.02.39 1.41 0L20.3 7.7c.39-.39.39-1.01 0-1.4-.39-.39-1.01-.39-1.4 0L9 16.2z"></Path>
+                    </Svg>
                   }
                 </View>
               </TouchableOpacity>
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: Platform.OS === 'android' ? 5 : 0,
+    paddingTop: 0,
   },
   buttonHolder: {
     paddingTop: 12,

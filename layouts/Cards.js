@@ -30,7 +30,6 @@ export default class Setting extends React.Component {
         <TouchableOpacity onPress={async () => {
           try {
             const ret = await AppleAuthentication.getCredentialStateAsync(this.credential.user)
-            console.log("resting", ret);
             // signed in
           } catch (e) {
             if (e.code === 'ERR_CANCELED') {

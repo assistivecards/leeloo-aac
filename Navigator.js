@@ -11,6 +11,7 @@ import Language from './layouts/Language'
 import Voice from './layouts/Voice'
 import Notification from './layouts/Notification'
 import Browser from './layouts/Browser'
+import Remove from './layouts/Remove'
 
 const AppNavigator = createStackNavigator({
     Cards:        { screen: Cards         },
@@ -21,6 +22,7 @@ const AppNavigator = createStackNavigator({
     Language:     { screen: Language      },
     Voice:        { screen: Voice         },
     Notification: { screen: Notification  },
+    Remove:       { screen: Remove        },
   },
   {
     headerMode: 'none',

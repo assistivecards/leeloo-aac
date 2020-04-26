@@ -110,6 +110,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginHorizontal: 30,
     borderRadius: 6
+  },
+  iosBottomPadder: {
+    backgroundColor: "#fff",
+    height: 300,
+    position: "relative",
+    top: 300
   }
 });
 
