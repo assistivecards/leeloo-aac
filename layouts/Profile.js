@@ -7,34 +7,29 @@ import TopBar from '../components/TopBar'
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      newName: null,
-    }
     this.profile = this.props.navigation.getParam("profile");
+    this.state = {
+      name: this.profile.name,
+    }
   }
 
   save(){
-    let { newName, newEmail } = this.state;
+    let { name } = this.state;
     let changedFields = [];
     let changedValues = [];
 
-    if(newName != null){
+    if(name != null){
       changedFields.push("name");
-      changedValues.push(newName);
+      changedValues.push(name);
     }
 
-    if(newEmail != null){
-      changedFields.push("email");
-      changedValues.push(newEmail);
-    }
-
-    API.update(changedFields, changedValues).then(res => {
+    API.updateProfile(this.profile.id, changedFields, changedValues).then(res => {
       this.props.navigation.pop();
     })
   }
 
   didChange(){
-    return this.state.newName != null || this.state.newEmail != null;
+    return this.state.name != this.profile.name;
   }
 
   render() {
@@ -45,23 +40,14 @@ export default class Setting extends React.Component {
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
               <Text style={API.styles.h1}>{this.profile.name}</Text>
+              <TextInput style={API.styles.input} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
+
               <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
             </View>
             <View style={{flex: 1, backgroundColor: "#fff"}}>
               <View style={styles.preferenceItem}>
                 <Text style={API.styles.h3}>Your Name</Text>
                 <Text style={API.styles.subSmall}>Name of account handler or parent</Text>
-                <TextInput style={API.styles.input} defaultValue={API.user.name} onChangeText={(text) => this.setState({newName: text})}/>
-              </View>
-              <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Email Address</Text>
-                <Text style={API.styles.subSmall}>We will send updates and analytics</Text>
-                <TextInput style={API.styles.input} defaultValue={API.user.email} onChangeText={(text) => this.setState({newEmail: text})} autoCapitalize="none"/>
-              </View>
-              <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>Account ID</Text>
-                <Text style={API.styles.subSmall}>This is an unchangeable ID we might ask from you</Text>
-                <TextInput style={[API.styles.input, {backgroundColor: "#f1f1f1"}]} value={API.user.identifier.substr(0, 3) + "-" + API.user.type + "-" + API.user.id} selectTextOnFocus={true}/>
               </View>
 
               <View style={API.styles.iosBottomPadder}></View>

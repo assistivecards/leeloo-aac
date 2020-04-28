@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import * as Localization from 'expo-localization';
 import * as Speech from 'expo-speech';
 
@@ -12,7 +12,8 @@ export default class Setting extends React.Component {
     super(props);
     this.state = {
       voice: API.user.voice,
-      voices: []
+      voices: [],
+      loading: true
     }
 
     API.getAvailableVoicesAsync().then(voices => this.setState({
@@ -22,7 +23,8 @@ export default class Setting extends React.Component {
           if (aQ < bQ) return -1
           if (aQ > bQ) return 1
           return 0
-      })
+      }),
+      loading: false
     }));
     // Move this so somewhere better + add a loading indicator
 
@@ -69,7 +71,11 @@ export default class Setting extends React.Component {
     let voices = this.state.voices;
 
     if(voices.length == 0){
-      return (<Text>No voice driver</Text>);
+      if(this.state.loading){
+        return (<View style={{flex: 1, height: 200, justifyContent: "center", alignItems: "center"}}><ActivityIndicator/></View>);
+      }else{
+        return (<View style={{flex: 1, justifyContent: "center", alignItems: "center"}}><Text style={[API.styles.p, {paddingTop: 10}]}>{API.t("alert_yourDeviceDoesNotSupportTTS")}</Text></View>);
+      }
     }else if(voices.length == 1){
       return this.listVoices(voices);
     }else{
@@ -121,9 +127,7 @@ export default class Setting extends React.Component {
             <Text style={API.styles.p}>{API.t("settings_voice_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff"}}>
-            <View style={styles.preferenceItem}>
-              {this.renderVoices()}
-            </View>
+            {this.renderVoices()}
             <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>

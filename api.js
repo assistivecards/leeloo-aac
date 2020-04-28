@@ -6,6 +6,7 @@ import * as Speech from 'expo-speech';
 import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
+import * as Device from 'expo-device';
 
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
@@ -84,9 +85,11 @@ class Api {
 		      });
 		    }
 
-				this.update(["notificationToken"], [token]).then(res => {
-					console.log("updated notification token");
-		    })
+				if(token != this.user.notificationToken){
+					this.update(["notificationToken"], [token]).then(res => {
+						console.log("updated notification token");
+			    })
+				}
 
 	    }else{
 	      console.log('Must use physical device for Push Notifications');
@@ -99,16 +102,28 @@ class Api {
     var formData = new FormData();
 		formData.append('identifier', identifier);
 
-		if(type == "apple"){
-			formData.append('type', type);
-			formData.append('email', user.email);
-			formData.append('name', user.fullName.givenName + " " +user.fullName.familyName);
+		let localIdentifier = await this.getData("identifier");
 
-		}else if(type == "google"){
+		if(localIdentifier != identifier){
+
+			let deviceLanguage = Localization.locale.substr(0,2);
+			let bestTTS = await this.getBestAvailableVoiceDriver(deviceLanguage);
 			formData.append('type', type);
-			formData.append('email', user.email);
-			formData.append('name', user.displayName);
-			formData.append('avatar', user.photoURL);
+			formData.append('language', Localization.locale.substr(0,2));
+			formData.append('voice', bestTTS.identifier);
+			formData.append('os', Platform.OS);
+			formData.append('modelName', Device.modelName);
+			formData.append('timeline', Localization.timezone);
+
+			if(type == "apple"){
+				formData.append('email', user.email);
+				formData.append('name', user.fullName.givenName + " " +user.fullName.familyName);
+
+			}else if(type == "google"){
+				formData.append('email', user.email);
+				formData.append('name', user.displayName);
+				formData.append('avatar', user.photoURL);
+			}
 		}
 
 		let userResponse;
@@ -116,7 +131,7 @@ class Api {
 		try {
 			userResponse = await fetch(url, { method: 'POST', body: formData })
 	    .then(res => res.json());
-			this.setData("user", JSON.stringify(userResponse));
+			await this.setData("user", JSON.stringify(userResponse));
 		} catch(error){
 			console.log("Offline, Falling back to cached userdata!");
 			let userResponseString = await this.getData("user");
@@ -160,10 +175,47 @@ class Api {
 			}
 
 			try {
-				let userResponse = await fetch(url, { method: 'POST', credentials: 'include', body: formData })
+				let userResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
-				this.setData("user", JSON.stringify(userResponse));
+				await this.setData("user", JSON.stringify(userResponse));
 				this.user = userResponse;
+				this.user.active_profile = await this.getCurrentProfile();
+			} catch(error){
+				alert("Please check your internet connectivity!");
+			}
+
+			this.event.emit("refresh");
+
+			return true;
+		}
+	}
+
+
+	async updateProfile(profileId, fields, values){
+		if(this.user.identifier && profileId){
+	    var url = API_ENDPOINT + "profile/update/";
+	    var formData = new FormData();
+			formData.append('id', profileId);
+			formData.append('identifier', this.user.identifier);
+
+			for (var i = 0; i < fields.length; i++) {
+				formData.append(fields[i], values[i]);
+			}
+
+			try {
+				let profileResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+
+				let currentProfiles = this.user.profiles;
+				for (var i in this.user.profiles) {
+					if (this.user.profiles[i].id == profileId) {
+						this.user.profiles[i] = profileResponse;
+						break;
+					}
+				}
+
+				await this.setData("user", JSON.stringify(this.user));
+
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
 				alert("Please check your internet connectivity!");
@@ -275,6 +327,9 @@ class Api {
 		let lang = "en";
 		if(this.user.language){
 			lang = this.user.language
+			if(lang != "en" && lang != "tr"){
+				lang = "en";
+			}
 		}else{
 			lang = Localization.locale.substr(0, 2);
 		}

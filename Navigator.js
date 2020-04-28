@@ -42,9 +42,14 @@ function forVertical(props) {
     inputRange: ([index - 1, index, index + 1]: Array<number>),
     outputRange: ([height, 0, 0]: Array<number>)
   });
+  const opacity = position.interpolate({
+    inputRange: ([index - 1, index, index + 1]: Array<number>),
+    outputRange: [0, 1, 0]
+  });
 
   return {
-    transform: [{ translateX }, { translateY }]
+    transform: [{ translateX }, { translateX }],
+    opacity
   };
 }
 const RootNavigator = createAppContainer(AppNavigator);
@@ -59,20 +64,32 @@ const ModelNavigator = createStackNavigator({
       headerVisible: false,
     },
     transparentCard: true,
-    cardStyle: {
-      backgroundColor: "rgba(0,0,0,0)",
-      shadowColor: "#000",
-      shadowOffset: {
-      	width: 0,
-      	height: 12,
-      },
-      shadowOpacity: 0.60,
-      shadowRadius: 20.00,
+    navigationOptions: {
+     gesturesEnabled: false,
+   },
+   transitionConfig: () => ({
+     transitionSpec: {
+       duration: 0
+     },
+     screenInterpolator: sceneProps => {
+       const { layout, position, scene } = sceneProps;
+       const { index } = scene;
 
-      elevation: 24,
-    },
-    transitionConfig: () => ({ screenInterpolator: forVertical })
+       const height = layout.initHeight;
 
+       const opacity = position.interpolate({
+         inputRange: [index - 1, index],
+         outputRange: [0, 1],
+       });
+
+       const translateY = position.interpolate({
+         inputRange: ([index - 1, index, index + 1]: Array<number>),
+         outputRange: ([height, 0, 0]: Array<number>)
+       });
+
+       return { opacity, transform: [{ translateY }], };
+     },
+   }),
   }
 );
 
