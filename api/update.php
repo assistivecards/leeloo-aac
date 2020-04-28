@@ -33,10 +33,6 @@ if($userIdentifier){
       $setString .= ", `voice` = '$voice'";
     }
 
-    if(!empty($voice)){
-      $setString .= ", `voice` = '$voice'";
-    }
-
     if(!empty($notificationToken)){
       $setString .= ", `notificationToken` = '$notificationToken'";
     }

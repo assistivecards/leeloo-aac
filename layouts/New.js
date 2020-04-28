@@ -7,35 +7,26 @@ import TopBar from '../components/TopBar'
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
-    this.profile = this.props.navigation.getParam("profile");
     this.state = {
-      name: this.profile.name,
+      name: "",
     }
   }
 
   save(){
     let { name } = this.state;
-    let changedFields = [];
-    let changedValues = [];
 
-    if(name != null){
-      changedFields.push("name");
-      changedValues.push(name);
+    let profile = {
+      name,
+      packs: "[1,2,3,4,5,6,7]"
     }
 
-    API.updateProfile(this.profile.id, changedFields, changedValues).then(res => {
-      this.props.navigation.pop();
-    })
-  }
-
-  remove(){
-    API.removeProfile(this.profile.id).then(res => {
+    API.newProfile(profile).then(res => {
       this.props.navigation.pop();
     })
   }
 
   didChange(){
-    return this.state.name != this.profile.name;
+    return this.state.name != "";
   }
 
   render() {
@@ -45,8 +36,8 @@ export default class Setting extends React.Component {
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
             <View style={styles.head}>
-              <Text style={API.styles.h1}>{this.profile.name}</Text>
-              <TextInput style={API.styles.input} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
+              <Text style={API.styles.h1}>New Profile</Text>
+              <TextInput style={API.styles.input} defaultValue={""} onChangeText={(text) => this.setState({name: text})}/>
 
               <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
             </View>
@@ -55,7 +46,6 @@ export default class Setting extends React.Component {
                 <Text style={API.styles.h3}>Your Name</Text>
                 <Text style={API.styles.subSmall}>Name of account handler or parent</Text>
               </View>
-              <TouchableOpacity onPress={() => this.remove()}><Text style={[API.styles.h3, {color: "red"}]}>Remove this profile</Text></TouchableOpacity>
 
               <View style={API.styles.iosBottomPadder}></View>
             </View>

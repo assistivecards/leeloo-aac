@@ -5,64 +5,46 @@ ini_set('session.cookie_domain', '.dreamoriented.org' );
 session_start();
 include("config.php");
 
+$profileId = $_POST['id'];
 $userIdentifier = $_POST['identifier'];
 $name = $_POST['name'];
-$email = $_POST['email'];
-$language = $_POST['language'];
-$voice = $_POST['voice'];
-$notificationToken = $_POST['notificationToken'];
-$notificationSettings = $_POST['notificationSettings'];
+$active = $_POST['active'];
+$packs = $_POST['packs'];
+$remove = $_POST['remove'];
 
 if($userIdentifier){
   $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
   if(mysqli_num_rows($user)){
-    $setString = "SET rate = rate+1";
-    if(!empty($name)){
-      $setString .= ", `name` = '$name'";
-    }
+    $userId = intval(mysqli_fetch_object($user)->id);
+    $profile = mysqli_query($conn, "SELECT * FROM `profile` WHERE `parent` = $userId AND `id` = $profileId");
+    if(mysqli_num_rows($profile)){
 
-    if(!empty($email)){
-      $setString .= ", `email` = '$email'";
-    }
+      if($remove){
+        $delete = mysqli_query($conn, "DELETE FROM `profile` WHERE id = $profileId");
+        $data = "deleted";
+      }else{
+        $setString = "SET rate = rate+1";
+        if(!empty($name)){
+          $setString .= ", `name` = '$name'";
+        }
 
-    if(!empty($language)){
-      $setString .= ", `language` = '$language'";
-    }
+        if(!empty($active)){
+          $setString .= ", `active` = '$active'";
+        }
 
-    if(!empty($voice)){
-      $setString .= ", `voice` = '$voice'";
-    }
+        if(!empty($packs)){
+          $setString .= ", `packs` = '$packs'";
+        }
 
-    if(!empty($voice)){
-      $setString .= ", `voice` = '$voice'";
-    }
+        $update = mysqli_query($conn, "UPDATE `profile` ".$setString." WHERE `id` = $profileId;");
+        $profileResult = mysqli_query($conn, "SELECT * FROM `profile` WHERE `id` = $profileId");
 
-    if(!empty($notificationToken)){
-      $setString .= ", `notificationToken` = '$notificationToken'";
-    }
-
-    if(!empty($notificationSettings)){
-      $setString .= ", `notificationSettings` = '$notificationSettings'";
-    }
-
-    $update = mysqli_query($conn, "UPDATE `user` ".$setString." WHERE `identifier` = '$userIdentifier';");
-
-    $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
-    $data = mysqli_fetch_object($user);
-    $userId = $data->id;
-    $profile = mysqli_query($conn, "SELECT * FROM `profile` WHERE `parent` = $userId AND active = 1");
-    if($profile){
-      $profiles = array();
-      while($row = mysqli_fetch_assoc($profile))
-      {
-          $profiles[] = $row;
+        $data = mysqli_fetch_object($profileResult);
       }
-      $data->profiles = $profiles;
-    }
-    $time = time();
-    $update = mysqli_query($conn, "UPDATE `user` SET `last_active` = $time, rate = rate+1 WHERE `identifier` = '$userIdentifier';");
 
-    $data->session_id = session_id();
+    }else{
+      $data = "no_auth";
+    }
   }
 }else{
   $data = "error";

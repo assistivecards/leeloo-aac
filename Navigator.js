@@ -4,6 +4,7 @@ import { Easing, Animated } from 'react-native';
 import Cards from './layouts/Cards'
 import Settings from './layouts/Settings'
 import Profile from './layouts/Profile'
+import New from './layouts/New'
 import Announcer from './layouts/Announcer'
 
 import Account from './layouts/Account'
@@ -17,6 +18,7 @@ const AppNavigator = createStackNavigator({
     Cards:        { screen: Cards         },
     Settings:     { screen: Settings      },
     Profile:      { screen: Profile       },
+    New:          { screen: New           },
     Account:      { screen: Account       },
     Browser:      { screen: Browser       },
     Language:     { screen: Language      },

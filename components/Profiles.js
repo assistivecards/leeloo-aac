@@ -19,6 +19,10 @@ export default class App extends React.Component {
     this.props.navigation.push("Profile", {profile});
   }
 
+  addProfile(){
+    this.props.navigation.push("New");
+  }
+
   render(){
     return (
       <View style={styles.profileCarrier}>
@@ -46,7 +50,7 @@ export default class App extends React.Component {
           })
         }
         <View style={styles.profileItem}>
-          <TouchableOpacity style={styles.addNew}>
+          <TouchableOpacity style={styles.addNew} onPress={() => this.addProfile()}>
             <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginRight: 5, opacity: 0.5}}>
               <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
             </Svg>

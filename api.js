@@ -169,6 +169,7 @@ class Api {
 	    var url = API_ENDPOINT + "update/";
 	    var formData = new FormData();
 			formData.append('identifier', this.user.identifier);
+			formData.append('remove', remove);
 
 			for (var i = 0; i < fields.length; i++) {
 				formData.append(fields[i], values[i]);
@@ -191,6 +192,33 @@ class Api {
 	}
 
 
+	async newProfile(profile){
+		if(this.user.identifier && profile.name){
+	    var url = API_ENDPOINT + "profile/";
+	    var formData = new FormData();
+			formData.append('identifier', this.user.identifier);
+			formData.append('name', profile.name);
+			formData.append('packs', "[1,2,3,4,5,6,7]");
+
+			try {
+				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+
+				this.user.profiles.push(newProfileResponse);
+
+				await this.setData("user", JSON.stringify(this.user));
+
+				this.user.active_profile = await this.getCurrentProfile();
+			} catch(error){
+				alert("Please check your internet connectivity!");
+			}
+
+			this.event.emit("refresh");
+
+			return true;
+		}
+	}
+
 	async updateProfile(profileId, fields, values){
 		if(this.user.identifier && profileId){
 	    var url = API_ENDPOINT + "profile/update/";
@@ -206,13 +234,39 @@ class Api {
 				let profileResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
 
-				let currentProfiles = this.user.profiles;
 				for (var i in this.user.profiles) {
 					if (this.user.profiles[i].id == profileId) {
 						this.user.profiles[i] = profileResponse;
 						break;
 					}
 				}
+
+				await this.setData("user", JSON.stringify(this.user));
+
+				this.user.active_profile = await this.getCurrentProfile();
+			} catch(error){
+				alert("Please check your internet connectivity!");
+			}
+
+			this.event.emit("refresh");
+
+			return true;
+		}
+	}
+
+	async removeProfile(profileId){
+		if(this.user.identifier && profileId){
+	    var url = API_ENDPOINT + "profile/update/";
+	    var formData = new FormData();
+			formData.append('id', profileId);
+			formData.append('identifier', this.user.identifier);
+			formData.append('remove', true);
+
+			try {
+				let profileResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+
+				this.user.profiles = this.user.profiles.filter(profile => profile.id != profileId);
 
 				await this.setData("user", JSON.stringify(this.user));
 
