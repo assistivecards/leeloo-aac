@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, Touc
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import API from '../api'
 
@@ -21,6 +22,7 @@ export default class App extends React.Component {
 
   componentDidMount(){
     API.event.on("refresh", this._refreshHandler)
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
   }
 
   _refreshHandler = () => {
@@ -29,6 +31,7 @@ export default class App extends React.Component {
 
   componentWillUnmount(){
     API.event.removeListener("refresh", this._refreshHandler)
+    ScreenOrientation.unlockAsync();
   }
 
   render() {

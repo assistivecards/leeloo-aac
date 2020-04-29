@@ -7,46 +7,75 @@ import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import Search from '../components/Search'
 
-const set = require("../data/set.json");
+const set = require("../data/packs/animals.json")
 
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      packSlug: API.user.active_profile.packs[0],
+      cards: []
+    }
   }
+
+  componentDidMount(){
+    this.fetchCards(this.state.packSlug);
+    API.event.on("refresh", this._refreshHandler)
+  }
+
+  async fetchCards(packSlug){
+    let cards = await fetch("https://leeloo.dreamoriented.org/json/"+packSlug+".json").then(res => res.json());
+    this.setState({cards, packSlug})
+  }
+
+  _refreshHandler = () => {
+    this.forceUpdate();
+  };
+
+  componentWillUnmount(){
+    API.event.removeListener("refresh", this._refreshHandler)
+  }
+
+
+  openSettings(){
+    if(API.isOnline){
+      this.props.navigation.navigate("Settings");
+    }else{
+      alert("You are offline!");
+    }
+  }
+
+
+  changePack(packSlug){
+    this.fetchCards(packSlug);
+  }
+
 
   render() {
     return(
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.header}>
           <Search/>
-          <TouchableOpacity style={styles.avatar} onPress={() => this.props.navigation.navigate("Settings")}>
+          <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
             <Image source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
               style={{width: 40, height: 40, position: "relative", top: 4}}
               />
           </TouchableOpacity>
         </SafeAreaView>
-        <View style={styles.categories}></View>
 
-        <TouchableOpacity onPress={async () => {
-          try {
-            const ret = await AppleAuthentication.getCredentialStateAsync(this.credential.user)
-            // signed in
-          } catch (e) {
-            if (e.code === 'ERR_CANCELED') {
-              // handle that the user canceled the sign-in flow
-            } else {
-              // handle other errors
-            }
-          }
-        }}>
-          <Text>Test status</Text>
-        </TouchableOpacity>
+        {
+          API.user.active_profile.packs.map((packSlug, i) => {
+            return <TouchableOpacity key={i} onPress={() => this.changePack(packSlug)}><Text>{packSlug}</Text></TouchableOpacity>
+          })
+        }
         <ScrollView>
-        {set.map(setItem => {
-          return <TouchableOpacity key={setItem.id} onPress={() => this.props.navigation.push("Announcer", {card: setItem})}>
-            <CachedImage uri = {`https://www.pngrepo.com/png/${setItem.id}/180/${setItem.slug}.png`} style={{width: 100, height: 100}}/>
-            <Text>{setItem.title}</Text>
-          </TouchableOpacity>
+        {this.state.cards.map((card, i) => {
+          return (
+            <TouchableOpacity key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})}>
+              <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.state.packSlug}/${card.slug}.png`} style={{width: 100, height: 100}}/>
+              <Text>{card.title}</Text>
+            </TouchableOpacity>
+          )
         })}
         </ScrollView>
       </View>

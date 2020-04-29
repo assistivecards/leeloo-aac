@@ -35,7 +35,7 @@ export default class App extends React.Component {
                 </View>
                 <View>
                   <Text style={API.styles.h4}>{profile.name}</Text>
-                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_packs", JSON.parse(profile.packs).length)}</Text>
+                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_packs", profile.packs.length)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
                   {API.user.active_profile.id == profile.id &&

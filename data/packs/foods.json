@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "watermelon",
+    "title": "Watermelon",
+    "phrases": [
+      {
+        "type": "love",
+        "phrase": "I love watermelon"
+      }
+    ]
+  },
+  {
+    "slug": "carrot",
+    "title": "Carrot",
+    "phrases": []
+  },
+  {
+    "slug": "blueberries",
+    "title": "Blueberries",
+    "phrases": []
+  },
+  {
+    "slug": "milk",
+    "title": "Milk",
+    "phrases": []
+  },
+  {
+    "slug": "steak",
+    "title": "Steak",
+    "phrases": []
+  },
+  {
+    "slug": "pineapple",
+    "title": "pPineapple",
+    "phrases": []
+  },
+  {
+    "slug": "pie",
+    "title": "Pie",
+    "phrases": []
+  },
+  {
+    "slug": "egg",
+    "title": "Egg",
+    "phrases": []
+  },
+  {
+    "slug": "noodles",
+    "title": "Noodles",
+    "phrases": []
+  }
+]

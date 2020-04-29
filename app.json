@@ -17,6 +17,7 @@
       "icon": "./assets/app-icon-ios.png",
       "usesAppleSignIn": true,
       "buildNumber": "2.0.0",
+      "requireFullScreen": true,
       "supportsTablet": true,
       "config": {
         "googleSignIn": {

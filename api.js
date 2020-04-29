@@ -10,6 +10,7 @@ import * as Device from 'expo-device';
 
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
+import NetInfo from '@react-native-community/netinfo';
 
 import UIText from './js/uitext.js';
 
@@ -19,11 +20,13 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const NETWORK_STATUS = true;
-const _FLUSH = true;
 const _DEVELOPMENT = true;
+
+const _NETWORK_STATUS = true;
+const _FLUSH = false;
 const _DEVUSERIDENTIFIER = "114203700870626824237";
 const _DEVLOCALE = "en-US";
+
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 
 let storage;
@@ -39,15 +42,33 @@ storage = new Storage({
 
 class Api {
   constructor(){
-		//AsyncStorage.clear();
+		if(_DEVELOPMENT && _FLUSH){
+			AsyncStorage.clear();
+		}
 		this.styles = styles;
 		this.config = {
 			theme: themes.light
 		}
 		this.event = Event;
+		if(_DEVELOPMENT){
+			this.isOnline = _NETWORK_STATUS;
+		}else{
+			this.isOnline = true;
+		}
 
     console.log("API: Created instance");
+		if(!_DEVELOPMENT){
+			this._listenNetwork();
+		}
   }
+
+	_listenNetwork(){
+		NetInfo.addEventListener(state => {
+		  console.log('Connection type', state.type);
+		  console.log('Is connected?', state.isConnected);
+			this.isOnline = state.isConnected;
+		});
+	}
 
 	haptics(style){
 		switch (style) {
@@ -131,9 +152,14 @@ class Api {
 		try {
 			userResponse = await fetch(url, { method: 'POST', body: formData })
 	    .then(res => res.json());
+
+			userResponse.profiles.forEach((profile, i) => {
+				userResponse.profiles[i].packs = JSON.parse(profile.packs);
+			});
+
 			await this.setData("user", JSON.stringify(userResponse));
 		} catch(error){
-			console.log("Offline, Falling back to cached userdata!");
+			console.log("Offline, Falling back to cached userdata!", error);
 			let userResponseString = await this.getData("user");
 			if(userResponseString){
 				userResponse = JSON.parse(userResponseString);
@@ -169,7 +195,6 @@ class Api {
 	    var url = API_ENDPOINT + "update/";
 	    var formData = new FormData();
 			formData.append('identifier', this.user.identifier);
-			formData.append('remove', remove);
 
 			for (var i = 0; i < fields.length; i++) {
 				formData.append(fields[i], values[i]);
@@ -307,6 +332,7 @@ class Api {
 			let profiles = this.user.profiles;
 			this.user.active_profile = profiles.find(profile => profile.id == profileId);
 			await this.setData("currentProfileId", profileId);
+			this.event.emit("refresh");
 		}
 	}
 

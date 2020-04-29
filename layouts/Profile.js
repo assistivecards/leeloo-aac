@@ -34,6 +34,12 @@ export default class Setting extends React.Component {
     })
   }
 
+  setCurrent(){
+    API.setCurrentProfile(this.profile.id).then(res => {
+      this.props.navigation.pop();
+    });
+  }
+
   didChange(){
     return this.state.name != this.profile.name;
   }
@@ -55,6 +61,7 @@ export default class Setting extends React.Component {
                 <Text style={API.styles.h3}>Your Name</Text>
                 <Text style={API.styles.subSmall}>Name of account handler or parent</Text>
               </View>
+              <TouchableOpacity onPress={() => this.setCurrent()}><Text style={[API.styles.h3, {color: "blue"}]}>Set as Current profile</Text></TouchableOpacity>
               <TouchableOpacity onPress={() => this.remove()}><Text style={[API.styles.h3, {color: "red"}]}>Remove this profile</Text></TouchableOpacity>
 
               <View style={API.styles.iosBottomPadder}></View>

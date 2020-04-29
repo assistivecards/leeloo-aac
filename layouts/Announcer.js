@@ -10,18 +10,6 @@ import API from '../api'
 import titleCase from '../js/titleCase';
 
 import TopBar from '../components/TopBar'
-const uri = 'https://s3.amazonaws.com/exp-icon-assets/ExpoEmptyManifest_192.png';
-
-var CustomLayoutLinear = {
-  duration: 150,
-  create: {
-    type: LayoutAnimation.Types.easeInEaseOut,
-    property: LayoutAnimation.Properties.opacity,
-  },
-  update: {
-    type: LayoutAnimation.Types.easeInEaseOut,
-  }
-};
 
 export default class App extends React.Component {
 
@@ -48,6 +36,7 @@ export default class App extends React.Component {
   render() {
     let user = true;
     let card = this.props.navigation.getParam("card");
+    let packSlug = this.props.navigation.getParam("pack");
 
     let width = Dimensions.get("window").width;
 
@@ -79,7 +68,7 @@ export default class App extends React.Component {
               </Animated.View>
               <View style={styles.cardMid}>
                 <Animated.View style={{height: this._getInterpolation(150, 150), width: this._getInterpolation(150, 150), borderRadius: this._getInterpolation(30, 0), overflow: "hidden", backgroundColor: "transparent", padding: this._getInterpolation(10, 10)}}>
-                  <CachedImage uri={`https://www.pngrepo.com/png/${card.id}/300/${card.slug}.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
+                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${packSlug}/${card.slug}@2x.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
                 </Animated.View>
               </View>
               <Animated.View style={[styles.button, {left: this._getInterpolation(0, 30)}]}>
@@ -92,7 +81,7 @@ export default class App extends React.Component {
 
           <View style={{flexDirection: "column", alignItems: "center"}}>
             <Text style={[API.styles.h2, {marginTop: 0}]}>{titleCase(card.title)}</Text>
-            <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 15}]}>Breakfast</Text>
+            <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 15}]}>{packSlug}</Text>
           </View>
           <View style={styles.content}>
               <View style={styles.selectionItem}>

@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "cat",
+    "title": "Cat",
+    "phrases": [
+      {
+        "type": "love",
+        "phrase": "I love cats"
+      }
+    ]
+  },
+  {
+    "slug": "dog",
+    "title": "Dog",
+    "phrases": []
+  },
+  {
+    "slug": "fish",
+    "title": "Fish",
+    "phrases": []
+  },
+  {
+    "slug": "rabbit",
+    "title": "Rabbit",
+    "phrases": []
+  },
+  {
+    "slug": "butterfly",
+    "title": "Butterfly",
+    "phrases": []
+  },
+  {
+    "slug": "giraffe",
+    "title": "Giraffe",
+    "phrases": []
+  },
+  {
+    "slug": "frog",
+    "title": "Frog",
+    "phrases": []
+  },
+  {
+    "slug": "swan",
+    "title": "Swan",
+    "phrases": []
+  },
+  {
+    "slug": "spider",
+    "title": "Spider",
+    "phrases": []
+  }
+]
