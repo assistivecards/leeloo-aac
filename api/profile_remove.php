@@ -5,26 +5,20 @@ ini_set('session.cookie_domain', '.dreamoriented.org' );
 session_start();
 include("config.php");
 
+$profileId = $_POST['id'];
 $userIdentifier = $_POST['identifier'];
-$name = $_POST['name'];
-$avatar = $_POST['avatar'];
-$packs = $_POST['packs'];
 
 if($userIdentifier){
-  $user = mysqli_query($conn, "SELECT id FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
-
+  $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
   if(mysqli_num_rows($user)){
-    $user = mysqli_fetch_object($user);
-    $userId = $user->id;
-    if($name){
-      $add = mysqli_query($conn, "INSERT INTO `profile` (`id`, `parent`, `name`, `avatar`, `packs`) VALUES (NULL, $userId, '$name', '$avatar', '$packs');");
-      $profile = mysqli_query($conn, "SELECT * FROM `profile` WHERE `parent` = '$userId' ORDER BY id desc LIMIT 1");
-      $data = mysqli_fetch_object($profile);
+    $userId = intval(mysqli_fetch_object($user)->id);
+    $profile = mysqli_query($conn, "SELECT * FROM `profile` WHERE `parent` = $userId AND `id` = $profileId");
+    if(mysqli_num_rows($profile)){
+      $delete = mysqli_query($conn, "DELETE FROM `profile` WHERE id = $profileId");
+      $data = "deleted";
     }else{
-      $data = "no_empty";
+      $data = "no_auth";
     }
-  }else{
-    $data = "no_auth";
   }
 }else{
   $data = "error";

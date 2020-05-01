@@ -13,6 +13,8 @@ import Voice from './layouts/Voice'
 import Notification from './layouts/Notification'
 import Browser from './layouts/Browser'
 import Remove from './layouts/Remove'
+import Packs from './layouts/Packs'
+import Avatar from './layouts/Avatar'
 
 const AppNavigator = createStackNavigator({
     Cards:        { screen: Cards         },
@@ -25,6 +27,8 @@ const AppNavigator = createStackNavigator({
     Voice:        { screen: Voice         },
     Notification: { screen: Notification  },
     Remove:       { screen: Remove        },
+    Packs:        { screen: Packs         },
+    Avatar:       { screen: Avatar        },
   },
   {
     headerMode: 'none',

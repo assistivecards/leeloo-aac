@@ -1,6 +1,7 @@
 {
 	"appName": "Leeloo",
 	"settings_packs": "$1 packs",
+	"settings_cards": "$1 cards",
 	"settings_profile_active": "Active",
 
 	"settings_selection_account": "Account",

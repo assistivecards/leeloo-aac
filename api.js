@@ -204,6 +204,10 @@ class Api {
 				let userResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
 				await this.setData("user", JSON.stringify(userResponse));
+
+				userResponse.profiles.forEach((profile, i) => {
+					userResponse.profiles[i].packs = JSON.parse(profile.packs);
+				});
 				this.user = userResponse;
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
@@ -223,11 +227,13 @@ class Api {
 	    var formData = new FormData();
 			formData.append('identifier', this.user.identifier);
 			formData.append('name', profile.name);
-			formData.append('packs', "[1,2,3,4,5,6,7]");
+			formData.append('packs', `["school","animals","foods"]`);
 
 			try {
 				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
+
+				newProfileResponse.packs = JSON.parse(newProfileResponse.packs);
 
 				this.user.profiles.push(newProfileResponse);
 
@@ -235,6 +241,7 @@ class Api {
 
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
+				console.log("Please check your internet connectivity!", error);
 				alert("Please check your internet connectivity!");
 			}
 
@@ -259,6 +266,8 @@ class Api {
 				let profileResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
 
+				profileResponse.packs = JSON.parse(profileResponse.packs);
+
 				for (var i in this.user.profiles) {
 					if (this.user.profiles[i].id == profileId) {
 						this.user.profiles[i] = profileResponse;
@@ -270,6 +279,7 @@ class Api {
 
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
+				console.log(error);
 				alert("Please check your internet connectivity!");
 			}
 
@@ -281,20 +291,23 @@ class Api {
 
 	async removeProfile(profileId){
 		if(this.user.identifier && profileId){
-	    var url = API_ENDPOINT + "profile/update/";
+	    var url = API_ENDPOINT + "profile/remove/";
 	    var formData = new FormData();
 			formData.append('id', profileId);
 			formData.append('identifier', this.user.identifier);
-			formData.append('remove', true);
 
 			try {
 				let profileResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
+				console.log(profileResponse);
+				if(profileResponse == "deleted"){
 
-				this.user.profiles = this.user.profiles.filter(profile => profile.id != profileId);
+					this.user.profiles = this.user.profiles.filter(profile => profile.id != profileId);
+					await this.setData("user", JSON.stringify(this.user));
 
-				await this.setData("user", JSON.stringify(this.user));
-
+				}else{
+					alert("A problem occured while trying to remove profile.");
+				}
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
 				alert("Please check your internet connectivity!");
@@ -385,6 +398,32 @@ class Api {
 	          return 0
 	      })[0];
 			}
+		}
+	}
+
+
+
+	async getPacks(){
+		var url = API_ENDPOINT + "packs/";
+
+		if(this.packs){
+			return this.packs;
+		}else{
+			let packsResponse;
+			try {
+				packsResponse = await fetch(url)
+		    .then(res => res.json());
+				this.setData("packs", JSON.stringify(packsResponse));
+
+			} catch(error){
+				console.log("Offline, Falling back to cached packdata!", error);
+				let packsResponseString = await this.getData("packs");
+				if(packsResponseString){
+					packsResponse = JSON.parse(packsResponseString);
+				}
+			}
+			this.packs = packsResponse;
+			return packsResponse;
 		}
 	}
 

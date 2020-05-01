@@ -31,7 +31,7 @@ export default class App extends React.Component {
             return (
               <TouchableOpacity style={styles.profileItem} key={profile.id} onPress={() => this.editProfile(profile)}>
                 <View style={styles.child}>
-                  <CachedImage uri={profile.avatar} style={styles.childImage} />
+                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${profile.avatar}.png`} resizeMode="contain" style={styles.childImage} />
                 </View>
                 <View>
                   <Text style={API.styles.h4}>{profile.name}</Text>

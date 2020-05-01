@@ -13,7 +13,7 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      packSlug: API.user.active_profile.packs[0],
+      packSlug: API.user.active_profile ? API.user.active_profile.packs[0] : "animals",
       cards: []
     }
   }
@@ -64,7 +64,7 @@ export default class Setting extends React.Component {
         </SafeAreaView>
 
         {
-          API.user.active_profile.packs.map((packSlug, i) => {
+          API.user.active_profile && API.user.active_profile.packs.map((packSlug, i) => {
             return <TouchableOpacity key={i} onPress={() => this.changePack(packSlug)}><Text>{packSlug}</Text></TouchableOpacity>
           })
         }
