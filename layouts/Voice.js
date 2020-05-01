@@ -31,6 +31,10 @@ export default class Setting extends React.Component {
     this.testPhrase = "This is a test voice.";
   }
 
+  componentDidMount(){
+    API.hit("Voice");
+  }
+
   save(){
     API.haptics("touch");
     let { voice } = this.state;

@@ -19,6 +19,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("Profile");
+  }
+
   async componentDidMount(){
     let data = await this.getDraggableData(this.profile.packs);
     this.setState({data});

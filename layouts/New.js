@@ -12,6 +12,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("NewProfile");
+  }
+
   save(){
     let { name } = this.state;
 

@@ -14,6 +14,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("Language");
+  }
+
   async save(){
     API.haptics("touch");
     let { language } = this.state;

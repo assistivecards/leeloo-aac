@@ -18,6 +18,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("Packs");
+  }
+
   async componentDidMount(){
     let data = await this.getDraggableData(this.packs);
     this.setState({data});

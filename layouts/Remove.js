@@ -12,6 +12,10 @@ export default class Setting extends React.Component {
     super(props);
   }
 
+  componentDidMount(){
+    API.hit("RemoveData");
+  }
+
   render() {
     return(
       <>

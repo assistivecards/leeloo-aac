@@ -19,6 +19,7 @@ export default class Setting extends React.Component {
   }
 
   componentDidMount(){
+    API.hit("Home");
     this.fetchCards(this.state.packSlug);
     API.event.on("refresh", this._refreshHandler)
   }

@@ -7,7 +7,7 @@ import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
 import * as Device from 'expo-device';
-
+import { Analytics, ScreenHit } from 'expo-analytics';
 import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
@@ -28,6 +28,7 @@ const _DEVUSERIDENTIFIER = "114203700870626824237";
 const _DEVLOCALE = "en-US";
 
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
+const ANALYTICS_KEY = 'UA-110111146-1';
 
 let storage;
 
@@ -46,6 +47,7 @@ class Api {
 			AsyncStorage.clear();
 		}
 		this.styles = styles;
+		this.analytics = new Analytics(ANALYTICS_KEY);
 		this.config = {
 			theme: themes.light
 		}
@@ -61,6 +63,14 @@ class Api {
 			this._listenNetwork();
 		}
   }
+
+	hit(screen){
+		this.analytics.hit(new ScreenHit(screen))
+		  .then(() => {
+				// hit done
+			})
+		  .catch(e => console.log(e.message));
+	}
 
 	_listenNetwork(){
 		NetInfo.addEventListener(state => {

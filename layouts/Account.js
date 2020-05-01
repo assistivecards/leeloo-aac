@@ -12,6 +12,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("Account");
+  }
+
   save(){
     let { newName, newEmail } = this.state;
     let changedFields = [];

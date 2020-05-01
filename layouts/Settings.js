@@ -22,6 +22,7 @@ export default class App extends React.Component {
 
   componentDidMount(){
     API.event.on("refresh", this._refreshHandler)
+    API.hit("Settings");
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
   }
 

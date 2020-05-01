@@ -7,6 +7,10 @@ import TopBar from '../components/TopBar'
 
 export default class App extends React.Component {
 
+  componentDidMount(){
+    API.hit("Browser");
+  }
+
   render() {
     this.link = this.props.navigation.getParam("link");
     return (

@@ -15,6 +15,10 @@ export default class Setting extends React.Component {
     }
   }
 
+  componentDidMount(){
+    API.hit("Notification");
+  }
+
   save(){
     API.haptics("touch");
     let { notificationSettings } = this.state;
