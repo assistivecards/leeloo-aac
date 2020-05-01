@@ -65,6 +65,8 @@
 	"alert_yourDeviceDoesNotSupportTTS": "Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!",
 	"alert_signout_title": "Confirm Sign Out",
 	"alert_signout_description": "Keep in mind you can keep signed in, and don't have to sign out of your account every time.",
+	"alert_profile_remove_title": "Remove Profile",
+	"alert_profile_remove_description": "Are you sure that you want to remove this profile, data created by this profile will also be removed.",
 	"alert_ok": "OK",
 	"alert_cancel": "Cancel",
 }

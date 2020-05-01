@@ -68,9 +68,23 @@ export default class Setting extends React.Component {
   }
 
   remove(){
-    API.removeProfile(this.profile.id).then(res => {
-      this.props.navigation.pop();
-    })
+    Alert.alert(
+      API.t("alert_profile_remove_title"),
+      API.t("alert_profile_remove_description"),
+      [
+        {
+          text: API.t("alert_cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: API.t("alert_ok"), onPress: () => {
+          API.removeProfile(this.profile.id).then(res => {
+            this.props.navigation.pop();
+          })
+				} }
+      ],
+      { cancelable: true }
+    );
   }
 
   setCurrent(){
@@ -147,10 +161,34 @@ export default class Setting extends React.Component {
                   <TextInput style={[API.styles.h1, {paddingLeft: 25}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
 
 
-                  <Text style={API.styles.p}>TIP: Press and hold to change the order of the packs the way you want to be displayed on the board.</Text>
-                  <TouchableOpacity onPress={() => this.remove()}><Text>remove</Text></TouchableOpacity>
-                  <TouchableOpacity onPress={() => this.setCurrent()}><Text>switch</Text></TouchableOpacity>
+                  <Text style={API.styles.p}>3 packs enabled for this profile.</Text>
+                  <View style={{marginHorizontal: 30, flexDirection: "row"}}>
+                    {this.profile.id != API.user.active_profile.id &&
+                      <TouchableOpacity onPress={() => this.setCurrent()} style={styles.smallButton}>
+                        <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
+                          <Path fill={"#fff"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
+                        </Svg>
+                        <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>USE</Text>
+                      </TouchableOpacity>
+                    }
 
+                    {this.profile.id == API.user.active_profile.id &&
+                      <View style={[styles.smallButton, {backgroundColor: "#ddd"}]}>
+                        <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
+                          <Path fill={"#777"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
+                        </Svg>
+                        <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5, color: "#777"}]}>USING</Text>
+                      </View>
+                    }
+
+                    {this.profile.id != API.user.active_profile.id &&
+                      <TouchableOpacity onPress={() => this.remove()} style={[styles.smallButton, {backgroundColor: "#c40606", width: 30, opacity: 1}]}>
+                        <Svg height={24} width={24} viewBox="0 0 24 24">
+                          <Path fill={"#fff"} d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></Path>
+                        </Svg>
+                      </TouchableOpacity>
+                    }
+                  </View>
 
                 </View>
 
@@ -177,6 +215,9 @@ export default class Setting extends React.Component {
                   onDragEnd={({ data }) => { this.setState({ data, changed: true }); API.haptics("touch"); }}
                 />
               }
+
+
+              <Text style={API.styles.p}>TIP: Press and hold to change the order of the packs the way you want to be displayed on the app.</Text>
             </View>
           </View>
       </>
@@ -246,5 +287,21 @@ const styles = StyleSheet.create({
     marginRight: 15,
     borderWidth: 1,
     borderColor: "#f1f1f1",
+  },
+  smallButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#60c54e",
+    height: 30,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10
+  },
+  smallButtonText: {
+    color: "#fff",
+    textTransform: "uppercase",
+    fontWeight: "bold"
   }
 });
