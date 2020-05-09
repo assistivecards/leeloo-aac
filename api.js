@@ -359,6 +359,15 @@ class Api {
 		}
 	}
 
+	speak(text){
+		Speech.speak(text, {
+			voice: this.user.voice,
+			language: this.user.langauge,
+			pitch: 1,
+			rate: 1
+		});
+	}
+
 	async getAvailableVoicesAsync(recall){
 		let voices = await Speech.getAvailableVoicesAsync();
 		if(voices.length == 0){
@@ -421,7 +430,7 @@ class Api {
 		}else{
 			let packsResponse;
 			try {
-				packsResponse = await fetch(url)
+				packsResponse = await fetch(url, {cache: "no-cache"})
 		    .then(res => res.json());
 				this.setData("packs", JSON.stringify(packsResponse));
 

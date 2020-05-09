@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Platform, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Dimensions, Image, TextInput } from 'react-native';
-import Svg, { Path, Rect } from 'react-native-svg';
+import Svg, { Path, Rect, Line, Circle } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import API from '../api'
 
@@ -8,18 +9,20 @@ export default class App extends React.Component {
 
   render(){
     return (
-      <View style={styles.textInputCarrier}>
+      <LinearGradient style={styles.textInputCarrier} colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.9)', 'rgba(255,255,255,0)']}>
         <TextInput
-          placeholder={"Search cards"}
+          placeholder={"Search cards and phrases..."}
           style={styles.textInput}
+          onBlur={this.props.onBlur}
+          onFocus={this.props.onFocus}
+          onChangeText={this.props.onChangeText}
         />
 
-        <Svg width={30} height={30} viewBox={"0 0 196 196"} style={{position: "absolute", top: 12, left: 35}}>
-          <Rect  width="85.583" height="97.433" rx="10" transform="translate(0 37.597) rotate(-16)" fill="#00BBD3"/>
-          <Rect  width="104.016" height="118.499" rx="10" transform="translate(28.807 13.245)" fill="#70E3F2"/>
-          <Rect  width="104.016" height="118.499" rx="10" transform="translate(59.943 0) rotate(8)" fill="#FF81A2"/>
+        <Svg width={26} height={26} viewBox={"0 0 24 24"} style={{position: "absolute", top: 16, left: 40}}>
+          <Circle cx="7" cy="7" r="7" transform="translate(7 3)" strokeWidth="2" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255,255,255,0)"/>
+          <Line y1="6" x2="6" transform="translate(3 15)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
         </Svg>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -28,17 +31,23 @@ const styles = StyleSheet.create({
   textInputCarrier: {
     paddingHorizontal: 20,
     flex: 1,
-    marginBottom: 5,
-    marginTop: 5
+    paddingTop: 5,
+    paddingBottom: 5
   },
   textInput: {
-    fontSize: 16,
+    fontSize: 17,
     paddingLeft: 55,
-    paddingTop: 2,
     backgroundColor: "#fff",
-    borderRadius: 7,
-    height: 45,
-    borderWidth: 1,
-    borderColor: '#eee'
+    borderRadius: 25,
+    height: 50,
+    borderWidth: 0.5,
+    borderColor: '#EAEBEE',
+    shadowColor: "rgba(0,0,0,0.2)",
+    shadowOffset: {
+    	width: 0,
+    	height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22
   }
 });

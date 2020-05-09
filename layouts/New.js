@@ -36,16 +36,16 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
-          <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+          <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
             <View style={styles.head}>
               <Text style={API.styles.h1}>New Profile</Text>
               <TextInput style={API.styles.input} defaultValue={""} onChangeText={(text) => this.setState({name: text})}/>
 
               <Text style={API.styles.p}>Make changes to the owner of this account.</Text>
             </View>
-            <View style={{flex: 1, backgroundColor: "#fff"}}>
+            <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
               <View style={styles.preferenceItem}>
                 <Text style={API.styles.h3}>Your Name</Text>
                 <Text style={API.styles.subSmall}>Name of account handler or parent</Text>
@@ -62,7 +62,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

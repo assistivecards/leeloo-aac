@@ -34,14 +34,14 @@ export default class Setting extends React.Component {
   render() {
     return (
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>Change Avatar</Text>
-            <Text style={API.styles.p}>Choose an avatar to symbolize this profile.</Text>
+            <Text style={API.styles.pHome}>Choose an avatar to symbolize this profile.</Text>
           </View>
 
-          <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between"}}>
+          <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
            {Array.apply(null, Array(17)).map((boy, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"boy"+(i+1)} onPress={() => this.changeAvatar(`boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
@@ -68,7 +68,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

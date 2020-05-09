@@ -50,15 +50,15 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_language")}</Text>
-            <Text style={API.styles.p}>{API.t("settings_language_description")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_language_description")}</Text>
           </View>
-          <View style={{flex: 1, backgroundColor: "#fff"}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>{API.t("settings_language_basedOnYourDevice")}</Text>
+              <Text style={API.styles.h2}>{API.t("settings_language_basedOnYourDevice")}</Text>
               <Text style={API.styles.subSmall}>{API.t("settings_language_basedOnYourDevice_description")}</Text>
               {Languages.languages.filter(lang => Localization.locales.join('|').includes(lang.code) || lang.code == API.user.language).map((lang, i) => {
                 return (
@@ -67,13 +67,13 @@ export default class Setting extends React.Component {
                       <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
                       <Text style={API.styles.p}>{lang.native}</Text>
                     </View>
-                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#4e88c5": "#eee"}]}></View>
+                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#6989FF": "#eee"}]}></View>
                   </TouchableOpacity>
                 )
               })}
             </View>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>{API.t("settings_language_supportedLanguages")}</Text>
+              <Text style={API.styles.h2}>{API.t("settings_language_supportedLanguages")}</Text>
               <Text style={API.styles.subSmall}>{API.t("settings_language_supportedLanguages_description")}</Text>
               {Languages.languages.map((lang, i) => {
                 return (
@@ -82,7 +82,7 @@ export default class Setting extends React.Component {
                       <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
                       <Text style={API.styles.p}>{lang.native}</Text>
                     </View>
-                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#4e88c5": "#eee"}]}></View>
+                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#6989FF": "#eee"}]}></View>
                   </TouchableOpacity>
                 )
               })}
@@ -97,7 +97,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

@@ -6,78 +6,63 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import Search from '../components/Search'
-
-const set = require("../data/packs/animals.json")
+import TopBar from '../components/TopBar'
+import TouchableScale from '../components/touchable-scale'
 
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      packSlug: API.user.active_profile ? API.user.active_profile.packs[0] : "animals",
       cards: []
     }
+    this.pack = this.props.navigation.getParam("pack");
+
   }
 
   componentDidMount(){
-    API.hit("Home");
-    this.fetchCards(this.state.packSlug);
-    API.event.on("refresh", this._refreshHandler)
+    API.hit("Pack:"+this.pack.name);
+    this.fetchCards(this.pack.name);
   }
 
   async fetchCards(packSlug){
-    let cards = await fetch("https://leeloo.dreamoriented.org/json/"+packSlug+".json").then(res => res.json());
-    this.setState({cards, packSlug})
-  }
-
-  _refreshHandler = () => {
-    this.forceUpdate();
-  };
-
-  componentWillUnmount(){
-    API.event.removeListener("refresh", this._refreshHandler)
-  }
-
-
-  openSettings(){
-    if(API.isOnline){
-      this.props.navigation.navigate("Settings");
-    }else{
-      alert("You are offline!");
+    try {
+      let cards = await fetch("https://leeloo.dreamoriented.org/json/"+packSlug+".json").then(res => res.json());
+      this.setState({cards, packSlug})
+    } catch(err){
+      console.log(err);
     }
   }
-
-
-  changePack(packSlug){
-    this.fetchCards(packSlug);
-  }
-
 
   render() {
     return(
       <View style={{flex: 1}}>
-        <SafeAreaView style={styles.header}>
-          <Search/>
-          <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
-            <Image source={{uri: "https://www.pngrepo.com/png/132875/180/boy.png"}}
-              style={{width: 40, height: 40, position: "relative", top: 4}}
-              />
-          </TouchableOpacity>
-        </SafeAreaView>
-
-        {
-          API.user.active_profile && API.user.active_profile.packs.map((packSlug, i) => {
-            return <TouchableOpacity key={i} onPress={() => this.changePack(packSlug)}><Text>{packSlug}</Text></TouchableOpacity>
-          })
-        }
-        <ScrollView>
-        {this.state.cards.map((card, i) => {
-          return (
-            <TouchableOpacity key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})}>
-              <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.state.packSlug}/${card.slug}.png`} style={{width: 100, height: 100}}/>
-              <Text>{card.title}</Text>
-            </TouchableOpacity>
-          )
-        })}
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={this.pack.color}/>
+        <ScrollView style={{backgroundColor: this.pack.color}}>
+          <View style={styles.head}>
+            <Text style={[API.styles.h1, {color: "#000"}]}>{this.pack.name[0].toUpperCase() + this.pack.name.substr(1)}</Text>
+          </View>
+          <View style={styles.board}>
+            {this.state.cards.map((card, i) => {
+              return (
+                <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
+                  <View style={styles.cardItemInner}>
+                    <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
+                    <Text style={styles.cardItemText}>{card.title}</Text>
+                  </View>
+                </TouchableScale>
+              )
+            })}
+              {this.state.cards.map((card, i) => {
+                return (
+                  <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
+                    <View style={styles.cardItemInner}>
+                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
+                      <Text style={styles.cardItemText}>{card.title}</Text>
+                    </View>
+                  </TouchableScale>
+                )
+              })}
+          </View>
         </ScrollView>
       </View>
     )
@@ -85,26 +70,41 @@ export default class Setting extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  carrier: {
-    flex: 1,
-    backgroundColor: "#fff",
-    height: "100%"
+  head: {
+    height: 70,
+    justifyContent: "center"
   },
-  carrierSV: {
-    width: "100%",
-    height: Dimensions.get("window").height - 50
+  cardItem: {
+    width: "33.3%",
+    height: 160
   },
-  header: {
+  board: {
+    justifyContent: "flex-start",
     flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 15,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    shadowColor: "rgba(0,0,0,0.2)",
+    shadowOffset: {
+    	width: 0,
+    	height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 2
+  },
+  cardItemInner: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F7F9FB"
+    flex: 1, borderRadius: 25,
+    margin: 5,
+    backgroundColor: "#F7F7F7"
   },
-  categories: {
-    backgroundColor: "#F7F9FB",
-    height: 10
-  },
-  avatar: {
-    marginRight: 20, padding: 2, backgroundColor: "#a5d5ff", borderRadius: 40, overflow: "hidden"
+  cardItemText:{
+    fontSize: 16,
+    fontWeight: "normal",
+    marginBottom: 10
   }
 });

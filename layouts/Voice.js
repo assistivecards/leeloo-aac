@@ -65,7 +65,7 @@ export default class Setting extends React.Component {
             <Text style={[API.styles.p, {marginBottom: 2}]}>{voice.language} - {voice.quality}</Text>
             <Text style={API.styles.sub}>{voice.identifier}</Text>
           </View>
-          <View style={[styles.pointer, {backgroundColor: this.state.voice == voice.identifier ? "#4e88c5": "#eee"}]}></View>
+          <View style={[styles.pointer, {backgroundColor: this.state.voice == voice.identifier ? "#6989FF": "#eee"}]}></View>
         </TouchableOpacity>
       )
     })
@@ -98,13 +98,13 @@ export default class Setting extends React.Component {
           return (
             <View>
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>{API.t("settings_voice_basedOnYourLocation")}</Text>
+                <Text style={API.styles.h2}>{API.t("settings_voice_basedOnYourLocation")}</Text>
                 <Text style={API.styles.subSmall}>{API.t("settings_voice_basedOnYourLocation_description")}</Text>
                 {this.listVoices(localizedVoices)}
               </View>
 
               <View style={styles.preferenceItem}>
-                <Text style={API.styles.h3}>{API.t("settings_voice_supportedVoice")}</Text>
+                <Text style={API.styles.h2}>{API.t("settings_voice_supportedVoice")}</Text>
                 <Text style={API.styles.subSmall}>{API.t("settings_voice_supportedVoice_description")}</Text>
                 {this.listVoices(non_localizedVoices)}
               </View>
@@ -124,13 +124,13 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_voice")}</Text>
-            <Text style={API.styles.p}>{API.t("settings_voice_description")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_voice_description")}</Text>
           </View>
-          <View style={{flex: 1, backgroundColor: "#fff"}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
             {this.renderVoices()}
             <View style={API.styles.iosBottomPadder}></View>
           </View>
@@ -142,7 +142,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

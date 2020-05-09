@@ -63,18 +63,18 @@ export default class Setting extends React.Component {
     let nsBinded = this.state.notificationSettings;
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_notifications")}</Text>
-            <Text style={API.styles.p}>{API.t("settings_notifications_description")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_notifications_description")}</Text>
           </View>
-          <View style={{flex: 1, backgroundColor: "#fff"}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
             {this.state.notificationToken == "ungranted" &&
               <Text>You need to enable notification from your device settings for this app.</Text>
             }
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>{API.t("settings_notifications_reminders")}</Text>
+              <Text style={API.styles.h2}>{API.t("settings_notifications_reminders")}</Text>
               <Text style={API.styles.subSmall}>{API.t("settings_notifications_reminders_description")}</Text>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[0] = "d"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
@@ -82,7 +82,7 @@ export default class Setting extends React.Component {
                   <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_reminders_daily")}</Text>
                   <Text style={API.styles.p}>{API.t("settings_notifications_reminders_daily_description")}</Text>
                 </View>
-                <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "d" ? "#4e88c5": "#eee"}]}></View>
+                <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "d" ? "#6989FF": "#eee"}]}></View>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[0] = "w"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
@@ -90,12 +90,12 @@ export default class Setting extends React.Component {
                   <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_reminders_weekly")}</Text>
                   <Text style={API.styles.p}>{API.t("settings_notifications_reminders_weekly_description")}</Text>
                 </View>
-                <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "w" ? "#4e88c5": "#eee"}]}></View>
+                <View style={[styles.pointer, {backgroundColor: this.state.notificationSettings[0] == "w" ? "#6989FF": "#eee"}]}></View>
               </TouchableOpacity>
 
             </View>
             <View style={styles.preferenceItem}>
-              <Text style={API.styles.h3}>{API.t("settings_notifications_tipsAndPromo")}</Text>
+              <Text style={API.styles.h2}>{API.t("settings_notifications_tipsAndPromo")}</Text>
               <Text style={API.styles.subSmall}>{API.t("settings_notifications_tipsAndPromo_description")}</Text>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[1] = ns[1] === "1" ? "0" : "1"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
@@ -103,7 +103,7 @@ export default class Setting extends React.Component {
                   <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_tipsAndPromo_tips")}</Text>
                   <Text style={API.styles.p}>{API.t("settings_notifications_tipsAndPromo_tips_description")}</Text>
                 </View>
-                <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[1] == "1" ? "#4e88c5": "#eee"}]}></View>
+                <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[1] == "1" ? "#6989FF": "#eee"}]}></View>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => { API.haptics("touch"); ns[2] = ns[2] === "1" ? "0" : "1"; this.setState({notificationSettings: ns.join("")})}} style={styles.listItem}>
@@ -111,7 +111,7 @@ export default class Setting extends React.Component {
                   <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_notifications_tipsAndPromo_promotion")}</Text>
                   <Text style={API.styles.p}>{API.t("settings_notifications_tipsAndPromo_promotion_description")}</Text>
                 </View>
-                <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[2] == "1" ? "#4e88c5": "#eee"}]}></View>
+                <View style={[styles.pointerMulti, {backgroundColor: this.state.notificationSettings[2] == "1" ? "#6989FF": "#eee"}]}></View>
               </TouchableOpacity>
             </View>
             <View style={API.styles.iosBottomPadder}></View>
@@ -124,7 +124,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

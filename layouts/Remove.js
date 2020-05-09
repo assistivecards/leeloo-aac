@@ -19,13 +19,13 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>{API.t("settings_selection_removeMyData")}</Text>
-            <Text style={API.styles.p}>{API.t("settings_removeMyData_description")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_removeMyData_description")}</Text>
           </View>
-          <View style={{flex: 1, backgroundColor: "#fff"}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p1")}</Text>
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p2")}</Text>
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p3")}</Text>
@@ -41,7 +41,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5

@@ -1,6 +1,7 @@
 import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
 import { Easing, Animated } from 'react-native';
 
+import Home from './layouts/Home'
 import Cards from './layouts/Cards'
 import Settings from './layouts/Settings'
 import Profile from './layouts/Profile'
@@ -17,6 +18,7 @@ import Packs from './layouts/Packs'
 import Avatar from './layouts/Avatar'
 
 const AppNavigator = createStackNavigator({
+    Home:         { screen: Home          },
     Cards:        { screen: Cards         },
     Settings:     { screen: Settings      },
     Profile:      { screen: Profile       },

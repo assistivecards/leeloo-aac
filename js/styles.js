@@ -11,6 +11,14 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     marginHorizontal: 30
   },
+  pHome: {
+    marginTop: 5,
+    marginBottom: 10,
+    color: "#fff",
+    fontSize: 16,
+    lineHeight: 25,
+    marginHorizontal: 30
+  },
   b: {
     color: themes.light.pFontColor,
     fontWeight: "bold",
@@ -27,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   h1: {
-    color: themes.light.hFontColor,
+    color: "#fff",
     letterSpacing: -1,
     fontSize: 30,
     fontWeight: "bold",

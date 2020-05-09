@@ -149,8 +149,8 @@ export default class Setting extends React.Component {
   render() {
     return (
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
-          <View style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+          <View style={{flex: 1, backgroundColor: "#6989FF"}}>
             <View style={styles.head}>
               <View style={{flexDirection: "row", justifyContent: "space-between"}}>
 
@@ -161,7 +161,7 @@ export default class Setting extends React.Component {
                   <TextInput style={[API.styles.h1, {paddingLeft: 25}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
 
 
-                  <Text style={API.styles.p}>3 packs enabled for this profile.</Text>
+                  <Text style={API.styles.pHome}>3 packs enabled for this profile.</Text>
                   <View style={{marginHorizontal: 30, flexDirection: "row"}}>
                     {this.profile.id != API.user.active_profile.id &&
                       <TouchableOpacity onPress={() => this.setCurrent()} style={styles.smallButton}>
@@ -199,7 +199,7 @@ export default class Setting extends React.Component {
             </View>
 
 
-            <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff"}}>
+            <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
 
               <TouchableOpacity style={styles.addNew} onPress={() => this.props.navigation.push("Packs", {packs: this.profile.packs, add: this.addPack.bind(this)})}>
                 <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginRight: 5, opacity: 0.5}}>
@@ -227,7 +227,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.5)"
   },
   premium: {
-    backgroundColor: "#4e88c5",
+    backgroundColor: "#6989FF",
     height: 24,
     width: 60,
     borderRadius: 12,

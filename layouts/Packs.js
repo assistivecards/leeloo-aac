@@ -64,14 +64,14 @@ export default class Setting extends React.Component {
   render() {
     return (
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F9FB"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F9FB"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>Add Packs</Text>
             <Text style={API.styles.p}>Choose a pack that you want to enable for this profile.</Text>
           </View>
 
-          <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff"}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
            {this.state.data.map(pack => this.renderItem(pack))}
           </View>
         </ScrollView>
@@ -82,7 +82,7 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    backgroundColor: "#F7F9FB",
+    backgroundColor: "#6989FF",
     marginBottom: 10,
     paddingVertical: 10,
     paddingBottom: 5
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.5)"
   },
   premium: {
-    backgroundColor: "#4e88c5",
+    backgroundColor: "#6989FF",
     height: 24,
     width: 60,
     borderRadius: 12,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderColor: "#f1f1f1",
   },
   button: {
-    backgroundColor: "#4e88c5",
+    backgroundColor: "#6989FF",
     height: 30,
     width: 60,
     borderRadius: 15,

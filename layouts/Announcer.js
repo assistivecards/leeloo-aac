@@ -17,11 +17,6 @@ export default class App extends React.Component {
     scrollY: new Animated.Value(0)
   }
 
-  openAccountSettings(){
-    this.props.navigation.push("Settings");
-
-  }
-
   _getInterpolation = (from, to) => {
       const {scrollY} = this.state;
 
@@ -33,11 +28,15 @@ export default class App extends React.Component {
       });
   }
 
+  speak(text){
+    API.speak(text);
+  }
+
   render() {
     let user = true;
     let card = this.props.navigation.getParam("card");
     let packSlug = this.props.navigation.getParam("pack");
-
+    this.speak(card.title);
     let width = Dimensions.get("window").width;
 
     return (
@@ -61,7 +60,7 @@ export default class App extends React.Component {
 
           <View style={[styles.head, {marginTop: 100}]}>
             <View style={styles.cardHolder}>
-              <Animated.View style={[styles.button, {right: this._getInterpolation(0, 30)}]}>
+              <Animated.View onPress={() => this.speak(card.slug)} style={[styles.button, {right: this._getInterpolation(0, 30)}]}>
                 <Svg viewBox="0 0 24 24" width={32} height={32}>
                   <Path fill={"#29395F"} d="M12 4V2.21c0-.45-.54-.67-.85-.35l-2.8 2.79c-.2.2-.2.51 0 .71l2.79 2.79c.32.31.86.09.86-.36V6c3.31 0 6 2.69 6 6 0 .79-.15 1.56-.44 2.25-.15.36-.04.77.23 1.04.51.51 1.37.33 1.64-.34.37-.91.57-1.91.57-2.95 0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-.79.15-1.56.44-2.25.15-.36.04-.77-.23-1.04-.51-.51-1.37-.33-1.64.34C4.2 9.96 4 10.96 4 12c0 4.42 3.58 8 8 8v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79c-.31-.31-.85-.09-.85.36V18z"/>
                 </Svg>
