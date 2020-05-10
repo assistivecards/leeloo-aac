@@ -4,6 +4,15 @@
 	"settings_cards": "$1 cards",
 	"settings_profile_active": "ACTIVE",
 
+	"settings_selection_new_profile": "New Profile",
+	"settings_new_profile_description": "Create a new application user profile.",
+	"settings_new_profile_profileName_title": "Profile Name",
+	"settings_new_profile_profileName_description": "You can give your child's name",
+	"settings_new_profile_profileAvatar_title": "Profile Avatar",
+	"settings_new_profile_profileAvatar_description": "Choose an avatar that looks like the user of this profile",
+	"settings_new_profile_aacCards_title": "Assistive Cards Packs",
+	"settings_new_profile_aacCards_description": "We will set default cards for this profile. You can add or remove the assistive card packs after creating",
+
 	"settings_selection_account": "My Account",
 	"settings_account_description": "Make changes to the owner of this account.",
 	"settings_account_section1_title": "Your Name",
