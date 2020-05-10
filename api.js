@@ -29,7 +29,7 @@ const _DEVLOCALE = "en-US";
 
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-
+const ASSET_VERSION = 200;
 let storage;
 
 storage = new Storage({
@@ -51,6 +51,7 @@ class Api {
 		this.config = {
 			theme: themes.light
 		}
+		this.version = ASSET_VERSION;
 		this.event = Event;
 		if(_DEVELOPMENT){
 			this.isOnline = _NETWORK_STATUS;
@@ -237,7 +238,8 @@ class Api {
 	    var formData = new FormData();
 			formData.append('identifier', this.user.identifier);
 			formData.append('name', profile.name);
-			formData.append('packs', `["school","animals","foods"]`);
+			formData.append('avatar', profile.avatar);
+			formData.append('packs', `["conversation","people","feelings","foods","animals","school","activities","shapes","colors","clothes"]`);
 
 			try {
 				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })

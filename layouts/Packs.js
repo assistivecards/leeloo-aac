@@ -11,6 +11,7 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.packs = this.props.navigation.getParam("packs");
+    this.packsInUse = this.props.navigation.getParam("packsInUse");
     this.add = this.props.navigation.getParam("add");
     this.state = {
       data: [],
@@ -29,8 +30,7 @@ export default class Setting extends React.Component {
 
   async getDraggableData(packs){
     let allPacks = await API.getPacks();
-
-    return allPacks;
+    return allPacks.filter(pack => !this.packsInUse.includes(pack.name));
   }
 
   async addAction(packName){
@@ -41,12 +41,12 @@ export default class Setting extends React.Component {
   renderItem = (item) => {
 
     return (
-      <View activeOpacity={0.9} key={item.name} style={styles.packItem}>
-        <View style={styles.pack}>
-          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.name}.png`} style={styles.packImage} />
+      <View key={item.name} style={styles.packItem}>
+        <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
+          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.name}.png?v=${API.version}`} style={styles.packImage} />
         </View>
         <View>
-          <Text style={API.styles.h4}>{item.name[0].toUpperCase() + item.name.substr(1)}</Text>
+          <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{item.name[0].toUpperCase() + item.name.substr(1)}</Text>
           <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_cards", item.count)}</Text>
         </View>
         <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
@@ -68,10 +68,10 @@ export default class Setting extends React.Component {
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
             <Text style={API.styles.h1}>Add Packs</Text>
-            <Text style={API.styles.p}>Choose a pack that you want to enable for this profile.</Text>
+            <Text style={API.styles.pHome}>Choose a pack that you want to enable for this profile.</Text>
           </View>
 
-          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15, paddingHorizontal: 25}}>
            {this.state.data.map(pack => this.renderItem(pack))}
           </View>
         </ScrollView>
@@ -87,28 +87,24 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingBottom: 5
   },
-  addNew: {
-    height: 50,
-    borderRadius: 8,
-    padding: 5,
-    borderWidth: 2,
-    borderStyle: "dashed",
-    borderColor: "#ddd",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 15
-  },
-  packImage: {
-    width: 45,
-    height: 45
-  },
   packItem: {
     flexDirection: "row",
-    paddingBottom: 10,
+    paddingVertical: 5,
     alignItems: "center",
     backgroundColor: "rgba(255,255,255,0.5)"
+  },
+  pack: {
+    width: 70,
+    height: 70,
+    borderRadius: 15,
+    padding: 5, backgroundColor: "#F5F5F7",
+    marginRight: 15,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  packImage: {
+    width: 50,
+    height: 50,
   },
   premium: {
     backgroundColor: "#6989FF",
@@ -117,15 +113,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center"
-  },
-  pack: {
-    width: 55,
-    height: 55,
-    borderRadius: 8,
-    padding: 5, backgroundColor: "#fff",
-    marginRight: 15,
-    borderWidth: 1,
-    borderColor: "#f1f1f1",
   },
   button: {
     backgroundColor: "#6989FF",

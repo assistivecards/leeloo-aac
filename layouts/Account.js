@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   preferenceItem: {
-    marginBottom: 10
+    paddingBottom: 20,
+    borderBottomWidth: 1, borderColor: "#f5f5f5",
   }
 });

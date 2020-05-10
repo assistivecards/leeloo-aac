@@ -75,8 +75,8 @@ export default class App extends React.Component {
 
     return (
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F7F7"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#F7F7F7"}}>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <Profiles navigation={this.props.navigation}/>
           <View style={styles.content}>
             <View style={styles.userSettings}>
@@ -232,22 +232,6 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  childCover: {
-    backgroundColor: "rgba(0,0,0,0.5)",
-    flex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%", height: "100%",
-    zIndex: 99,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  childCoverInner: {
-    width: "100%",
-    height: 300,
-    backgroundColor: "#fff"
-  },
   account: {
     paddingVertical: 10,
     paddingHorizontal: 30,
@@ -256,7 +240,10 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: "#fff",
-    position: "relative"
+    position: "relative",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: 20
   },
   userCarrier: {
     flexDirection: "row",

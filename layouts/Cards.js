@@ -37,21 +37,12 @@ export default class Setting extends React.Component {
     return(
       <View style={{flex: 1}}>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={this.pack.color}/>
-        <ScrollView style={{backgroundColor: this.pack.color}}>
-          <View style={styles.head}>
-            <Text style={[API.styles.h1, {color: "#000"}]}>{this.pack.name[0].toUpperCase() + this.pack.name.substr(1)}</Text>
-          </View>
-          <View style={styles.board}>
-            {this.state.cards.map((card, i) => {
-              return (
-                <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
-                  <View style={styles.cardItemInner}>
-                    <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
-                    <Text style={styles.cardItemText}>{card.title}</Text>
-                  </View>
-                </TouchableScale>
-              )
-            })}
+        <ScrollView style={{backgroundColor: this.pack.color}} contentInsetAdjustmentBehavior="automatic">
+          <SafeAreaView>
+            <View style={styles.head}>
+              <Text style={[API.styles.h1, {color: "#000"}]}>{this.pack.name[0].toUpperCase() + this.pack.name.substr(1)}</Text>
+            </View>
+            <View style={styles.board}>
               {this.state.cards.map((card, i) => {
                 return (
                   <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
@@ -62,7 +53,18 @@ export default class Setting extends React.Component {
                   </TouchableScale>
                 )
               })}
-          </View>
+                {this.state.cards.map((card, i) => {
+                  return (
+                    <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
+                      <View style={styles.cardItemInner}>
+                        <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
+                        <Text style={styles.cardItemText}>{card.title}</Text>
+                      </View>
+                    </TouchableScale>
+                  )
+                })}
+            </View>
+          </SafeAreaView>
         </ScrollView>
       </View>
     )

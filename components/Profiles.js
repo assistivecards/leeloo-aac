@@ -31,18 +31,18 @@ export default class App extends React.Component {
             return (
               <TouchableOpacity style={styles.profileItem} key={profile.id} onPress={() => this.editProfile(profile)}>
                 <View style={styles.child}>
-                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${profile.avatar}.png`} resizeMode="contain" style={styles.childImage} />
+                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${profile.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                 </View>
+                {API.user.active_profile.id == profile.id &&
+                  <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 10, color: "#6989FF"}}>{API.t("settings_profile_active")}</Text></View>
+                }
                 <View>
-                  <Text style={API.styles.h4}>{profile.name}</Text>
-                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_packs", profile.packs.length)}</Text>
+                  <Text style={{fontSize: 22, color: "#fff", fontWeight: "bold"}}>{profile.name}</Text>
+                  <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0, color: "#fff", fontWeight: "normal"}]}>{API.t("settings_packs", profile.packs.length)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
-                  {API.user.active_profile.id == profile.id &&
-                    <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>{API.t("settings_profile_active")}</Text></View>
-                  }
                   <Svg height={36} width={36} viewBox="0 0 24 24">
-                    <Path fill={"#395A85"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
+                    <Path fill={"#fff"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
                   </Svg>
                 </View>
               </TouchableOpacity>
@@ -51,8 +51,8 @@ export default class App extends React.Component {
         }
         <View style={styles.profileItem}>
           <TouchableOpacity style={styles.addNew} onPress={() => this.addProfile()}>
-            <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginRight: 5, opacity: 0.5}}>
-              <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
+            <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginRight: 5}}>
+              <Path fill={"#fff"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
             </Svg>
           </TouchableOpacity>
         </View>
@@ -69,44 +69,50 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   child: {
-    width: 55,
-    height: 55,
-    borderRadius: 8,
-    padding: 5, backgroundColor: "#fff",
+    width: 70,
+    height: 70,
+    borderRadius: 37,
+    backgroundColor: "#F5F5F7",
     marginRight: 15,
-    borderWidth: 1,
-    borderColor: "#f1f1f1",
+    borderWidth: 7,
+    borderColor: "#ffffff",
+    overflow: "hidden"
+  },
+  childImage: {
+    width: 46,
+    height: 46,
+    position: "relative",
+    top: 5,
+    margin: 6
   },
   addNew: {
     height: 50,
     flex: 1,
-    borderRadius: 8,
+    borderRadius: 15,
     padding: 5,
     borderWidth: 2,
     borderStyle: "dashed",
-    borderColor: "#ddd",
+    borderColor: "rgba(247,249,255,0.5)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 5
   },
-  childImage: {
-    width: 43,
-    height: 43,
-    position: "relative",
-    top: 5
-  },
   profileItem: {
     flexDirection: "row",
     paddingBottom: 10,
+    marginBottom: 5,
     alignItems: "center"
   },
   active: {
-    backgroundColor: "#6989FF",
-    height: 24,
-    width: 60,
-    borderRadius: 12,
+    backgroundColor: "#fff",
+    height: 16,
+    width: 50,
+    borderRadius: 8,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    position: "absolute",
+    bottom: 5,
+    left: 11
   }
 });

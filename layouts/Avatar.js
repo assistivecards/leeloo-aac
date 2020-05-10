@@ -42,17 +42,24 @@ export default class Setting extends React.Component {
           </View>
 
           <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-           {Array.apply(null, Array(17)).map((boy, i) => {
+           {Array.apply(null, Array(33)).map((boy, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"boy"+(i+1)} onPress={() => this.changeAvatar(`boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
-                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png`} resizeMode="contain" style={styles.childImage} />
+                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                </TouchableOpacity>
              )
            })}
-           {Array.apply(null, Array(25)).map((girl, i) => {
+           {Array.apply(null, Array(27)).map((girl, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"girl"+(i+1)} onPress={() => this.changeAvatar(`girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
-                 <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/avatar/girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png`}} resizeMode="contain" style={styles.childImage} />
+                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+               </TouchableOpacity>
+             )
+           })}
+           {Array.apply(null, Array(29)).map((misc, i) => {
+             return (
+               <TouchableOpacity style={styles.childAvatar} key={"misc"+(i+1)} onPress={() => this.changeAvatar(`misc${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
+                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/misc${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                </TouchableOpacity>
              )
            })}
@@ -77,16 +84,15 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 8,
-    padding: 5, backgroundColor: "#fff",
+    padding: 4, backgroundColor: "#FAFAFA",
     marginLeft: 0,
     marginTop: 15,
-    borderWidth: 1,
-    borderColor: "#f1f1f1",
+    borderWidth: 2,
+    borderColor: "#FAFAFA",
   },
   childImage: {
-    width: 70,
-    height: 70,
-    position: "relative",
-    top: 3
+    width: 64,
+    height: 64,
+    margin: 3
   },
 });

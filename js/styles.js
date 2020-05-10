@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   p: {
     marginTop: 5,
     marginBottom: 10,
-    color: themes.light.pFontColor,
+    color: "#444",
     fontSize: 16,
     lineHeight: 25,
     marginHorizontal: 30
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     letterSpacing: -0.7,
     marginTop: 20,
-    color: themes.light.hFontColor,
+    color: "#333",
     fontSize: 21,
     fontWeight: "bold"
   },
@@ -55,12 +55,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     letterSpacing: -0.5,
     marginTop: 15,
-    color: themes.light.hFontColor,
+    color: "#333",
     fontSize: 17,
     fontWeight: "bold"
   },
   h4: {
-    color: themes.light.hFontColor,
+    color: "#333",
     fontSize: 16,
     letterSpacing: -0.4,
     fontWeight: "bold"
@@ -76,9 +76,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
   },
   subSmall: {
-    color: themes.light.hFontColor,
-    fontWeight: "200",
-    opacity: 0.8,
+    color: "#81869F",
+    opacity: 1,
     fontSize: 15,
     lineHeight: 21,
     marginBottom: 10,
@@ -113,17 +112,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#eee",
     color: "#555",
-    height: 45,
+    height: 46,
     padding: 8,
     fontSize: 18,
-    marginHorizontal: 30,
-    borderRadius: 6
+    marginHorizontal: 20,
+    borderRadius: 23,
+    paddingLeft: 20
   },
   iosBottomPadder: {
     backgroundColor: "#fff",
-    height: 300,
+    height: 250,
     position: "relative",
-    top: 300
+    top: 250
   }
 });
 

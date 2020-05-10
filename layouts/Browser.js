@@ -18,11 +18,12 @@ export default class App extends React.Component {
         <TopBar back={() => {
           this.props.navigation.pop();
         }} backgroundColor={"#6989FF"} />
-        <WebView source={{uri: this.link}} style={{flex: 1, borderTopRightRadius: 30, borderTopLeftRadius: 30 }}
-
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-        />
+        <View style={{flex: 1, borderTopRightRadius: 30, borderTopLeftRadius: 30, overflow: "hidden" }}>
+          <WebView source={{uri: this.link}} style={{flex: 1}}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     );
   }

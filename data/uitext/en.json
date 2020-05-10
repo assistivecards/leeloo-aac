@@ -2,7 +2,7 @@
 	"appName": "Leeloo",
 	"settings_packs": "$1 packs",
 	"settings_cards": "$1 cards",
-	"settings_profile_active": "Active",
+	"settings_profile_active": "ACTIVE",
 
 	"settings_selection_account": "My Account",
 	"settings_account_description": "Make changes to the owner of this account.",
