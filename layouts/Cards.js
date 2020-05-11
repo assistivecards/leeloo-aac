@@ -26,7 +26,7 @@ export default class Setting extends React.Component {
 
   async fetchCards(packSlug){
     try {
-      let cards = await fetch("https://leeloo.dreamoriented.org/json/"+packSlug+".json").then(res => res.json());
+      let cards = await fetch(`https://leeloo.dreamoriented.org/json/${packSlug}.json?v=${API.version}`).then(res => res.json());
       this.setState({cards, packSlug})
     } catch(err){
       console.log(err);
@@ -47,22 +47,12 @@ export default class Setting extends React.Component {
                 return (
                   <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
                     <View style={styles.cardItemInner}>
-                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
+                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}.png?v=${API.version}`} style={{width: 100, height: 100, margin: 10}}/>
                       <Text style={styles.cardItemText}>{card.title}</Text>
                     </View>
                   </TouchableScale>
                 )
               })}
-                {this.state.cards.map((card, i) => {
-                  return (
-                    <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
-                      <View style={styles.cardItemInner}>
-                        <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}@2x.png`} style={{width: 100, height: 100, margin: 10}}/>
-                        <Text style={styles.cardItemText}>{card.title}</Text>
-                      </View>
-                    </TouchableScale>
-                  )
-                })}
             </View>
           </SafeAreaView>
         </ScrollView>
