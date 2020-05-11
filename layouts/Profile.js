@@ -200,7 +200,7 @@ export default class Setting extends React.Component {
 
             <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15, paddingLeft: 20}}>
 
-              <TouchableOpacity style={styles.addNew} onPress={() => this.props.navigation.push("Packs", {packs: this.profile.packs, packsInUse: this.state.data.map(pack => pack.name), add: this.addPack.bind(this)})}>
+              <TouchableOpacity style={styles.addNew} onPress={() => this.props.navigation.push("Packs", { packsInUse: this.state.data.map(pack => pack.slug), add: this.addPack.bind(this)})}>
                 <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, opacity: 0.5}}>
                   <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
                 </Svg>

@@ -11,7 +11,6 @@ import Svg, { Path } from 'react-native-svg';
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
-    this.packs = this.props.navigation.getParam("packs");
     this.packsInUse = this.props.navigation.getParam("packsInUse");
     this.add = this.props.navigation.getParam("add");
     this.state = {
@@ -25,17 +24,17 @@ export default class Setting extends React.Component {
   }
 
   async componentDidMount(){
-    let data = await this.getDraggableData(this.packs);
+    let data = await this.getPacks();
     this.setState({data});
   }
 
-  async getDraggableData(packs){
-    let allPacks = await API.getPacks();
-    return allPacks.filter(pack => !this.packsInUse.includes(pack.name));
+  async getPacks(){
+    let allPacks = await API.getPacks(true);
+    return allPacks.filter(pack => !this.packsInUse.includes(pack.slug));
   }
 
-  async addAction(packName){
-    await this.add(packName);
+  async addAction(packSlug){
+    await this.add(packSlug);
     this.props.navigation.pop();
   }
 
@@ -72,8 +71,8 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_add_packs_description")}</Text>
           </View>
 
-          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30,}}>
-            <View style={{flex: 1, paddingTop: 15, paddingHorizontal: 25}}>
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
+            <View style={{flex: 1, paddingTop: 20, paddingHorizontal: 25}}>
              {this.state.data.map(pack => this.renderItem(pack))}
             </View>
             <View style={API.styles.iosBottomPadder}></View>
