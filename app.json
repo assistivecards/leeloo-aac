@@ -14,7 +14,6 @@
     },
     "ios": {
       "bundleIdentifier": "org.dreamoriented.leeloo",
-      "icon": "./assets/app-icon-ios.png",
       "usesAppleSignIn": true,
       "buildNumber": "2.0.0",
       "requireFullScreen": true,
@@ -27,7 +26,6 @@
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
-      "icon": "./assets/app-icon.png",
       "package": "org.dreamoriented.leeloo",
       "permissions": [
         "WAKE_LOCK"
