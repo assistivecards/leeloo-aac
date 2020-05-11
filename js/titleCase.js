@@ -1,8 +1,3 @@
 export default function titleCase(str){
-  return str.replace(
-    /\w\S*/g,
-    (txt) => {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    }
-  );
+  return str.charAt(0).toLocaleUpperCase() + str.substr(1).toLocaleLowerCase();
 }

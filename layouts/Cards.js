@@ -21,8 +21,8 @@ export default class Setting extends React.Component {
   }
 
   componentDidMount(){
-    API.hit("Pack:"+this.pack.name);
-    this.fetchCards(this.pack.name);
+    API.hit("Pack:"+this.pack.slug);
+    this.fetchCards(this.pack.slug);
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
   }
 
@@ -51,7 +51,7 @@ export default class Setting extends React.Component {
         <ScrollView style={{backgroundColor: this.pack.color}} contentInsetAdjustmentBehavior="automatic">
           <SafeAreaView>
             <View style={styles.head}>
-              <Text style={[API.styles.h1, {color: "#000"}]}>{this.pack.name[0].toUpperCase() + this.pack.name.substr(1)}</Text>
+              <Text style={[API.styles.h1, {color: "#000"}]}>{this.pack.locale}</Text>
             </View>
             <View style={styles.board}>
               {this.state.cards.map((card, i) => {
@@ -59,7 +59,7 @@ export default class Setting extends React.Component {
                   <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})}
                     style={this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape}>
                     <View style={styles.cardItemInner}>
-                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
+                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
                       <Text style={styles.cardItemText}>{card.title}</Text>
                     </View>
                   </TouchableScale>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     height: 130
   },
   cardItemLandscape: {
-    width: "25%",
+    width: "20%",
     height: 130
   },
   cardItemInner: {
@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     marginBottom: 10,
     marginHorizontal: 10,
-    textAlign: "center"
+    textAlign: "center",
+    opacity: 0.8
   }
 });

@@ -424,10 +424,11 @@ class Api {
 
 
 
-	async getPacks(){
-		var url = API_ENDPOINT + "packs/";
+	async getPacks(force){
+		var url = API_ENDPOINT + "packs/" + this.user.language + "/metadata.json";
 
-		if(this.packs){
+		if(this.packs && force == null){
+			console.log("pulling from ram");
 			return this.packs;
 		}else{
 			let packsResponse;

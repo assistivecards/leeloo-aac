@@ -12,6 +12,7 @@
     "x": "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID 7989C828-4F80-4389-885F-DD5BE30C074F"
   },
   "dependencies": {
+    "@google-cloud/translate": "^5.3.0",
     "@moqada/rn-twemoji": "^0.2.1",
     "@react-native-community/netinfo": "5.5.1",
     "emoji-strip": "^1.0.1",

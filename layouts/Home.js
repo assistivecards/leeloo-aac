@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
 
 import API from '../api';
+import titleCase from '../js/titleCase';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 import * as ScreenOrientation from 'expo-screen-orientation';
 
@@ -32,7 +33,7 @@ export default class Setting extends React.Component {
     API.hit("Home");
     API.speak(`Hello ${API.user.active_profile.name}`);
     API.event.on("refresh", this._refreshHandler)
-    this.getCategories(API.user.active_profile.packs);
+    this.getPacks(API.user.active_profile.packs);
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
   }
 
@@ -47,7 +48,7 @@ export default class Setting extends React.Component {
 
   _refreshHandler = () => {
     this.forceUpdate();
-    this.getCategories(API.user.active_profile.packs);
+    this.getPacks(API.user.active_profile.packs, true);
   };
 
   componentWillUnmount(){
@@ -64,11 +65,11 @@ export default class Setting extends React.Component {
   }
 
 
-  async getCategories(packs){
-    let allPacks = await API.getPacks();
+  async getPacks(packs, force){
+    let allPacks = await API.getPacks(force);
 
     let categories = packs.map(pack => {
-      let filter = allPacks.filter(allpack => allpack.name == pack);
+      let filter = allPacks.filter(allpack => allpack.slug == pack);
       if(filter.length){
         let filtered = filter[0];
         filtered.enabled = true;
@@ -160,8 +161,8 @@ export default class Setting extends React.Component {
                     return (
                       <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack)}>
                         <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
-                          <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/icon/${pack.name}.png`}} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
-                          <Text style={styles.categoryItemText}>{pack.name[0].toUpperCase() + pack.name.substr(1)}</Text>
+                          <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/icon/${pack.slug}.png`}} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
+                          <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
                         </View>
                       </TouchableScale>
                     )
@@ -218,6 +219,7 @@ const styles = StyleSheet.create({
   categoryItemText:{
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 10
+    marginBottom: 10,
+    opacity: 0.75
   }
 });

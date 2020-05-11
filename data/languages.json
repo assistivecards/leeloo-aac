@@ -89,7 +89,7 @@
       "rightToLeft": false
     },
     {
-      "code": "nl-NL",
+      "code": "nl",
       "locale": ["nl-NL", "nl-BE"],
       "support": ["apple", "google"],
       "title": "Dutch",
