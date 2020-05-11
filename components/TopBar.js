@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Platform, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Dimensions, Image, ActivityIndicator } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, Rect, Circle } from 'react-native-svg';
 
 import API from '../api'
 
@@ -40,6 +40,16 @@ export default class App extends React.Component {
                     </Svg>
                   }
                 </View>
+              </TouchableOpacity>
+            }
+            {this.props.lock == "locked" &&
+              <TouchableOpacity onPress={this.props.lockPress} style={{padding: 10, paddingHorizontal: 29}}>
+                <Svg width={30} height={30} viewBox="0 0 24 24" strokeLinecap="round" strokeWidth="2" stroke="#fff" fill="none">
+                  <Path stroke="none" d="M0 0h24v24H0z"/>
+                  <Rect x="5" y="11" width="14" height="10" rx="2" />
+                  <Circle cx="12" cy="16" r="1" />
+                  <Path d="M8 11v-5a4 4 0 0 1 8 0" />
+                </Svg>
               </TouchableOpacity>
             }
 

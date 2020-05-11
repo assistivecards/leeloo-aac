@@ -4,6 +4,7 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import API from '../api';
+import titleCase from '../js/titleCase';
 import TopBar from '../components/TopBar'
 import Svg, { Path, Line } from 'react-native-svg';
 
@@ -32,7 +33,7 @@ export default class Setting extends React.Component {
     let allPacks = await API.getPacks();
 
     return packs.map(pack => {
-      let filter = allPacks.filter(allpack => allpack.name == pack);
+      let filter = allPacks.filter(allpack => allpack.slug == pack);
       if(filter.length){
         let filtered = filter[0];
         filtered.enabled = true;
@@ -58,7 +59,7 @@ export default class Setting extends React.Component {
 
     if(this.state.changed){
       changedFields.push("packs");
-      let packs = this.state.data.map(pack => pack.name);
+      let packs = this.state.data.map(pack => pack.slug);
       changedValues.push(JSON.stringify(packs));
     }
 
@@ -98,7 +99,7 @@ export default class Setting extends React.Component {
   }
 
   async addPack(packName){
-    let packs = this.state.data.map(pack => pack.name);
+    let packs = this.state.data.map(pack => pack.slug);
     packs.unshift(packName);
 
     let data = await this.getDraggableData(packs);
@@ -111,7 +112,7 @@ export default class Setting extends React.Component {
   }
 
   removePack(packName){
-    let data = this.state.data.filter(d => d.name != packName);
+    let data = this.state.data.filter(d => d.slug != packName);
     this.setState({data, changed: true});
   }
 
@@ -126,17 +127,17 @@ export default class Setting extends React.Component {
           <Path fill={"#8A8E9C"} d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></Path>
         </Svg>
         <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
-          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.name}.png?v=${API.version}`} style={styles.packImage} />
+          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
         </View>
         <View>
-          <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{item.name[0].toUpperCase() + item.name.substr(1)}</Text>
+          <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{titleCase(item.locale)}</Text>
           <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_cards", item.count)}</Text>
         </View>
         <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
           {false &&
             <View style={styles.premium}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>Premium</Text></View>
           }
-          <TouchableOpacity onPress={() => this.removePack(item.name)} style={{padding: 5, width: 34, height: 34, marginRight: 20}}>
+          <TouchableOpacity onPress={() => this.removePack(item.slug)} style={{padding: 5, width: 34, height: 34, marginRight: 20}}>
             <Svg height={24} width={24} viewBox="0 0 24 24" style={{opacity: 0.5}}>
               <Path fill={"#c40606"} d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4 11H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
             </Svg>

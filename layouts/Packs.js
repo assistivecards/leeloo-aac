@@ -4,6 +4,7 @@ import DraggableFlatList from "react-native-draggable-flatlist";
 import { Image as CachedImage } from "react-native-expo-image-cache";
 
 import API from '../api';
+import titleCase from '../js/titleCase';
 import TopBar from '../components/TopBar'
 import Svg, { Path } from 'react-native-svg';
 
@@ -20,7 +21,7 @@ export default class Setting extends React.Component {
   }
 
   componentDidMount(){
-    API.hit("Packs");
+    API.hit("AddPacks");
   }
 
   async componentDidMount(){
@@ -41,20 +42,20 @@ export default class Setting extends React.Component {
   renderItem = (item) => {
 
     return (
-      <View key={item.name} style={styles.packItem}>
+      <View key={item.slug} style={styles.packItem}>
         <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
-          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.name}.png?v=${API.version}`} style={styles.packImage} />
+          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
         </View>
         <View>
-          <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{item.name[0].toUpperCase() + item.name.substr(1)}</Text>
+          <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{titleCase(item.locale)}</Text>
           <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_cards", item.count)}</Text>
         </View>
         <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
           {false &&
             <View style={styles.premium}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>Premium</Text></View>
           }
-          <TouchableOpacity onPress={() => this.addAction(item.name)} style={styles.button}>
-            <Text style={{color: "#fff", fontWeight: "bold"}}>ADD</Text>
+          <TouchableOpacity onPress={() => this.addAction(item.slug)} style={styles.button}>
+            <Text style={{color: "#fff", fontWeight: "bold"}}>{API.t("button_add")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -67,12 +68,15 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
-            <Text style={API.styles.h1}>Add Packs</Text>
-            <Text style={API.styles.pHome}>Choose a pack that you want to enable for this profile.</Text>
+            <Text style={API.styles.h1}>{API.t("settings_add_packs_title")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_add_packs_description")}</Text>
           </View>
 
-          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15, paddingHorizontal: 25}}>
-           {this.state.data.map(pack => this.renderItem(pack))}
+          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30,}}>
+            <View style={{flex: 1, paddingTop: 15, paddingHorizontal: 25}}>
+             {this.state.data.map(pack => this.renderItem(pack))}
+            </View>
+            <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
       </>

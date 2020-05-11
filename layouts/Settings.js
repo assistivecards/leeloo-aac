@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, Image as RNImage, PanResponder, Animated } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, Image, PanResponder, Animated } from 'react-native';
 import Constants from 'expo-constants';
-import Svg, { Path, Line, Circle, Polyline } from 'react-native-svg';
-import { Image } from 'react-native-elements';
+import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { BlurView } from 'expo-blur';
 
@@ -17,7 +16,9 @@ export default class App extends React.Component {
     this.state = {
       userSettings: false,
       pan: new Animated.ValueXY(),
-      lock: false
+      lock: API.locked,
+      lockByUser: false,
+      lockAnim: new Animated.Value(API.locked ? 0 : 1)
     };
 
     this.state.panResponder = PanResponder.create({
@@ -32,10 +33,18 @@ export default class App extends React.Component {
       onPanResponderRelease: () => {
         let xVal = this.state.pan.x._value;
         let yVal = this.state.pan.y._value;
-        if(yVal < -200 && yVal > -270){
-          if(xVal > -20 && xVal < 20){
+        if(yVal < 25 && yVal > -25){
+          if(xVal > -170 && xVal < -90){
             console.log("UNLOCKED!!!");
-            this.setState({lock: false})
+
+            Animated.timing(this.state.lockAnim, {
+              toValue: 0,
+              duration: 200
+            }).start();
+            setTimeout(() => {
+              this.setState({lock: false});
+              API.locked = false;
+            }, 200)
           }
         }
         Animated.spring(
@@ -51,12 +60,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
+    if(API.locked){
+      this.state.lockAnim.setValue(1);
+    }else{
+      this.state.lockAnim.setValue(0);
+    }
     API.event.on("refresh", this._refreshHandler)
     API.hit("Settings");
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-
-
-
   }
 
   _refreshHandler = () => {
@@ -68,14 +79,37 @@ export default class App extends React.Component {
     ScreenOrientation.unlockAsync();
   }
 
+
+  lockPress(){
+    this.setState({
+      lock: true,
+      lockByUser: true
+    })
+    API.locked = true;
+
+    Animated.timing(this.state.lockAnim, {
+      toValue: 1,
+      duration: 400
+    }).start();
+
+    setTimeout(() => {
+      this.props.navigation.pop();
+    }, 1000);
+  }
+
   render() {
     let user = API.user;
 
     let width = Dimensions.get("window").width;
 
+    let lockBG = this.state.lockAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["rgba(105,137,255,0)", "rgba(105,137,255,0.8)"]
+    });
+
     return (
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} lock={"locked"} lockPress={this.lockPress.bind(this)}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <Profiles navigation={this.props.navigation}/>
           <View style={styles.content}>
@@ -207,23 +241,51 @@ export default class App extends React.Component {
         {
           this.state.lock &&
           <View style={{width: "100%", height: "100%", position: "absolute", top: 0, left: 0}}>
-            <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#F7F7F7"}/>
-            <View style={{backgroundColor: "#F7F7F7", flex: 1, alignItems: "center", justifyContent: "center"}}>
-              <Svg height={50} width={50} viewBox="0 0 24 24">
-                <Path fill={"#29395F"} d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM9 8V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9z"></Path>
-              </Svg>
-              <View style={{height: 180, alignItems: "center"}}>
-                <Text style={API.styles.h2}>Parents Only</Text>
-                <Text style={[API.styles.p, {textAlign: "center"}]}>Drag and drop the key to padlock in order to unlock the Settings</Text>
-              </View>
-              <Animated.View
-                {...this.state.panResponder.panHandlers}
-                style={this.state.pan.getLayout()}>
-                <Svg height={50} width={50} viewBox="0 0 24 24">
-                  <Path fill={"#29395F"} d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></Path>
-                </Svg>
-              </Animated.View>
-            </View>
+            <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+            <Animated.View style={{backgroundColor: lockBG, flex: 1, alignItems: "center", justifyContent: "center"}}>
+              {
+                this.state.lockByUser &&
+                  <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
+                    <ActivityIndicator color={"#6989FF"}/>
+                  </View>
+              }
+              {
+                !this.state.lockByUser &&
+                <Animated.View style={{flex: 1, alignItems: "center", justifyContent: "center", opacity: this.state.lockAnim}}>
+                  <View style={[styles.shadow, {alignItems: "center", justifyContent: "center", backgroundColor: "#6989FF", margin: 20, borderRadius: 40, paddingVertical: 30}]}>
+                    <View style={{marginBottom: 0}}>
+                      <Image source={require("../assets/mascot.png")} style={{width: 100, height: 100}} resizeMode={"contain"}/>
+                    </View>
+                    <Text style={[API.styles.h1, {color: "#fff", marginTop: 15}]}>{API.t("settings_locked_title")}</Text>
+                    <Text style={[API.styles.pHome, {textAlign: "center", marginTop: 5}]}>{API.t("settings_locked_description")}</Text>
+                    <View style={{flexDirection: "row", justifyContent: "center", marginTop: 20}}>
+                      <View style={{width: 50, height: 50, backgroundColor: "#fff", justifyContent: "center", alignItems: "center", borderRadius: 25}}>
+                        <Svg width={30} height={30} viewBox="0 0 24 24" strokeLinecap="round" strokeWidth="2" stroke="#6989FF" fill="none">
+                          <Path stroke="none" d="M0 0h24v24H0z"/>
+                          <Rect x="5" y="11" width="14" height="10" rx="2" />
+                          <Circle cx="12" cy="16" r="1" />
+                          <Path d="M8 11v-5a4 4 0 0 1 8 0" />
+                        </Svg>
+                      </View>
+                      <View style={{width: 100}}></View>
+                      <Animated.View
+                        {...this.state.panResponder.panHandlers}
+                        style={this.state.pan.getLayout()}>
+                        <View style={{width: 50, height: 50, backgroundColor: "#fff", justifyContent: "center", alignItems: "center", borderRadius: 25}}>
+                          <Svg width={30} height={30} viewBox="0 0 24 24" strokeLinecap="round" strokeWidth="2" stroke="#6989FF" fill="none">
+                            <Path stroke="none" d="M0 0h24v24H0z"/>
+                            <Circle cx="8" cy="15" r="4" />
+                            <Line x1="10.85" y1="12.15" x2="19" y2="4" />
+                            <Line x1="18" y1="5" x2="20" y2="7" />
+                            <Line x1="15" y1="8" x2="17" y2="10" />
+                          </Svg>
+                        </View>
+                      </Animated.View>
+                    </View>
+                  </View>
+                </Animated.View>
+              }
+            </Animated.View>
           </View>
         }
       </>
@@ -284,5 +346,16 @@ const styles = StyleSheet.create({
   appSettings: {
     marginHorizontal: 30,
     paddingTop: 5,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4.22,
+
+    elevation: 3,
   }
 });

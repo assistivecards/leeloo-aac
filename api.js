@@ -46,6 +46,7 @@ class Api {
 		if(_DEVELOPMENT && _FLUSH){
 			AsyncStorage.clear();
 		}
+		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		this.analytics = new Analytics(ANALYTICS_KEY);
 		this.config = {
@@ -58,6 +59,8 @@ class Api {
 		}else{
 			this.isOnline = true;
 		}
+
+		this.locked = true;
 
     console.log("API: Created instance");
 		if(!_DEVELOPMENT){

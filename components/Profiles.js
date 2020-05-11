@@ -41,7 +41,7 @@ export default class App extends React.Component {
                   <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0, color: "#fff", fontWeight: "normal"}]}>{API.t("settings_packs", profile.packs.length)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
-                  <Svg height={36} width={36} viewBox="0 0 24 24">
+                  <Svg height={32} width={32} viewBox="0 0 24 24">
                     <Path fill={"#fff"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
                   </Svg>
                 </View>
