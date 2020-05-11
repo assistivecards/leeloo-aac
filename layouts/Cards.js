@@ -37,7 +37,7 @@ export default class Setting extends React.Component {
 
   async fetchCards(packSlug){
     try {
-      let cards = await fetch(`https://leeloo.dreamoriented.org/json/${packSlug}.json?v=${API.version}`).then(res => res.json());
+      let cards = await fetch(`https://leeloo.dreamoriented.org/packs/${API.user.language}/${packSlug}.json?v=${API.version}`).then(res => res.json());
       this.setState({cards, packSlug})
     } catch(err){
       console.log(err);
