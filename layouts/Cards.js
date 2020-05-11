@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
 
 import API from '../api';
-import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image as CachedImage } from "react-native-expo-image-cache";
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import Search from '../components/Search'
 import TopBar from '../components/TopBar'
@@ -13,7 +13,8 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      cards: []
+      cards: [],
+      orientation: this.props.navigation.getParam("orientation")
     }
     this.pack = this.props.navigation.getParam("pack");
 
@@ -22,6 +23,16 @@ export default class Setting extends React.Component {
   componentDidMount(){
     API.hit("Pack:"+this.pack.name);
     this.fetchCards(this.pack.name);
+    this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
+  }
+
+  _orientationChanged(orientation){
+    let newOrientation = orientation.orientationInfo.horizontalSizeClass == "1"? "portrait" : "landscape";
+    this.setState({orientation: newOrientation});
+  }
+
+  componentWillUnmount(){
+    ScreenOrientation.removeOrientationChangeListener(this.orientationSubscription);
   }
 
   async fetchCards(packSlug){
@@ -45,9 +56,10 @@ export default class Setting extends React.Component {
             <View style={styles.board}>
               {this.state.cards.map((card, i) => {
                 return (
-                  <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})} style={styles.cardItem}>
+                  <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.state.packSlug})}
+                    style={this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape}>
                     <View style={styles.cardItemInner}>
-                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}.png?v=${API.version}`} style={{width: 100, height: 100, margin: 10}}/>
+                      <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/${this.pack.name}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
                       <Text style={styles.cardItemText}>{card.title}</Text>
                     </View>
                   </TouchableScale>
@@ -66,10 +78,6 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: "center"
   },
-  cardItem: {
-    width: "33.3%",
-    height: 160
-  },
   board: {
     justifyContent: "flex-start",
     flexDirection: "row",
@@ -87,6 +95,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 2
   },
+  cardItem: {
+    width: "33.3%",
+    height: 130
+  },
+  cardItemLandscape: {
+    width: "25%",
+    height: 130
+  },
   cardItemInner: {
     justifyContent: "center",
     alignItems: "center",
@@ -95,8 +111,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F7F7"
   },
   cardItemText:{
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "normal",
-    marginBottom: 10
+    marginBottom: 10,
+    marginHorizontal: 10,
+    textAlign: "center"
   }
 });

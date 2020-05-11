@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
 
 import API from '../api';
-import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 import * as ScreenOrientation from 'expo-screen-orientation';
 
@@ -34,12 +33,16 @@ export default class Setting extends React.Component {
     API.speak(`Hello ${API.user.active_profile.name}`);
     API.event.on("refresh", this._refreshHandler)
     this.getCategories(API.user.active_profile.packs);
-    ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
+    this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
   }
 
   _orientationChanged(orientation){
     let newOrientation = orientation.orientationInfo.horizontalSizeClass == "1"? "portrait" : "landscape";
     this.setState({orientation: newOrientation});
+  }
+
+  componentWillUnmount(){
+    ScreenOrientation.removeOrientationChangeListener(this.orientationSubscription);
   }
 
   _refreshHandler = () => {
@@ -77,7 +80,7 @@ export default class Setting extends React.Component {
   }
 
   openCards(pack){
-    this.props.navigation.push("Cards", {pack});
+    this.props.navigation.push("Cards", {pack, orientation: this.state.orientation});
   }
 
   toggleSearch(status){
