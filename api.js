@@ -30,6 +30,8 @@ const _DEVLOCALE = "en-US";
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ANALYTICS_KEY = 'UA-110111146-1';
 const ASSET_VERSION = 200;
+const RTL = ["ar","ur","he"];
+
 let storage;
 
 storage = new Storage({
@@ -181,6 +183,7 @@ class Api {
 		}
 
 		this.user = userResponse;
+		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
 		this.user.active_profile = await this.getCurrentProfile();
 		return userResponse;
 	}
@@ -223,6 +226,7 @@ class Api {
 					userResponse.profiles[i].packs = JSON.parse(profile.packs);
 				});
 				this.user = userResponse;
+				this.user.isRTL = RTL.includes(this.user.language);
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
 				alert("Please check your internet connectivity!");
@@ -365,12 +369,14 @@ class Api {
 	}
 
 	speak(text){
-		Speech.speak(text, {
-			voice: this.user.voice,
-			language: this.user.langauge,
-			pitch: 1,
-			rate: 1
-		});
+		if(this.user.voice != "unsupported"){
+			Speech.speak(text, {
+				voice: this.user.voice,
+				language: this.user.langauge,
+				pitch: 1,
+				rate: 1
+			});
+		}
 	}
 
 	async getAvailableVoicesAsync(recall){

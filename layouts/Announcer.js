@@ -35,7 +35,7 @@ export default class App extends React.Component {
   render() {
     let user = true;
     let card = this.props.navigation.getParam("card");
-    let packSlug = this.props.navigation.getParam("pack");
+    let pack = this.props.navigation.getParam("pack");
     this.speak(card.title);
     let width = Dimensions.get("window").width;
 
@@ -67,7 +67,7 @@ export default class App extends React.Component {
               </Animated.View>
               <View style={styles.cardMid}>
                 <Animated.View style={{height: this._getInterpolation(150, 150), width: this._getInterpolation(150, 150), borderRadius: this._getInterpolation(30, 0), overflow: "hidden", backgroundColor: "transparent", padding: this._getInterpolation(10, 10)}}>
-                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${packSlug}/${card.slug}@2x.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
+                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${pack.slug}/${card.slug}@2x.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
                 </Animated.View>
               </View>
               <Animated.View style={[styles.button, {left: this._getInterpolation(0, 30)}]}>
@@ -80,78 +80,17 @@ export default class App extends React.Component {
 
           <View style={{flexDirection: "column", alignItems: "center"}}>
             <Text style={[API.styles.h2, {marginTop: 0}]}>{titleCase(card.title)}</Text>
-            <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 15}]}>{packSlug}</Text>
+            <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 15}]}>{pack.locale}</Text>
           </View>
           <View style={styles.content}>
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/n/sushi')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I want to have breakfast</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/n/family')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I don't like having breakfast</Text>
-              </View>
-
-              <View style={[styles.selectionItem, {backgroundColor: "#eee"}]}>
-                <RNImage source={require('@moqada/rn-twemoji/n/apple')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I want you to prepare breakfast for me</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/n/handbag')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>Can I help you prepare breakfast?</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f467')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I like eating breakfast</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f30b')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I want you to prepare breakfast for me</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f467')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>Can I help you prepare breakfast?</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f309')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I like eating breakfast</Text>
-              </View>
-
-              <View style={[styles.selectionItem, {backgroundColor: "#eee"}]}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f191')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I want you to prepare breakfast for meyou to prepare breakfast for meyou to prepare breakfast for me</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f43a')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>Can I help you prepare breakfast?</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f439')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I like eating breakfast</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f437')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I want you to prepare breakfast for me</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f436')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>Can I help you prepare breakfast? I help you prepare breakfast?</Text>
-              </View>
-
-              <View style={styles.selectionItem}>
-                <RNImage source={require('@moqada/rn-twemoji/c/1f43c')} style={styles.selectionIcon} />
-                <Text style={API.styles.bBig}>I like eating breakfast</Text>
-              </View>
+            {card.phrases.map((phrase, pi) => {
+              return(
+                <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} key={pi} onPress={() => API.speak(phrase.phrase)}>
+                  <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>{phrase.type}</Text>
+                  <Text style={[API.styles.bBig, {textAlign: API.user.isRTL ? "right" : "left"}]}>{phrase.phrase}</Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </ScrollView>
         </View>

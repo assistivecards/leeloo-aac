@@ -124,6 +124,12 @@ const styles = StyleSheet.create({
     height: 250,
     position: "relative",
     top: 250
+  },
+  iosBottomPadderSmall: {
+    backgroundColor: "#fff",
+    height: 40,
+    position: "relative",
+    top: 40
   }
 });
 

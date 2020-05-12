@@ -172,7 +172,7 @@ export default class Setting extends React.Component {
                       <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
                         <Path fill={"#fff"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
                       </Svg>
-                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>USE</Text>
+                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>{API.t("button_use")}</Text>
                     </TouchableOpacity>
                   }
 
@@ -181,7 +181,7 @@ export default class Setting extends React.Component {
                       <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
                         <Path fill={"#777"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
                       </Svg>
-                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5, color: "#777"}]}>USING</Text>
+                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5, color: "#777"}]}>{API.t("button_using")}</Text>
                     </View>
                   }
 

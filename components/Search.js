@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return (
       <LinearGradient style={styles.textInputCarrier} colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.9)', 'rgba(255,255,255,0)']}>
         <TextInput
-          placeholder={"Search cards and phrases..."}
+          placeholder={API.t("search_input_placeholder")}
           style={styles.textInput}
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}

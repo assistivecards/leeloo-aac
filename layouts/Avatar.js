@@ -37,8 +37,8 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={styles.head}>
-            <Text style={API.styles.h1}>Change Avatar</Text>
-            <Text style={API.styles.pHome}>Choose an avatar to symbolize this profile.</Text>
+            <Text style={API.styles.h1}>{API.t("settings_change_avatar_title")}</Text>
+            <Text style={API.styles.pHome}>{API.t("settings_change_avatar_description")}</Text>
           </View>
 
           <View style={{ flex: 1, paddingHorizontal: 30, backgroundColor: "#fff", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>

@@ -1,5 +1,6 @@
 {
 	"appName": "Leeloo",
+	"hello_you": "Hello $1",
 	"settings_packs": "$1 packs",
 	"settings_cards": "$1 cards",
 	"settings_profile_active": "ACTIVE",
@@ -12,6 +13,8 @@
 	"settings_new_profile_profileAvatar_description": "Choose an avatar that looks like the user of this profile",
 	"settings_new_profile_aacCards_title": "Assistive Cards Packs",
 	"settings_new_profile_aacCards_description": "We will set default cards for this profile. You can add or remove the assistive card packs after creating",
+	"settings_change_avatar_title": "Change Avatar",
+	"settings_change_avatar_description": "Choose an avatar to symbolize this profile",
 
 	"settings_add_packs_title": "Add Packs",
 	"settings_add_packs_description": "Choose a pack that you want to enable for this profile.",
@@ -73,8 +76,10 @@
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over padlock in order to unlock the Settings",
 
+	"search_input_placeholder": "Search cards and phrases...",
 
-
+	"button_use": "USE",
+	"button_using": "USING",
 	"button_add": "ADD",
 	"alert_yourDeviceDoesNotSupportTTS": "Your device doesn't support voice driver for this language. In order to use TTS capabilities, you need to install a voice driver. You can try 'Google TTS' app to install and manage drivers!",
 	"alert_signout_title": "Confirm Sign Out",

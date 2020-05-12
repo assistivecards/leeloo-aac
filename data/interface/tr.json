@@ -1,5 +1,6 @@
 {
 	"appName": "Leeloo",
+	"hello_you": "Merhaba $1",
 	"settings_packs": "$1 paket",
 	"settings_profile_active": "Etkin",
 

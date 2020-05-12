@@ -15,7 +15,7 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      categories: [],
+      packs: [],
       search: false,
       searchToggleAnim: new Animated.Value(0),
       term: "",
@@ -31,14 +31,17 @@ export default class Setting extends React.Component {
 
   componentDidMount(){
     API.hit("Home");
-    API.speak(`Hello ${API.user.active_profile.name}`);
+    API.speak(API.t("hello_you", API.user.active_profile.name));
     API.event.on("refresh", this._refreshHandler)
     this.getPacks(API.user.active_profile.packs);
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
   }
 
   _orientationChanged(orientation){
-    let newOrientation = orientation.orientationInfo.horizontalSizeClass == "1"? "portrait" : "landscape";
+    let newOrientation = "portrait";
+    if(orientation.orientationInfo.orientation == 3 || orientation.orientationInfo.orientation == 4){
+      newOrientation = "landscape";
+    }
     this.setState({orientation: newOrientation});
   }
 
@@ -68,7 +71,7 @@ export default class Setting extends React.Component {
   async getPacks(packs, force){
     let allPacks = await API.getPacks(force);
 
-    let categories = packs.map(pack => {
+    let filteredPacks = packs.map(pack => {
       let filter = allPacks.filter(allpack => allpack.slug == pack);
       if(filter.length){
         let filtered = filter[0];
@@ -76,12 +79,12 @@ export default class Setting extends React.Component {
         return filtered;
       }
     }).filter(data => typeof data != "undefined");
-    this.setState({categories});
+    this.setState({packs: filteredPacks});
 
   }
 
-  openCards(pack){
-    this.props.navigation.push("Cards", {pack, orientation: this.state.orientation});
+  openCards(pack, packIndex){
+    this.props.navigation.push("Cards", {pack, packs: this.state.packs, packIndex, orientation: this.state.orientation});
   }
 
   toggleSearch(status){
@@ -132,8 +135,8 @@ export default class Setting extends React.Component {
         <ScrollView stickyHeaderIndices={[1]} contentInsetAdjustmentBehavior="automatic">
           <SafeAreaView>
             <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
-                <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
-                  <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>Hello {API.user.active_profile.name}</Text>
+                <View style={{flexDirection: API.user.isRTL ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
+                  <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
                   <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
                     <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/avatar/${API.user.active_profile.avatar}.png`}}
                       style={{width: 40, height: 40, position: "relative", top: 4}}
@@ -157,9 +160,9 @@ export default class Setting extends React.Component {
             <SafeAreaView>
               <Animated.View style={[styles.board, {opacity: boardOpacity, transform: [{translateY: boardTranslate}]}]}>
                 {
-                  API.user.active_profile && this.state.categories.map((pack, i) => {
+                  API.user.active_profile && this.state.packs.map((pack, i) => {
                     return (
-                      <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack)}>
+                      <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack, i)}>
                         <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
                           <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/icon/${pack.slug}.png`}} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
                           <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
@@ -186,12 +189,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#6989FF"
   },
-  categories: {
-    backgroundColor: "#6989FF",
-    height: 10
-  },
   avatar: {
-    marginRight: 30, padding: 2, backgroundColor: "#a5d5ff", borderRadius: 40, overflow: "hidden",
+    marginHorizontal: 30, padding: 2, backgroundColor: "#a5d5ff", borderRadius: 40, overflow: "hidden",
     width: 45,
     height: 45,
     marginTop: 5,
