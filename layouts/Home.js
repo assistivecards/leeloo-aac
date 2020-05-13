@@ -45,19 +45,15 @@ export default class Setting extends React.Component {
     this.setState({orientation: newOrientation});
   }
 
-  componentWillUnmount(){
-    ScreenOrientation.removeOrientationChangeListener(this.orientationSubscription);
-  }
-
   _refreshHandler = () => {
     this.forceUpdate();
     this.getPacks(API.user.active_profile.packs, true);
   };
 
   componentWillUnmount(){
+    ScreenOrientation.removeOrientationChangeListener(this.orientationSubscription);
     API.event.removeListener("refresh", this._refreshHandler)
   }
-
 
   openSettings(){
     if(API.isOnline){
@@ -81,6 +77,7 @@ export default class Setting extends React.Component {
     }).filter(data => typeof data != "undefined");
     this.setState({packs: filteredPacks});
 
+    API.ramCards(packs);
   }
 
   openCards(pack, packIndex){

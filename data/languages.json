@@ -6,7 +6,8 @@
       "support": ["apple", "google"],
       "title": "English",
       "native": "English",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": true
     },
     {
       "code": "es",
@@ -14,7 +15,8 @@
       "support": ["apple", "google"],
       "title": "Spanish",
       "native": "Español",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "fr",
@@ -22,7 +24,8 @@
       "support": ["apple", "google"],
       "title": "French",
       "native": "Français",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "de",
@@ -30,7 +33,8 @@
       "support": ["apple", "google"],
       "title": "German",
       "native": "Deutsch",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "it",
@@ -38,7 +42,8 @@
       "support": ["apple", "google"],
       "title": "Italian",
       "native": "Italiano",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ja",
@@ -46,7 +51,8 @@
       "support": ["apple", "google"],
       "title": "Japanese",
       "native": "日本語",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ko",
@@ -54,7 +60,8 @@
       "support": ["apple", "google"],
       "title": "Korean",
       "native": "한국어",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "zh",
@@ -62,7 +69,8 @@
       "support": ["apple", "google"],
       "title": "Mandarin Chinese",
       "native": "普通话",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ar",
@@ -70,7 +78,8 @@
       "support": ["apple"],
       "title": "Arabic",
       "native": "العربية",
-      "rightToLeft": true
+      "rightToLeft": true,
+      "readproof": false
     },
     {
       "code": "cs",
@@ -78,7 +87,8 @@
       "support": ["apple", "google"],
       "title": "Czech",
       "native": "čeština",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "da",
@@ -86,7 +96,8 @@
       "support": ["apple", "google"],
       "title": "Danish",
       "native": "dansk",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "nl",
@@ -94,7 +105,8 @@
       "support": ["apple", "google"],
       "title": "Dutch",
       "native": "Nederlands",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "fi",
@@ -102,7 +114,8 @@
       "support": ["apple", "google"],
       "title": "Finnish",
       "native": "suomi",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "el",
@@ -110,7 +123,8 @@
       "support": ["apple", "google"],
       "title": "Greek",
       "native": "ελληνικά",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "he",
@@ -118,7 +132,8 @@
       "support": ["apple"],
       "title": "Hebrew",
       "native": "עברית",
-      "rightToLeft": true
+      "rightToLeft": true,
+      "readproof": false
     },
     {
       "code": "hi",
@@ -126,7 +141,8 @@
       "support": ["apple", "google"],
       "title": "Hindi",
       "native": "हिन्दी",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "hu",
@@ -134,7 +150,8 @@
       "support": ["apple", "google"],
       "title": "Hungarian",
       "native": "magyar",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "id",
@@ -142,7 +159,8 @@
       "support": ["apple", "google"],
       "title": "Indonesian",
       "native": "Bahasa Indonesia",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "nb",
@@ -150,7 +168,8 @@
       "support": ["apple", "google"],
       "title": "Norwegian",
       "native": "norsk",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "pl",
@@ -158,7 +177,8 @@
       "support": ["apple", "google"],
       "title": "Polish",
       "native": "polski",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "pt",
@@ -166,7 +186,8 @@
       "support": ["apple", "google"],
       "title": "Portuguese",
       "native": "Português",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ro",
@@ -174,7 +195,8 @@
       "support": ["apple", "google"],
       "title": "Romanian",
       "native": "limba română",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ru",
@@ -182,7 +204,8 @@
       "support": ["apple", "google"],
       "title": "Russian",
       "native": "русский",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "sk",
@@ -190,7 +213,8 @@
       "support": ["apple", "google"],
       "title": "Slovak",
       "native": "slovenčina",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "sv",
@@ -198,7 +222,8 @@
       "support": ["apple","google"],
       "title": "Swedish",
       "native": "svenska",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "th",
@@ -206,7 +231,8 @@
       "support": ["apple", "google"],
       "title": "Thai",
       "native": "ภาษาไทย",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "tr",
@@ -214,7 +240,8 @@
       "support": ["apple"],
       "title": "Turkish",
       "native": "Türkçe",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": true
     },
     {
       "code": "ur",
@@ -222,7 +249,8 @@
       "support": ["google"],
       "title": "Urdu",
       "native": "اردو",
-      "rightToLeft": true
+      "rightToLeft": true,
+      "readproof": false
     },
     {
       "code": "bn",
@@ -230,7 +258,8 @@
       "support": ["google"],
       "title": "Bengali",
       "native": "বাংলা",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "et",
@@ -238,7 +267,8 @@
       "support": ["google"],
       "title": "Estonian",
       "native": "Eestlane",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "fil",
@@ -246,7 +276,8 @@
       "support": ["google"],
       "title": "Filipino",
       "native": "Pilipino",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": true
     },
     {
       "code": "jv",
@@ -254,7 +285,8 @@
       "support": ["google"],
       "title": "Javanese",
       "native": "Basa Jawa",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "km",
@@ -262,7 +294,8 @@
       "support": ["google"],
       "title": "Khmer",
       "native": "ខ្មែរ",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "ne",
@@ -270,7 +303,8 @@
       "support": ["google"],
       "title": "Nepali",
       "native": "नेपाली",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "si",
@@ -278,7 +312,8 @@
       "support": ["google"],
       "title": "Sinhala",
       "native": "සිංහල",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "uk",
@@ -286,7 +321,8 @@
       "support": ["google"],
       "title": "Ukrainian",
       "native": "Українська",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     },
     {
       "code": "vi",
@@ -294,7 +330,8 @@
       "support": ["google"],
       "title": "Vietnamese",
       "native": "Tiếng Việt",
-      "rightToLeft": false
+      "rightToLeft": false,
+      "readproof": false
     }
   ]
 }

@@ -48,6 +48,7 @@ class Api {
 		if(_DEVELOPMENT && _FLUSH){
 			AsyncStorage.clear();
 		}
+		this.cards = {};
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		this.analytics = new Analytics(ANALYTICS_KEY);
@@ -441,7 +442,7 @@ class Api {
 
 
 	async getPacks(force){
-		var url = API_ENDPOINT + "packs/" + this.user.language + "/metadata.json";
+		var url = API_ENDPOINT + "packs/" + this.user.language + "/metadata.json?v="+this.version;
 
 		if(this.packs && force == null){
 			console.log("pulling from ram");
@@ -462,6 +463,37 @@ class Api {
 			}
 			this.packs = packsResponse;
 			return packsResponse;
+		}
+	}
+
+	async ramCards(slugArray, force){
+		slugArray.forEach((pack, i) => {
+			this.getCards(pack, force);
+		});
+	}
+
+	async getCards(slug, force){
+		var url = API_ENDPOINT + "packs/" + this.user.language + "/"+ slug +".json?v="+this.version;
+
+		if(this.cards[slug] && force == null){
+			console.log("pulling from ram", "cardsFor", slug);
+			return this.cards[slug];
+		}else{
+			let cardsResponse;
+			try {
+				cardsResponse = await fetch(url, {cache: "no-cache"})
+				.then(res => res.json());
+				this.setData("cards:"+slug, JSON.stringify(cardsResponse));
+
+			} catch(error){
+				console.log("Offline, Falling back to cached cardData!", error);
+				let cardsResponseString = await this.getData("cards:"+slug);
+				if(cardsResponseString){
+					cardsResponse = JSON.parse(cardsResponseString);
+				}
+			}
+			this.cards[slug] = cardsResponse;
+			return cardsResponse;
 		}
 	}
 
