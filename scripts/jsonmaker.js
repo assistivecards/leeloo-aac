@@ -6,13 +6,13 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
-let filename = "people";
+let filename = "conversation";
 let content = fs.readFileSync("packs/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
   return Promise.all(cardRows.map((phrase, j) => {
     if(j >= 2){
-      let strippedPhrase = emojiStrip(phrase);
+      let strippedPhrase = emojiStrip(phrase).replace(/[^\x00-\x7F]/g, ""); // 🧼🧻🧸🧽🧍🥶🧎🦶
       let emoji = phrase.replace(strippedPhrase, "");
       if(phrase != ""){
         return translate.translate(strippedPhrase, lang).then(translations => {

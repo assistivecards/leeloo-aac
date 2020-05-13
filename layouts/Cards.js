@@ -97,7 +97,7 @@ export default class Setting extends React.Component {
             <View style={styles.board}>
               {this.state.cards.map((card, i) => {
                 return (
-                  <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.pack})}
+                  <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.pack, orientation: this.state.orientation})}
                     style={this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape}>
                     <View style={styles.cardItemInner}>
                       <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
@@ -137,8 +137,7 @@ const styles = StyleSheet.create({
     	height: 1,
     },
     shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 2
+    shadowRadius: 2.22
   },
   cardItem: {
     width: "33.3%",

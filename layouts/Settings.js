@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Dimensions, Touc
 import Constants from 'expo-constants';
 import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { BlurView } from 'expo-blur';
 
 import API from '../api'
 
@@ -210,7 +209,7 @@ export default class App extends React.Component {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/termsofservice/"})}>
+                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/termsofuse/"})}>
                   <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
                     <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <Path stroke="none" d="M0 0h24v24H0z"/>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, FlatList } from 'react-native';
 import DraggableFlatList from "react-native-draggable-flatlist";
 import { Image as CachedImage } from "react-native-expo-image-cache";
 
@@ -65,19 +65,16 @@ export default class Setting extends React.Component {
     return (
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-          <View style={styles.head}>
-            <Text style={API.styles.h1}>{API.t("settings_add_packs_title")}</Text>
-            <Text style={API.styles.pHome}>{API.t("settings_add_packs_description")}</Text>
-          </View>
-
+        <View style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
-            <View style={{flex: 1, paddingTop: 20, paddingHorizontal: 25}}>
-             {this.state.data.map(pack => this.renderItem(pack))}
-            </View>
-            <View style={API.styles.iosBottomPadder}></View>
+            <FlatList
+               style={{flex: 1,  paddingTop: 20, paddingHorizontal: 25}}
+               data={this.state.data}
+               renderItem={({ item }) => this.renderItem(item)}
+               keyExtractor={item => "pack-"+item.id}
+             />
           </View>
-        </ScrollView>
+        </View>
       </>
     )
   }

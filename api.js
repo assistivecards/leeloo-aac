@@ -368,13 +368,17 @@ class Api {
 		}
 	}
 
-	speak(text){
+	speak(text, speed){
+		let rate = 1;
+		if(speed == "slow"){
+			rate = 0.5;
+		}
 		if(this.user.voice != "unsupported"){
 			Speech.speak(text, {
 				voice: this.user.voice,
 				language: this.user.langauge,
 				pitch: 1,
-				rate: 1
+				rate: rate
 			});
 		}
 	}
@@ -431,6 +435,9 @@ class Api {
 		}
 	}
 
+	phrase(string){
+		return string.replace("{name}", this.user.active_profile.name)
+	}
 
 
 	async getPacks(force){

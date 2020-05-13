@@ -68,36 +68,23 @@ const ModelNavigator = createStackNavigator({
   {
     mode: 'modal',
     headerMode: 'none',
-    navigationOptions: {
+    defaultNavigationOptions: {
       headerVisible: false,
+      gesturesEnabled: false,
+    },
+    cardStyle: {
+      backgroundColor: 'transparent',
+      opacity: 1,
     },
     transparentCard: true,
-    navigationOptions: {
-     gesturesEnabled: false,
-   },
-   transitionConfig: () => ({
-     transitionSpec: {
-       duration: 0
-     },
-     screenInterpolator: sceneProps => {
-       const { layout, position, scene } = sceneProps;
-       const { index } = scene;
-
-       const height = layout.initHeight;
-
-       const opacity = position.interpolate({
-         inputRange: [index - 1, index],
-         outputRange: [0, 1],
-       });
-
-       const translateY = position.interpolate({
-         inputRange: ([index - 1, index, index + 1]: Array<number>),
-         outputRange: ([height, 0, 0]: Array<number>)
-       });
-
-       return { opacity, transform: [{ translateY }], };
-     },
-   }),
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+      },
+      containerStyle: {
+        backgroundColor: 'transparent',
+      }
+    })
   }
 );
 
