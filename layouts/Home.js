@@ -77,7 +77,7 @@ export default class Setting extends React.Component {
     }).filter(data => typeof data != "undefined");
     this.setState({packs: filteredPacks});
 
-    API.ramCards(packs);
+    API.ramCards(packs, force);
   }
 
   openCards(pack, packIndex){
@@ -135,7 +135,7 @@ export default class Setting extends React.Component {
                 <View style={{flexDirection: API.user.isRTL ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
                   <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
                   <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
-                    <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/avatar/${API.user.active_profile.avatar}.png`}}
+                    <CachedImage uri={`${API.assetEndpoint}cards/avatar/${API.user.active_profile.avatar}.png?v=${API.version}`}
                       style={{width: 40, height: 40, position: "relative", top: 4}}
                       resizeMode={"contain"}
                       />
@@ -161,7 +161,7 @@ export default class Setting extends React.Component {
                     return (
                       <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack, i)}>
                         <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
-                          <Image source={{uri: `https://leeloo.dreamoriented.org/cdn/icon/${pack.slug}.png`}} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
+                          <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
                           <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
                         </View>
                       </TouchableScale>

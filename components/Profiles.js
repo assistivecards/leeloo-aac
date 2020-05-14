@@ -31,7 +31,7 @@ export default class App extends React.Component {
             return (
               <TouchableOpacity style={[styles.profileItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} key={profile.id} onPress={() => this.editProfile(profile)}>
                 <View style={styles.child}>
-                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${profile.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                  <CachedImage uri={`${API.assetEndpoint}cards/avatar/${profile.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                 </View>
                 {API.user.active_profile.id == profile.id &&
                   <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 10, color: "#6989FF"}}>{API.t("settings_profile_active")}</Text></View>

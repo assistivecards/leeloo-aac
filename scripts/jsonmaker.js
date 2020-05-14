@@ -6,7 +6,7 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
-let filename = "transport";
+let filename = "feelings";
 let content = fs.readFileSync("packs/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
@@ -15,7 +15,7 @@ function phraseTranslation(lang, cardRows){
       let strippedPhrase = emojiStrip(phrase).replace(/[^\x00-\x7F]/g, ""); // 🧼🧻🧸🧽🧍🥶🧎🦶
       let emoji = phrase.replace(strippedPhrase, "");
       if(phrase != ""){
-        return translate.translate(strippedPhrase, lang).then(translations => {
+        return translate.translate(strippedPhrase, { from: "en", to: lang }).then(translations => {
           return Promise.resolve({
             type: emoji,
             phrase: translations[0]
@@ -33,7 +33,7 @@ function cardTranslation(lang){
     if(i >= 2){
       let cardRows = card.split(",");
       return phraseTranslation(lang, cardRows).then(translatedPhrases => {
-        return translate.translate(cardRows[1], lang).then(translations => {
+        return translate.translate(cardRows[1], { from: "en", to: lang }).then(translations => {
           return Promise.resolve({
             slug: cardRows[0],
             title: translations[0],

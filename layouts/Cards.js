@@ -67,14 +67,14 @@ export default class Setting extends React.Component {
               <Svg height={24} width={24} viewBox="0 0 24 24" style={{opacity: 0.8}}>
                 <Path fill={"#000"} d="M14.71 15.88L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z"></Path>
               </Svg>
-              <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/icon/${this.packs[this.packIndex - 1].slug}.png?v=${API.version}`} style={{width: 32, height: 32, margin: 5, marginRight: 8}}/>
+              <CachedImage uri = {`${API.assetEndpoint}cards/icon/${this.packs[this.packIndex - 1].slug}.png?v=${API.version}`} style={{width: 32, height: 32, margin: 5, marginRight: 8}}/>
               <Text style={styles.navigationCategoryText}>{titleCase(this.packs[this.packIndex - 1].locale)}</Text>
             </TouchableScale>
           }
           {this.packIndex != (this.packs.length - 1) &&
             <TouchableScale onPress={() => this.openCards(this.packs[this.packIndex + 1], this.packIndex + 1)} style={[styles.navigationCategory, {backgroundColor: this.packs[this.packIndex + 1].color, paddingLeft: 15}]}>
               <Text style={styles.navigationCategoryText}>{titleCase(this.packs[this.packIndex + 1].locale)}</Text>
-              <CachedImage uri = {`https://leeloo.dreamoriented.org/cdn/icon/${this.packs[this.packIndex + 1].slug}.png?v=${API.version}`} style={{width: 32, height: 32, margin: 5, marginLeft: 8}}/>
+              <CachedImage uri = {`${API.assetEndpoint}cards/icon/${this.packs[this.packIndex + 1].slug}.png?v=${API.version}`} style={{width: 32, height: 32, margin: 5, marginLeft: 8}}/>
               <Svg height={24} width={24} viewBox="0 0 24 24" style={{opacity: 0.8}}>
                 <Path fill={"#000"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
               </Svg>
@@ -100,7 +100,7 @@ export default class Setting extends React.Component {
                   <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.pack, orientation: this.state.orientation})}
                     style={this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape}>
                     <View style={styles.cardItemInner}>
-                      <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
+                      <CachedImage uri={`${API.assetEndpoint}cards/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
                       <Text style={styles.cardItemText}>{titleCase(card.title)}</Text>
                     </View>
                   </TouchableScale>

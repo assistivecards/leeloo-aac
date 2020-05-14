@@ -45,21 +45,21 @@ export default class Setting extends React.Component {
            {Array.apply(null, Array(33)).map((boy, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"boy"+(i+1)} onPress={() => this.changeAvatar(`boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
-                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                 <Image source={{uri: `${API.assetEndpoint}cards/avatar/boy${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                </TouchableOpacity>
              )
            })}
            {Array.apply(null, Array(27)).map((girl, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"girl"+(i+1)} onPress={() => this.changeAvatar(`girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
-                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                 <Image source={{uri: `${API.assetEndpoint}cards/avatar/girl${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                </TouchableOpacity>
              )
            })}
            {Array.apply(null, Array(29)).map((misc, i) => {
              return (
                <TouchableOpacity style={styles.childAvatar} key={"misc"+(i+1)} onPress={() => this.changeAvatar(`misc${(i+1) < 10 ? "0"+(i+1) : (i+1)}`)}>
-                 <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/misc${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                 <Image source={{uri: `${API.assetEndpoint}cards/avatar/misc${(i+1) < 10 ? "0"+(i+1) : (i+1)}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                </TouchableOpacity>
              )
            })}

@@ -62,7 +62,7 @@ export default class Setting extends React.Component {
                 <Text style={API.styles.subSmall}>{API.t("settings_new_profile_profileAvatar_description")}</Text>
                 <View style={{justifyContent: "center", alignItems: "center"}}>
                   <TouchableOpacity style={styles.childAvatar} onPress={() => this.props.navigation.push("Avatar", {avatar: this.changeAvatar.bind(this)})}>
-                    <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${this.state.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                    <CachedImage uri={`${API.assetEndpoint}cards/avatar/${this.state.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                   </TouchableOpacity>
                 </View>
               </View>

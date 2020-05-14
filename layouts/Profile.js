@@ -121,13 +121,11 @@ export default class Setting extends React.Component {
 
     return (
       <TouchableOpacity activeOpacity={0.9} style={[styles.packItem, {transform: [{scale: isActive ? 1.1 : 1}]}]} onLongPress={() => { API.haptics("impact"); drag(); }}>
-
-
         <Svg height={20} width={20} viewBox="0 0 24 24">
           <Path fill={"#8A8E9C"} d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></Path>
         </Svg>
         <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
-          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
+          <CachedImage uri={`${API.assetEndpoint}cards/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
         </View>
         <View>
           <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{titleCase(item.locale)}</Text>
@@ -156,7 +154,7 @@ export default class Setting extends React.Component {
               <View style={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
 
                 <TouchableOpacity style={styles.childAvatar} onPress={() => this.props.navigation.push("Avatar", {avatar: this.changeAvatar.bind(this)})}>
-                  <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/avatar/${this.state.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
+                  <Image source={{uri: `${API.assetEndpoint}cards/avatar/${this.state.avatar}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                 </TouchableOpacity>
                 <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5}}>
                   <TextInput style={[API.styles.h1, {marginRight: 0, marginLeft: 10}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>

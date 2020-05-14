@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Animated, ActivityIndicator, Dimens
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
-import { Image as CachedImage } from "react-native-expo-image-cache";
+import { Image as CachedImage, CacheManager } from "react-native-expo-image-cache";
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ScreenOrientation from 'expo-screen-orientation';
@@ -85,6 +85,7 @@ export default class App extends React.Component {
         }
       }
     });
+
   }
 
   componentDidMount(){
@@ -186,7 +187,7 @@ export default class App extends React.Component {
                 </TouchableScale>
                 <View style={styles.cardMid}>
                   <Animated.View style={{height: 150, width: 150, borderRadius: 0, overflow: "hidden", backgroundColor: "transparent", padding: 10}}>
-                    <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${this.card.slug}.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
+                    <CachedImage uri={`${API.assetEndpoint}cards/${this.pack.slug}/${this.card.slug}.png?v=${API.version}`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
                   </Animated.View>
                 </View>
                 <TouchableScale onPress={() => this.speak(this.card.title, "slow")} style={[styles.button, {left: 0}]}>

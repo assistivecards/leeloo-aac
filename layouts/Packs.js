@@ -43,7 +43,7 @@ export default class Setting extends React.Component {
     return (
       <View key={item.slug} style={styles.packItem}>
         <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
-          <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
+          <CachedImage uri={`${API.assetEndpoint}cards/icon/${item.slug}.png?v=${API.version}`} style={styles.packImage} />
         </View>
         <View>
           <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{titleCase(item.locale)}</Text>

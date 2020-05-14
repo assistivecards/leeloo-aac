@@ -10,7 +10,8 @@
     "bi": "expo bi",
     "p": "expo publish",
     "x": "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator -CurrentDeviceUDID 7989C828-4F80-4389-885F-DD5BE30C074F",
-    "set": "set GOOGLE_APPLICATION_CREDENTIALS=note-1555109906591-0fdf76eae8e8.json"
+    "set": "set GOOGLE_APPLICATION_CREDENTIALS=note-1555109906591-0fdf76eae8e8.json",
+    "push": "aws s3 sync data s3://api.assistivecards.com --delete"
   },
   "dependencies": {
     "@google-cloud/translate": "^5.3.0",

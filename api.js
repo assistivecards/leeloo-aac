@@ -28,8 +28,9 @@ const _DEVUSERIDENTIFIER = "114203700870626824237";
 const _DEVLOCALE = "en-US";
 
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
+const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 200;
+const ASSET_VERSION = 201;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -57,6 +58,8 @@ class Api {
 			theme: themes.light
 		}
 		this.version = ASSET_VERSION;
+		this.assetEndpoint = ASSET_ENDPOINT;
+
 		this.event = Event;
 		if(_DEVELOPMENT){
 			this.isOnline = _NETWORK_STATUS;
@@ -240,7 +243,6 @@ class Api {
 		}
 	}
 
-
 	async newProfile(profile){
 		if(this.user.identifier && profile.name){
 	    var url = API_ENDPOINT + "profile/";
@@ -251,7 +253,7 @@ class Api {
 			formData.append('packs', `["conversation","people","feelings","food","animals","school","activities","shapes","colors","clothes"]`);
 
 			try {
-				let newProfileResponse = await fetch(url, { method: 'POST', body: formData }) 
+				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
 
 				newProfileResponse.packs = JSON.parse(newProfileResponse.packs);
@@ -438,7 +440,7 @@ class Api {
 	}
 
 	async getPacks(force){
-		var url = API_ENDPOINT + "packs/" + this.user.language + "/metadata.json?v="+this.version;
+		var url = ASSET_ENDPOINT + "packs/" + this.user.language + "/metadata.json?v="+this.version;
 
 		if(this.packs && force == null){
 			console.log("pulling from ram");
@@ -501,7 +503,7 @@ class Api {
 	}
 
 	async getCards(slug, force){
-		var url = API_ENDPOINT + "packs/" + this.user.language + "/"+ slug +".json?v="+this.version;
+		var url = ASSET_ENDPOINT + "packs/" + this.user.language + "/"+ slug +".json?v="+this.version;
 
 		if(this.cards[slug] && force == null){
 			console.log("pulling from ram", "cardsFor", slug);
