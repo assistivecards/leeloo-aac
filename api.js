@@ -49,6 +49,7 @@ class Api {
 			AsyncStorage.clear();
 		}
 		this.cards = {};
+		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		this.analytics = new Analytics(ANALYTICS_KEY);
@@ -436,11 +437,6 @@ class Api {
 		}
 	}
 
-	phrase(string){
-		return string.replace("{name}", this.user.active_profile.name)
-	}
-
-
 	async getPacks(force){
 		var url = API_ENDPOINT + "packs/" + this.user.language + "/metadata.json?v="+this.version;
 
@@ -466,10 +462,42 @@ class Api {
 		}
 	}
 
+	search(term){
+		if(term.length >= 3){
+			let results = [];
+			for (var i = 0; i < this.searchArray.length; i++) {
+				if(this.searchArray[i].search.includes(" "+term.toLocaleLowerCase())){
+					results.push(this.searchArray[i]);
+					if(results.length == 10){
+						break;
+					}
+				}
+			}
+			return results;
+		}else{
+			return [];
+		}
+	}
+
+	phrase(string){
+		return string.replace("{name}", this.user.active_profile.name)
+	}
+
 	async ramCards(slugArray, force){
-		slugArray.forEach((pack, i) => {
-			this.getCards(pack, force);
+		for (var i = 0; i < slugArray.length; i++) {
+			await this.getCards(slugArray[i], force);
+		}
+
+		slugArray.forEach((packSlug, i) => {
+			this.cards[packSlug].forEach((card, i) => {
+				this.searchArray.push({search: " "+card.title.toLocaleLowerCase()+" ", slug: card.slug, emoji: null, title: card.title, type: 1});
+
+				card.phrases.forEach((phrase, i) => {
+					this.searchArray.push({search: " "+this.phrase(phrase.phrase).toLocaleLowerCase()+" ", slug: card.slug, emoji: phrase.emoji, title: this.phrase(phrase.phrase), type: 2});
+				});
+			});
 		});
+
 	}
 
 	async getCards(slug, force){

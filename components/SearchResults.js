@@ -7,9 +7,15 @@ import API from '../api'
 export default class App extends React.Component {
 
   render(){
+    const results = API.search(this.props.term);
+
     return (
       <View>
-        <Text>{this.props.term} search resulsts.</Text>
+        {
+          results.map((result, i) => {
+            return (<Text key={i}>{result.title}</Text>);
+          })
+        }
       </View>
     );
   }
