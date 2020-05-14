@@ -248,10 +248,10 @@ class Api {
 			formData.append('identifier', this.user.identifier);
 			formData.append('name', profile.name);
 			formData.append('avatar', profile.avatar);
-			formData.append('packs', `["conversation","people","feelings","foods","animals","school","activities","shapes","colors","clothes"]`);
+			formData.append('packs', `["conversation","people","feelings","food","animals","school","activities","shapes","colors","clothes"]`);
 
 			try {
-				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })
+				let newProfileResponse = await fetch(url, { method: 'POST', body: formData }) 
 		    .then(res => res.json());
 
 				newProfileResponse.packs = JSON.parse(newProfileResponse.packs);

@@ -6,7 +6,7 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
-let filename = "conversation";
+let filename = "transport";
 let content = fs.readFileSync("packs/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
@@ -68,7 +68,7 @@ function savePack(index){
 
       index++;
       if(index != languages.languages.length){
-        //savePack(index);
+        savePack(index);
       }else{
         console.log("ALL DONE!")
       }

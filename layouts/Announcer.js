@@ -186,7 +186,7 @@ export default class App extends React.Component {
                 </TouchableScale>
                 <View style={styles.cardMid}>
                   <Animated.View style={{height: 150, width: 150, borderRadius: 0, overflow: "hidden", backgroundColor: "transparent", padding: 10}}>
-                    <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${this.card.slug}@2x.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
+                    <CachedImage uri={`https://leeloo.dreamoriented.org/cdn/${this.pack.slug}/${this.card.slug}.png`} style={{width:"100%", height: "100%"}} PlaceholderContent={<ActivityIndicator />} resizeMode="contain" placeholderStyle={{backgroundColor: "#F7F9FB"}}/>
                   </Animated.View>
                 </View>
                 <TouchableScale onPress={() => this.speak(this.card.title, "slow")} style={[styles.button, {left: 0}]}>
