@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import API from '../api';
 import titleCase from '../js/titleCase';
@@ -129,7 +129,8 @@ export default class Setting extends React.Component {
     return(
       <View style={{flex: 1}}>
         <SafeAreaView></SafeAreaView>
-        <ScrollView stickyHeaderIndices={[1]} contentInsetAdjustmentBehavior="automatic">
+        <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
+        <ScrollView stickyHeaderIndices={[1]} contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled" keyboardDismissMode={"on-drag"}>
           <SafeAreaView>
             <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
                 <View style={{flexDirection: API.user.isRTL ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
@@ -149,7 +150,7 @@ export default class Setting extends React.Component {
 
           <View>
             {(this.state.search && this.state.term != "") &&
-              <SearchResults term={this.state.term}/>
+              <SearchResults term={this.state.term} orientation={this.state.orientation}/>
             }
           </View>
 
@@ -172,6 +173,7 @@ export default class Setting extends React.Component {
             </SafeAreaView>
           }
         </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     )
   }

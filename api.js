@@ -467,7 +467,7 @@ class Api {
 	}
 
 	search(term){
-		if(term.length >= 3){
+		if(term.length >= 2){
 			let results = [];
 			for (var i = 0; i < this.searchArray.length; i++) {
 				if(this.searchArray[i].search.includes(" "+term.toLocaleLowerCase())){
@@ -492,14 +492,16 @@ class Api {
 			await this.getCards(slugArray[i], force);
 		}
 
+
 		this.searchArray = []; // empty the old search array.
 
 		slugArray.forEach((packSlug, i) => {
 			this.cards[packSlug].forEach((card, i) => {
-				this.searchArray.push({search: " "+card.title.toLocaleLowerCase()+" ", slug: card.slug, emoji: null, title: card.title, type: 1});
+				let color = this.packs.filter(pack => pack.slug == packSlug)[0].color;
+				this.searchArray.push({pack: packSlug, color, search: " "+card.title.toLocaleLowerCase()+" ", slug: card.slug, emoji: null, title: card.title, type: 1});
 
 				card.phrases.forEach((phrase, i) => {
-					this.searchArray.push({search: " "+this.phrase(phrase.phrase).toLocaleLowerCase()+" ", slug: card.slug, emoji: phrase.emoji, title: this.phrase(phrase.phrase), type: 2});
+					this.searchArray.push({pack: packSlug, search: " "+this.phrase(phrase.phrase).toLocaleLowerCase()+" ", slug: card.slug, emoji: phrase.type, title: this.phrase(phrase.phrase), type: 2});
 				});
 			});
 		});
