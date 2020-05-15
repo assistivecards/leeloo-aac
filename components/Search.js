@@ -8,17 +8,23 @@ import API from '../api'
 export default class App extends React.Component {
 
   render(){
+
+    let searchIconStyle = {position: "absolute", top: 16, left: 40 };
+    if(API.user.isRTL){
+      searchIconStyle = {position: "absolute", top: 16, right: 40, transform: [{rotateY: "180deg"}]};
+    }
+
     return (
       <LinearGradient style={styles.textInputCarrier} colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.9)', 'rgba(255,255,255,0)']}>
         <TextInput
           placeholder={API.t("search_input_placeholder")}
-          style={styles.textInput}
+          style={[styles.textInput, {textAlign: API.user.isRTL ? "right" : "left"}]}
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}
           onChangeText={this.props.onChangeText}
         />
 
-        <Svg width={26} height={26} viewBox={"0 0 24 24"} style={{position: "absolute", top: 16, left: 40}}>
+        <Svg width={26} height={26} viewBox={"0 0 24 24"} style={searchIconStyle}>
           <Circle cx="7" cy="7" r="7" transform="translate(7 3)" strokeWidth="2" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255,255,255,0)"/>
           <Line y1="6" x2="6" transform="translate(3 15)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
         </Svg>
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 17,
-    paddingLeft: 55,
+    paddingHorizontal: 55,
     backgroundColor: "#fff",
     borderRadius: 25,
     height: 50,

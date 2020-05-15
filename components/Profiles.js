@@ -36,12 +36,12 @@ export default class App extends React.Component {
                 {API.user.active_profile.id == profile.id &&
                   <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 10, color: "#6989FF"}}>{API.t("settings_profile_active")}</Text></View>
                 }
-                <View style={{alignItems: API.user.isRTL ? "flex-end" : "flex-start"}}>
+                <View style={{alignItems: API.user.isRTL ? "flex-end" : "flex-start", marginHorizontal: 10}}>
                   <Text style={{fontSize: 22, color: "#fff", fontWeight: "bold"}}>{profile.name}</Text>
                   <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0, color: "#fff", fontWeight: "normal"}]}>{API.t("settings_packs", profile.packs.length)}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: API.user.isRTL ? "flex-start" : "flex-end", alignItems: API.user.isRTL ? "flex-start" : "flex-end", flexDirection: "row", alignItems: "center"}}>
-                  <Svg height={32} width={32} viewBox="0 0 24 24">
+                  <Svg height={32} width={32} viewBox="0 0 24 24" style={{transform: [{rotateY: API.user.isRTL ? "180deg" : "0deg"}]}}>
                     <Path fill={"#fff"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
                   </Svg>
                 </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 37,
     backgroundColor: "#F5F5F7",
-    marginHorizontal: 15,
+    marginHorizontal: 5,
     borderWidth: 7,
     borderColor: "#ffffff",
     overflow: "hidden"
@@ -113,6 +113,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     bottom: 5,
-    marginHorizontal: 22,
+    marginHorizontal: 12,
   }
 });

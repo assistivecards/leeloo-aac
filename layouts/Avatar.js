@@ -36,7 +36,7 @@ export default class Setting extends React.Component {
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-          <View style={styles.head}>
+          <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
             <Text style={API.styles.h1}>{API.t("settings_change_avatar_title")}</Text>
             <Text style={API.styles.pHome}>{API.t("settings_change_avatar_description")}</Text>
           </View>

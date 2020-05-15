@@ -110,6 +110,7 @@ export default class Setting extends React.Component {
             {this.renderNavigation()}
 
             <View style={{backgroundColor: "#fff"}}><View style={API.styles.iosBottomPadderSmall}></View></View>
+            <View style={API.styles.iosBottomExtraScrollBlocker}></View>
           </SafeAreaView>
         </ScrollView>
       </View>

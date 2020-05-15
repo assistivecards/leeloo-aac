@@ -9,6 +9,7 @@ import * as Permissions from 'expo-permissions';
 import * as Device from 'expo-device';
 import { Analytics, ScreenHit } from 'expo-analytics';
 import { Notifications } from 'expo';
+import {CacheManager} from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
 
@@ -48,6 +49,7 @@ class Api {
   constructor(){
 		if(_DEVELOPMENT && _FLUSH){
 			AsyncStorage.clear();
+			CacheManager.clearCache();
 		}
 		this.cards = {};
 		this.searchArray = [];
@@ -489,6 +491,8 @@ class Api {
 		for (var i = 0; i < slugArray.length; i++) {
 			await this.getCards(slugArray[i], force);
 		}
+
+		this.searchArray = []; // empty the old search array.
 
 		slugArray.forEach((packSlug, i) => {
 			this.cards[packSlug].forEach((card, i) => {

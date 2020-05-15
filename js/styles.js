@@ -130,6 +130,13 @@ const styles = StyleSheet.create({
     height: 40,
     position: "relative",
     top: 40
+  },
+  iosBottomExtraScrollBlocker: {
+    backgroundColor: "#fff",
+    height: 300,
+    position: "absolute",
+    bottom: -300,
+    width: "100%"
   }
 });
 
