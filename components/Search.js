@@ -7,6 +7,11 @@ import API from '../api'
 
 export default class App extends React.Component {
 
+  clear(){
+    this.props.dismiss();
+    this._textInput.blur();
+  }
+
   render(){
 
     let searchIconStyle = {position: "absolute", top: 16, left: 40 };
@@ -14,13 +19,20 @@ export default class App extends React.Component {
       searchIconStyle = {position: "absolute", top: 16, right: 40, transform: [{rotateY: "180deg"}]};
     }
 
+    let clearIconStyle = {position: "absolute", top: 15, right: 40};
+    if(API.user.isRTL){
+      clearIconStyle = {position: "absolute", top: 15, left: 40};
+    }
+
     return (
       <LinearGradient style={styles.textInputCarrier} colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.9)', 'rgba(255,255,255,0)']}>
         <TextInput
           placeholder={API.t("search_input_placeholder")}
           style={[styles.textInput, {textAlign: API.user.isRTL ? "right" : "left"}]}
+          ref={component => this._textInput = component}
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}
+          value={this.props.term}
           onChangeText={this.props.onChangeText}
         />
 
@@ -28,6 +40,14 @@ export default class App extends React.Component {
           <Circle cx="7" cy="7" r="7" transform="translate(7 3)" strokeWidth="2" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255,255,255,0)"/>
           <Line y1="6" x2="6" transform="translate(3 15)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
         </Svg>
+
+        {this.props.term != "" &&
+          <TouchableOpacity onPress={this.props.back} style={clearIconStyle} onPress={() => this.clear()}>
+            <Svg width={30} height={30} viewBox="0 0 25 25">
+              <Path fill={"#000"} d={"M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"}></Path>
+            </Svg>
+          </TouchableOpacity>
+        }
       </LinearGradient>
     );
   }

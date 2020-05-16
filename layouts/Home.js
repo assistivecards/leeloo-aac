@@ -35,6 +35,8 @@ export default class Setting extends React.Component {
     API.event.on("refresh", this._refreshHandler)
     this.getPacks(API.user.active_profile.packs);
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
+
+    API.event.on("announce", this._announcer.bind(this))
   }
 
   _orientationChanged(orientation){
@@ -50,9 +52,18 @@ export default class Setting extends React.Component {
     this.getPacks(API.user.active_profile.packs, true);
   };
 
+  _announcer = (card) => {
+    this.props.navigation.push("Announcer", {
+      card: API.getCardData(card.slug, card.pack),
+      pack: this.state.packs.filter(pack => pack.slug == card.pack)[0],
+      orientation: this.state.orientation
+    });
+  };
+
   componentWillUnmount(){
     ScreenOrientation.removeOrientationChangeListener(this.orientationSubscription);
-    API.event.removeListener("refresh", this._refreshHandler)
+    API.event.removeListener("refresh", this._refreshHandler);
+    API.event.removeListener("announce", this._announcer);
   }
 
   openSettings(){
@@ -85,13 +96,14 @@ export default class Setting extends React.Component {
   }
 
   toggleSearch(status){
-    this.setState({search: status});
-
-    Animated.timing(this.state.searchToggleAnim, {
-      toValue: status ? 1:0,
-      duration: 300
-    }).start();
-
+    if(this.state.search != status){
+      this.setState({search: status});
+      
+      Animated.timing(this.state.searchToggleAnim, {
+        toValue: status ? 1:0,
+        duration: 300
+      }).start();
+    }
   }
 
   onBlur(){
@@ -100,8 +112,15 @@ export default class Setting extends React.Component {
     }
   }
 
+  dismissSearch(){
+    this.setState({term: ""});
+    this.toggleSearch(false);
+  }
+
   onSearch(term){
-    this.setState({term});
+    if(term != this.state.term){
+      this.setState({term});
+    }
   }
 
 
@@ -145,7 +164,7 @@ export default class Setting extends React.Component {
               </Animated.View>
             </SafeAreaView>
           <SafeAreaView>
-            <Search onFocus={() => this.toggleSearch(true)} onBlur={() => this.onBlur(false)} onChangeText={this.onSearch.bind(this)}/>
+            <Search onFocus={() => this.toggleSearch(true)} term={this.state.term} onBlur={() => this.onBlur(false)} onChangeText={this.onSearch.bind(this)} dismiss={this.dismissSearch.bind(this)}/>
           </SafeAreaView>
 
           <View>

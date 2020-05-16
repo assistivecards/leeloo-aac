@@ -70,6 +70,7 @@ class Api {
 		}
 
 		this.locked = true;
+		this.activeProfileId = null;
 
     console.log("API: Created instance");
 		if(!_DEVELOPMENT){
@@ -347,29 +348,29 @@ class Api {
 	async getCurrentProfile(){
 		if(this.user){
 			let profiles = this.user.profiles;
-			let currentProfileId = await this.getData("currentProfileId");
-			if(currentProfileId){
-				return profiles.find(profile => profile.id == currentProfileId);
+			if(this.activeProfileId){
+				return profiles.find(profile => profile.id == this.activeProfileId);
 			}else{
-				let fallbackProfile;
-				if(profiles.length != 0){
-					fallbackProfile = profiles[0];
+				if(profiles.length == 1){
+					let profile = profiles[0];
+					this.activeProfileId = profile.id;
+					return profile;
+				}else if(profiles.length == 0){
+					return "noprofile";
 				}else{
-					fallbackProfile = {id: 0};
+					return "multiple";
 				}
-				this.setData("currentProfileId", fallbackProfile.id);
-				return fallbackProfile;
 			}
 		}else{
-			return null;
+			return "nouser";
 		}
 	}
 
 	async setCurrentProfile(profileId){
 		if(this.user){
 			let profiles = this.user.profiles;
+			this.activeProfileId = profileId;
 			this.user.active_profile = profiles.find(profile => profile.id == profileId);
-			await this.setData("currentProfileId", profileId);
 			this.event.emit("refresh");
 		}
 	}
@@ -531,6 +532,10 @@ class Api {
 			this.cards[slug] = cardsResponse;
 			return cardsResponse;
 		}
+	}
+
+	getCardData(slug, pack){
+		return this.cards[pack].filter(ramCard => ramCard.slug == slug)[0];
 	}
 
 	localeString(){

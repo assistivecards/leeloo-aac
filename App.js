@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StatusBar, TouchableOpacity } from 'react-native';
 import Navigator from './Navigator';
+import Switch from './layouts/Switch';
 
 import * as Font from 'expo-font';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -75,6 +76,11 @@ export default class App extends React.Component {
     }
   }
 
+  setCurrentProfile(id){
+    API.setCurrentProfile(id);
+    this.forceUpdate();
+  }
+
 
   signInScreen(){
     return (
@@ -101,12 +107,29 @@ export default class App extends React.Component {
     if(screen == "login"){
       return this.signInScreen();
     }else if(screen == "logged"){
-      return (
-        <View style={{flex: 1}}>
-          <StatusBar backgroundColor="#F7F9FB" barStyle={"dark-content"} />
-          <Navigator/>
-        </View>
-      );
+      if(API.user.active_profile == "noprofile"){
+        return (
+          <View style={{flex: 1}}>
+            <StatusBar backgroundColor="#fffff" barStyle={"dark-content"} />
+            <Text>no profile</Text>
+            <Text>no profile</Text>
+            <Text>no profile</Text>
+            <Text>no profile</Text>
+            <Text>no profile</Text>
+            <Text>no profile</Text>
+          </View>
+        );
+      }else if(API.user.active_profile == "multiple"){
+        return (<Switch onChoose={this.setCurrentProfile.bind(this)}/>);
+      }else if(API.user.active_profile.id){
+        return (
+          <View style={{flex: 1}}>
+            <StatusBar backgroundColor="#fffff" barStyle={"dark-content"} />
+            <Navigator/>
+          </View>
+        );
+      }
+
     }else if(screen == "loading"){
       return (
         <View style={{justifyContent: "center", alignItems: "center", flex: 1}}>
