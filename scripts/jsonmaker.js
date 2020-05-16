@@ -6,7 +6,8 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
-let filename = "feelings";
+let existCheck = false;
+let filename = "activities";
 let content = fs.readFileSync("packs/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
@@ -15,14 +16,21 @@ function phraseTranslation(lang, cardRows){
       let strippedPhrase = emojiStrip(phrase).replace(/[^\x00-\x7F]/g, ""); // 🧼🧻🧸🧽🧍🥶🧎🦶
       let emoji = phrase.replace(strippedPhrase, "");
       if(phrase != ""){
-        return translate.translate(strippedPhrase, { from: "en", to: lang }).then(translations => {
+        if(lang == "en"){
           return Promise.resolve({
             type: emoji,
-            phrase: translations[0]
+            phrase: strippedPhrase
           });
-        }).catch((err) => {
-          console.log("$$$$"+lang, err);
-        });
+        }else{
+          return translate.translate(strippedPhrase, { from: "en", to: lang }).then(translations => {
+            return Promise.resolve({
+              type: emoji,
+              phrase: translations[0]
+            });
+          }).catch((err) => {
+            console.log("$$$$"+lang, err);
+          });
+        }
       }
     }
   }));
@@ -33,15 +41,23 @@ function cardTranslation(lang){
     if(i >= 2){
       let cardRows = card.split(",");
       return phraseTranslation(lang, cardRows).then(translatedPhrases => {
-        return translate.translate(cardRows[1], { from: "en", to: lang }).then(translations => {
+        if(lang == "en"){
           return Promise.resolve({
             slug: cardRows[0],
-            title: translations[0],
+            title: cardRows[1],
             phrases: translatedPhrases.filter(ph => ph != null)
           });
-        }).catch((err) => {
-          console.log("$$$$"+lang, err);
-        });
+        }else {
+          return translate.translate(cardRows[1], { from: "en", to: lang }).then(translations => {
+            return Promise.resolve({
+              slug: cardRows[0],
+              title: translations[0],
+              phrases: translatedPhrases.filter(ph => ph != null)
+            });
+          }).catch((err) => {
+            console.log("$$$$"+lang, err);
+          });
+        }
       })
     }
   }));
@@ -50,7 +66,7 @@ function cardTranslation(lang){
 function savePack(index){
   let language = languages.languages[index].code;
   let exists = fs.existsSync("../data/packs/"+language+"/"+filename+".json");
-  if(exists){
+  if(exists && existCheck){
     console.log("Already exists", language);
     index++;
     if(index != languages.languages.length){
