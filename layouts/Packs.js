@@ -72,6 +72,7 @@ export default class Setting extends React.Component {
                data={this.state.data}
                renderItem={({ item }) => this.renderItem(item)}
                keyExtractor={item => "pack-"+item.id}
+               ListFooterComponent={(<View style={{height: 100}}></View>)}
              />
           </View>
         </View>
