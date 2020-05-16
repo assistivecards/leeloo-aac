@@ -6,6 +6,7 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
+let checkExist = false;
 let content = fs.readFileSync("packs.csv", {encoding: "utf8"});
 
 let packAttr = content.split("\r\n").slice(0,5);
@@ -36,7 +37,7 @@ function packTranslation(lang){
 function savePack(index){
   let language = languages.languages[index].code;
   let exists = fs.existsSync("../data/packs/"+language+"/metadata.json");
-  if(exists){
+  if(exists && checkExist){
     console.log("Already exists", language);
     index++;
     if(index != languages.languages.length){
