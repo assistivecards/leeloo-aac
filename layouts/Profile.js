@@ -16,12 +16,20 @@ export default class Setting extends React.Component {
       name: this.profile.name,
       data: [],
       avatar: this.profile.avatar,
-      changed: false
+      changed: false,
+      buttons: new Animated.Value(0)
     }
   }
 
   componentDidMount(){
     API.hit("Profile");
+  }
+
+  toggleButtons(){
+    Animated.timing(this.state.buttons, {
+      toValue: !this.state.buttons._value,
+      duration: 200
+    }).start();
   }
 
   async componentDidMount(){
@@ -146,6 +154,15 @@ export default class Setting extends React.Component {
   };
 
   render() {
+    let buttonHeight = this.state.buttons.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, 50]
+    });
+    let buttonRotate = this.state.buttons.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "180deg"]
+    });
+
     return (
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
@@ -156,41 +173,44 @@ export default class Setting extends React.Component {
                 <TouchableOpacity style={styles.childAvatar} onPress={() => this.props.navigation.push("Avatar", {avatar: this.changeAvatar.bind(this)})}>
                   <Image source={{uri: `${API.assetEndpoint}cards/avatar/${this.state.avatar}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                 </TouchableOpacity>
-                <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5}}>
-                  <TextInput style={[API.styles.h1, {marginRight: 0, marginLeft: 10}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
-                  <Svg width="24" height="24" viewBox="0 0 24 24" style={{marginLeft: 3}}>
-                    <Path d="M0,0H24V24H0Z" fill="none"/>
-                    <Path d="M4,20H8L18.5,9.5a2.828,2.828,0,0,0-4-4L4,16v4" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                    <Line x2="4" y2="4" transform="translate(13.5 6.5)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                  </Svg>
-                </View>
-                <View style={{marginHorizontal: 30, flexDirection: "row"}}>
-                  {this.profile.id != API.user.active_profile.id &&
-                    <TouchableOpacity onPress={() => this.setCurrent()} style={styles.smallButton}>
-                      <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
-                        <Path fill={"#fff"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
-                      </Svg>
-                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>{API.t("button_use")}</Text>
-                    </TouchableOpacity>
-                  }
 
-                  {this.profile.id == API.user.active_profile.id &&
-                    <View style={[styles.smallButton, {backgroundColor: "#ddd"}]}>
-                      <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
-                        <Path fill={"#777"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
-                      </Svg>
-                      <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5, color: "#777"}]}>{API.t("button_using")}</Text>
-                    </View>
-                  }
+                {this.profile.id == API.user.active_profile.id &&
+                  <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5}}>
+                    <TextInput style={[API.styles.h1, {marginRight: 0, marginLeft: 10}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
+                    <Svg width="24" height="24" viewBox="0 0 24 24" style={{marginLeft: 4}}>
+                      <Path d="M0,0H24V24H0Z" fill="none"/>
+                      <Path d="M4,20H8L18.5,9.5a2.828,2.828,0,0,0-4-4L4,16v4" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      <Line x2="4" y2="4" transform="translate(13.5 6.5)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                    </Svg>
+                  </View>
+                }
 
-                  {this.profile.id != API.user.active_profile.id &&
-                    <TouchableOpacity onPress={() => this.remove()} style={[styles.smallButton, {backgroundColor: "#c40606", width: 30, opacity: 1}]}>
-                      <Svg height={24} width={24} viewBox="0 0 24 24">
-                        <Path fill={"#fff"} d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></Path>
+                {this.profile.id != API.user.active_profile.id &&
+                  <TouchableOpacity style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5}} onPress={() => this.toggleButtons()}>
+                    <Text style={[API.styles.h1, {marginRight: 0, marginLeft: 5, position: "relative", left: 5}]}>{this.profile.name}</Text>
+                    <Animated.View style={{position: "relative", top: 1, transform: [{rotate: buttonRotate}]}}>
+                      <Svg width="36" height="36" viewBox="0 0 24 24" fill={"#fff"}>
+                        <Path d="M8.71 11.71l2.59 2.59c.39.39 1.02.39 1.41 0l2.59-2.59c.63-.63.18-1.71-.71-1.71H9.41c-.89 0-1.33 1.08-.7 1.71z"/>
                       </Svg>
-                    </TouchableOpacity>
-                  }
-                </View>
+                    </Animated.View>
+                  </TouchableOpacity>
+                }
+
+                <Animated.View style={{marginHorizontal: 30, flexDirection: "row", height: buttonHeight, opacity:this.state.buttons, overflow: "hidden", justifyContent: "center"}}>
+                  <TouchableOpacity onPress={() => this.setCurrent()} style={styles.smallButton}>
+                    <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
+                      <Path fill={"#fff"} d="M9 16.17L5.53 12.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 16.17z"></Path>
+                    </Svg>
+                    <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>{API.t("button_use")}</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => this.remove()} style={[styles.smallButton, {backgroundColor: "#c40606", opacity: 1}]}>
+                    <Svg height={24} width={24} viewBox="0 0 24 24" style={{marginLeft: 10}}>
+                      <Path fill={"#fff"} d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></Path>
+                    </Svg>
+                    <Text style={[styles.smallButtonText, {marginRight: 15, marginLeft: 5}]}>{API.t("button_remove")}</Text>
+                  </TouchableOpacity>
+                </Animated.View>
 
               </View>
             </View>
@@ -225,9 +245,7 @@ export default class Setting extends React.Component {
 const styles = StyleSheet.create({
   head: {
     backgroundColor: "#6989FF",
-    marginBottom: 10,
-    paddingVertical: 10,
-    paddingBottom: 5
+    paddingVertical: 5
   },
   addNew: {
     height: 50,
@@ -296,7 +314,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginLeft: 5,
-    marginRight: 5
+    marginRight: 5,
+    marginTop: 7
   },
   smallButtonText: {
     color: "#fff",
