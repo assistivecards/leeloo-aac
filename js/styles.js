@@ -137,6 +137,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: -300,
     width: "100%"
+  },
+  whiteButton: {
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200
   }
 });
 

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Animated, ActivityIndicator, Dimens
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
-import { Image as CachedImage, CacheManager } from "react-native-expo-image-cache";
+import { Image as CachedImage } from "react-native-expo-image-cache";
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ScreenOrientation from 'expo-screen-orientation';

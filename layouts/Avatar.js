@@ -14,19 +14,11 @@ export default class Setting extends React.Component {
   }
 
   async componentDidMount(){
-    let data = await this.getDraggableData(this.packs);
-    this.setState({data});
     API.hit("Avatar");
   }
 
-  async getDraggableData(packs){
-    let allPacks = await API.getPacks();
-
-    return allPacks;
-  }
-
-  async changeAvatar(avatar){
-    await this.avatar(avatar);
+  changeAvatar(avatar){
+    this.avatar(avatar);
     this.props.navigation.pop();
   }
 

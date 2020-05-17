@@ -14,7 +14,7 @@ export default class Setting extends React.Component {
       <View style={{flex: 1, backgroundColor: "#6989FF"}}>
         <StatusBar backgroundColor="#6989FF" barStyle={"light-content"} />
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-          <Text style={[API.styles.h2, {color: "#fff", marginBottom: 35, marginTop: 30, fontSize: 26, marginHorizontal: 30, textAlign: "center"}]}>Who is using the app?</Text>
+          <Text style={[API.styles.h2, {color: "#fff", marginBottom: 35, marginTop: 30, fontSize: 26, marginHorizontal: 30, textAlign: "center"}]}>{API.t("login_choose_profile_title")}</Text>
           <View style={{justifyContent: "center", alignItems: "center", flexDirection: "row", flexWrap: "wrap"}}>
             {API.user.profiles.map(profile => {
               return (
@@ -22,7 +22,7 @@ export default class Setting extends React.Component {
                   <View style={styles.childAvatar}>
                     <Image source={{uri: `${API.assetEndpoint}cards/avatar/${profile.avatar}.png?v=${API.version}`}} resizeMode="contain" style={styles.childImage} />
                   </View>
-                  <Text style={[API.styles.h2, {color: "#fff", marginTop: 10}]}>{profile.name}</Text>
+                  <Text style={[API.styles.h2, {color: "#fff", marginTop: 7}]}>{profile.name}</Text>
                 </TouchableOpacity>
               )
             })}

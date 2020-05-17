@@ -3,7 +3,7 @@
     {
       "code": "en",
       "locale": ["en-US", "en-GB", "en-AU", "en-CA", "en-CB", "en-IN", "en-NZ"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "English",
       "native": "English",
       "rightToLeft": false,
@@ -12,7 +12,7 @@
     {
       "code": "es",
       "locale": ["es-MX", "es-ES", "es-CO", "es-AR"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Spanish",
       "native": "Español",
       "rightToLeft": false,
@@ -21,7 +21,7 @@
     {
       "code": "fr",
       "locale": ["fr-FR", "fr-CA"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "French",
       "native": "Français",
       "rightToLeft": false,
@@ -30,7 +30,7 @@
     {
       "code": "de",
       "locale": ["de-DE", "de-AT"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "German",
       "native": "Deutsch",
       "rightToLeft": false,
@@ -39,7 +39,7 @@
     {
       "code": "it",
       "locale": ["it-it", "it-CH"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Italian",
       "native": "Italiano",
       "rightToLeft": false,
@@ -48,7 +48,7 @@
     {
       "code": "ja",
       "locale": ["ja-JP"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Japanese",
       "native": "日本語",
       "rightToLeft": false,
@@ -57,7 +57,7 @@
     {
       "code": "ko",
       "locale": ["ko_KR"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Korean",
       "native": "한국어",
       "rightToLeft": false,
@@ -66,7 +66,7 @@
     {
       "code": "zh",
       "locale": ["zh-CN", "zh-HK"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Mandarin Chinese",
       "native": "普通话",
       "rightToLeft": false,
@@ -75,7 +75,7 @@
     {
       "code": "ar",
       "locale": ["ar-AR"],
-      "support": ["apple"],
+      "support": ["ios"],
       "title": "Arabic",
       "native": "العربية",
       "rightToLeft": true,
@@ -84,7 +84,7 @@
     {
       "code": "cs",
       "locale": ["cs-CZ"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Czech",
       "native": "čeština",
       "rightToLeft": false,
@@ -93,7 +93,7 @@
     {
       "code": "da",
       "locale": ["da-DK"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Danish",
       "native": "dansk",
       "rightToLeft": false,
@@ -102,7 +102,7 @@
     {
       "code": "nl",
       "locale": ["nl-NL", "nl-BE"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Dutch",
       "native": "Nederlands",
       "rightToLeft": false,
@@ -111,7 +111,7 @@
     {
       "code": "fi",
       "locale": ["fi-FI"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Finnish",
       "native": "suomi",
       "rightToLeft": false,
@@ -120,7 +120,7 @@
     {
       "code": "el",
       "locale": ["el-GR"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Greek",
       "native": "ελληνικά",
       "rightToLeft": false,
@@ -129,7 +129,7 @@
     {
       "code": "he",
       "locale": ["he-IL"],
-      "support": ["apple"],
+      "support": ["ios"],
       "title": "Hebrew",
       "native": "עברית",
       "rightToLeft": true,
@@ -138,7 +138,7 @@
     {
       "code": "hi",
       "locale": ["hi-IN"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Hindi",
       "native": "हिन्दी",
       "rightToLeft": false,
@@ -147,7 +147,7 @@
     {
       "code": "hu",
       "locale": ["hu-HUX"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Hungarian",
       "native": "magyar",
       "rightToLeft": false,
@@ -156,7 +156,7 @@
     {
       "code": "id",
       "locale": ["id-ID"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Indonesian",
       "native": "Bahasa Indonesia",
       "rightToLeft": false,
@@ -165,7 +165,7 @@
     {
       "code": "nb",
       "locale": ["nb-NO"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Norwegian",
       "native": "norsk",
       "rightToLeft": false,
@@ -174,7 +174,7 @@
     {
       "code": "pl",
       "locale": ["pl-PL"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Polish",
       "native": "polski",
       "rightToLeft": false,
@@ -183,7 +183,7 @@
     {
       "code": "pt",
       "locale": ["pt-PT", "pt-BR"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Portuguese",
       "native": "Português",
       "rightToLeft": false,
@@ -192,7 +192,7 @@
     {
       "code": "ro",
       "locale": ["ro-RO"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Romanian",
       "native": "limba română",
       "rightToLeft": false,
@@ -201,7 +201,7 @@
     {
       "code": "ru",
       "locale": ["ru-RU", "ru-MO"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Russian",
       "native": "русский",
       "rightToLeft": false,
@@ -210,7 +210,7 @@
     {
       "code": "sk",
       "locale": ["sk-SK"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Slovak",
       "native": "slovenčina",
       "rightToLeft": false,
@@ -219,7 +219,7 @@
     {
       "code": "sv",
       "locale": ["sv-FI", "sv-SE"],
-      "support": ["apple","google"],
+      "support": ["ios","android"],
       "title": "Swedish",
       "native": "svenska",
       "rightToLeft": false,
@@ -228,7 +228,7 @@
     {
       "code": "th",
       "locale": ["th-TH"],
-      "support": ["apple", "google"],
+      "support": ["ios", "android"],
       "title": "Thai",
       "native": "ภาษาไทย",
       "rightToLeft": false,
@@ -237,7 +237,7 @@
     {
       "code": "tr",
       "locale": ["tr-TR"],
-      "support": ["apple"],
+      "support": ["ios"],
       "title": "Turkish",
       "native": "Türkçe",
       "rightToLeft": false,
@@ -246,7 +246,7 @@
     {
       "code": "ur",
       "locale": ["ur-IN"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Urdu",
       "native": "اردو",
       "rightToLeft": true,
@@ -255,7 +255,7 @@
     {
       "code": "bn",
       "locale": ["bn-BN", "bn-IN"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Bengali",
       "native": "বাংলা",
       "rightToLeft": false,
@@ -264,7 +264,7 @@
     {
       "code": "et",
       "locale": ["et-ET"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Estonian",
       "native": "Eestlane",
       "rightToLeft": false,
@@ -273,7 +273,7 @@
     {
       "code": "fil",
       "locale": ["fil-PH"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Filipino",
       "native": "Pilipino",
       "rightToLeft": false,
@@ -282,7 +282,7 @@
     {
       "code": "jv",
       "locale": ["jv-ID"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Javanese",
       "native": "Basa Jawa",
       "rightToLeft": false,
@@ -291,7 +291,7 @@
     {
       "code": "km",
       "locale": ["km-KH"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Khmer",
       "native": "ខ្មែរ",
       "rightToLeft": false,
@@ -300,7 +300,7 @@
     {
       "code": "ne",
       "locale": ["ne-NP"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Nepali",
       "native": "नेपाली",
       "rightToLeft": false,
@@ -309,7 +309,7 @@
     {
       "code": "si",
       "locale": ["si-LK"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Sinhala",
       "native": "සිංහල",
       "rightToLeft": false,
@@ -318,7 +318,7 @@
     {
       "code": "uk",
       "locale": ["uk-UA"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Ukrainian",
       "native": "Українська",
       "rightToLeft": false,
@@ -327,7 +327,7 @@
     {
       "code": "vi",
       "locale": ["vi-VN"],
-      "support": ["google"],
+      "support": ["android"],
       "title": "Vietnamese",
       "native": "Tiếng Việt",
       "rightToLeft": false,

@@ -19,9 +19,9 @@ export default class App extends React.Component {
       searchIconStyle = {position: "absolute", top: 16, right: 40, transform: [{rotateY: "180deg"}]};
     }
 
-    let clearIconStyle = {position: "absolute", top: 15, right: 40};
+    let clearIconStyle = {padding: 15, position: "absolute", top: 0, right: 25};
     if(API.user.isRTL){
-      clearIconStyle = {position: "absolute", top: 15, left: 40};
+      clearIconStyle = {padding: 15, position: "absolute", top: 0, left: 25};
     }
 
     return (

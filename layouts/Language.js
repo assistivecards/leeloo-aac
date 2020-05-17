@@ -12,6 +12,14 @@ export default class Setting extends React.Component {
     this.state = {
       language: API.user.language
     }
+
+    this.languages = Languages.languages.sort(function(a, b) {
+        var textA = a.title.toUpperCase();
+        var textB = b.title.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    }).filter(lang => lang.support.includes(Platform.OS));
+
+    this.deviceLanguages = Languages.languages.filter(lang => lang.support.includes(Platform.OS)).filter(lang => Localization.locales.join('|').includes(lang.code) || lang.code == API.user.language);
   }
 
   componentDidMount(){
@@ -57,25 +65,27 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_language_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-            <View style={styles.preferenceItem}>
-              <Text style={API.styles.h2}>{API.t("settings_language_basedOnYourDevice")}</Text>
-              <Text style={API.styles.subSmall}>{API.t("settings_language_basedOnYourDevice_description")}</Text>
-              {Languages.languages.filter(lang => Localization.locales.join('|').includes(lang.code) || lang.code == API.user.language).map((lang, i) => {
-                return (
-                  <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
-                    <View>
-                      <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
-                      <Text style={API.styles.p}>{lang.native}</Text>
-                    </View>
-                    <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#6989FF": "#eee"}]}></View>
-                  </TouchableOpacity>
-                )
-              })}
-            </View>
+            {this.deviceLanguages.length != 0 &&
+              <View style={styles.preferenceItem}>
+                <Text style={API.styles.h2}>{API.t("settings_language_basedOnYourDevice")}</Text>
+                <Text style={API.styles.subSmall}>{API.t("settings_language_basedOnYourDevice_description")}</Text>
+                {this.deviceLanguages.map((lang, i) => {
+                  return (
+                    <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
+                      <View>
+                        <Text style={[API.styles.h3, {marginVertical: 0}]}>{lang.title}</Text>
+                        <Text style={API.styles.p}>{lang.native}</Text>
+                      </View>
+                      <View style={[styles.pointer, {backgroundColor: this.state.language == lang.code ? "#6989FF": "#eee"}]}></View>
+                    </TouchableOpacity>
+                  )
+                })}
+              </View>
+            }
             <View style={styles.preferenceItem}>
               <Text style={API.styles.h2}>{API.t("settings_language_supportedLanguages")}</Text>
               <Text style={API.styles.subSmall}>{API.t("settings_language_supportedLanguages_description")}</Text>
-              {Languages.languages.map((lang, i) => {
+              {this.languages.map((lang, i) => {
                 return (
                   <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({language: lang.code})}} key={i} style={styles.listItem}>
                     <View>

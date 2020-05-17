@@ -73,8 +73,12 @@
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over padlock in order to unlock the Settings",
 
+	"login_choose_profile_title": "Who is using the app?",
+
 	"search_input_placeholder": "Search cards and phrases...",
 
+	"button_next": "Next",
+	"button_start": "Start",
 	"button_use": "USE",
 	"button_using": "USING",
 	"button_add": "ADD",
@@ -85,5 +89,5 @@
 	"alert_profile_remove_title": "Remove Profile",
 	"alert_profile_remove_description": "Are you sure that you want to remove this profile, data created by this profile will also be removed.",
 	"alert_ok": "OK",
-	"alert_cancel": "Cancel",
+	"alert_cancel": "Cancel"
 }

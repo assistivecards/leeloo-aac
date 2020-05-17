@@ -13,15 +13,13 @@ import {CacheManager} from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
 
-import UIText from './js/uitext.js';
-
 import makeid from './js/makeid';
 import Event from './js/event';
 import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const _DEVELOPMENT = true;
+const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -31,7 +29,7 @@ const _DEVLOCALE = "en-US";
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 205;
+const ASSET_VERSION = 204;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -52,10 +50,12 @@ class Api {
 			CacheManager.clearCache();
 		}
 		this.cards = {};
+		this.uitext = {};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		this.analytics = new Analytics(ANALYTICS_KEY);
+
 		this.config = {
 			theme: themes.light
 		}
@@ -148,8 +148,19 @@ class Api {
 		formData.append('identifier', identifier);
 
 		let localIdentifier = await this.getData("identifier");
+		let localUserString = await this.getData("user");
+		let registerAgain = false;
+		let localUser;
+		if(localUserString){
+			localUser = JSON.parse(localUserString);
+			if(localUser.identifier){
+				if(!localUser.language){
+					registerAgain = true;
+				}
+			}
+		}
 
-		if(localIdentifier != identifier){
+		if(localIdentifier != identifier || registerAgain){
 
 			let deviceLanguage = Localization.locale.substr(0,2);
 			let bestTTS = await this.getBestAvailableVoiceDriver(deviceLanguage);
@@ -191,6 +202,9 @@ class Api {
 		}
 
 		this.user = userResponse;
+		if(this.user.language){
+			await this.ramLanguage(this.user.language);
+		}
 		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
 		this.user.active_profile = await this.getCurrentProfile();
 		return userResponse;
@@ -234,6 +248,7 @@ class Api {
 					userResponse.profiles[i].packs = JSON.parse(profile.packs);
 				});
 				this.user = userResponse;
+				await this.ramLanguage(this.user.language);
 				this.user.isRTL = RTL.includes(this.user.language);
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
@@ -553,6 +568,30 @@ class Api {
 		return await this.getData("identifier");
 	}
 
+	async ramLanguage(langCode, force){
+		var url = ASSET_ENDPOINT + "interface/" + langCode +".json?v="+this.version;
+		if(this.uitext[langCode] && force == null){
+			console.log("pulling from ram", "language", langCode);
+			return this.uitext[langCode];
+		}else{
+			let uiLangResponse;
+			try {
+				uiLangResponse = await fetch(url, {cache: "no-cache"})
+				.then(res => res.json());
+				this.setData("lang:"+langCode, JSON.stringify(uiLangResponse));
+
+			} catch(error){
+				console.log("Offline, Falling back to cached ui lang!", error);
+				let uiLangResponseString = await this.getData("lang:"+langCode);
+				if(uiLangResponseString){
+					uiLangResponse = JSON.parse(uiLangResponseString);
+				}
+			}
+			this.uitext[langCode] = uiLangResponse;
+			return uiLangResponse;
+		}
+	}
+
 	t(UITextIdentifier, variableArray){
 		let lang = "en";
 		if(this.user.language){
@@ -565,11 +604,11 @@ class Api {
 		}
 
 		if(typeof variableArray == "string" || typeof variableArray == "number"){
-			let text = UIText[lang][UITextIdentifier];
+			let text = this.uitext[lang][UITextIdentifier];
 			if(text) return text.replace("$1", variableArray);
 			return "UnSupportedIdentifier";
 		}else if(typeof variableArray == "array"){
-			let text = UIText[lang][UITextIdentifier];
+			let text = this.uitext[lang][UITextIdentifier];
 			if(text){
 				variableArray.forEach((variable, i) => {
 					let variableIdentifier = `${i+1}`;
@@ -581,7 +620,7 @@ class Api {
 			}
 
 		}else{
-			let text = UIText[lang][UITextIdentifier];
+			let text = this.uitext[lang][UITextIdentifier];
 			if(text) return text;
 			return "UnSupportedIdentifier";
 		}

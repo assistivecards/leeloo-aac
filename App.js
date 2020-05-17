@@ -1,11 +1,13 @@
 import React from 'react';
-import { Text, View, StatusBar, TouchableOpacity } from 'react-native';
+import { Text, View, StatusBar, TouchableOpacity, ActivityIndicator, Image, Linking, SafeAreaView } from 'react-native';
 import Navigator from './Navigator';
 import Switch from './layouts/Switch';
+import ProfileSetup from './layouts/ProfileSetup';
 
 import * as Font from 'expo-font';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as GoogleSignIn from 'expo-google-sign-in';
+import * as Localization from 'expo-localization';
 
 import API from './api';
 
@@ -14,7 +16,8 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      screen: "loading"
+      screen: "loading",
+      moreSignin: false
     }
 
   }
@@ -33,9 +36,20 @@ export default class App extends React.Component {
     let identifier = await API.getIdentifier();
     if(identifier != ""){
       let user = await API.signIn(identifier);
-      this.setState({screen: "logged"});
+      console.log("Already exists: ", user.language);
+      if(user.language){
+        API.ramLanguage(user.language).then(res => {
+          this.setState({screen: "logged"});
+        });
+      }else{
+        API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
+          this.setState({screen: "login"});
+        });
+      }
     }else{
-      this.setState({screen: "login"});
+      API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
+        this.setState({screen: "login"});
+      });
     }
   }
 
@@ -48,8 +62,12 @@ export default class App extends React.Component {
         ],
       });
       let user = await API.signIn(credential.user, "apple", credential);
+      console.log(user);
       API.setData("identifier", credential.user);
-      this.setState({screen: "logged"});
+
+      API.ramLanguage(user.language).then(res => {
+        this.setState({screen: "logged"});
+      });
 
       // signed in
     } catch (e) {
@@ -77,28 +95,87 @@ export default class App extends React.Component {
   }
 
   setCurrentProfile(id){
-    API.setCurrentProfile(id);
-    this.forceUpdate();
+    if(id){
+      API.setCurrentProfile(id);
+      this.forceUpdate();
+
+    }else{
+      API.getCurrentProfile().then(profile => {
+        API.setCurrentProfile(profile.id);
+        this.forceUpdate();
+      })
+    }
   }
 
 
   signInScreen(){
     return (
-      <View style={{justifyContent: "center", alignItems: "center", flex: 1}}>
-        <AppleAuthentication.AppleAuthenticationButton
-          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-          cornerRadius={5}
-          style={{ width: 200, height: 44 }}
-          onPress={this.signInWithApple.bind(this)}
-        />
+      <SafeAreaView style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#6989FF"}}>
+        <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30, paddingBottom: 0, marginTop: 50}}>
+          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 28, textAlign: "center"}]}>Welcome to</Text>
+          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 42, textAlign: "center", marginBottom: 15}]}>Leeloo AAC</Text>
+          <Text style={[API.styles.pHome, {marginBottom: 0, marginHorizontal: 0, textAlign: "center"}]}>Thank you for downloading Leeloo AAC, let's get started with setting up your leeloo profile.</Text>
+        </View>
+        <Image source={require("./assets/mascot.png")} style={{width: 150, height: 150, flex: 1}} resizeMode={"contain"} />
 
-        <TouchableOpacity
-          style={{ width: 200, height: 44 }}
-          onPress={this.signInWithGoogle.bind(this)}
-        ><Text>Signin with google8</Text></TouchableOpacity>
-      </View>
+        {this.renderSignInButtons()}
+        <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 50}}>
+          <Text style={[API.styles.pHome, {textAlign: "center"}]}>
+            By signing in you accept our <Text style={{fontWeight: "600"}}>Terms of Use</Text> and <Text style={{fontWeight: "600"}}>Privacy Policy</Text>.
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     )
+  }
+
+  renderSignInButtons(){
+    if(this.state.moreSignin){
+      return (
+        <View style={{justifyContent: "center", alignItems: "center", backgroundColor: "#6989FF"}}>
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+            cornerRadius={25}
+            style={{ width: 240, height: 50, borderRadius: 25 }}
+            onPress={this.signInWithApple.bind(this)}
+          />
+          <View style={{height: 10}}></View>
+          <TouchableOpacity
+            style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row"}}
+            onPress={this.signInWithGoogle.bind(this)}>
+            <Image source={{uri: "https://developers.google.com/identity/images/g-logo.png"}} style={{width: 18, height: 18, marginRight: 5}}/>
+            <Text style={{fontSize: 19, fontWeight: "500"}}>Sign in with Google</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }else{
+      if(Platform.OS == "ios"){
+        return (
+          <>
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+              cornerRadius={25}
+              style={{ width: 240, height: 50, borderRadius: 25 }}
+              onPress={this.signInWithApple.bind(this)}
+            />
+            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 18.5, marginBottom: 20}}>View other sign in options</Text></TouchableOpacity>
+          </>
+        )
+      }else{
+        return(
+          <>
+            <TouchableOpacity
+              style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row"}}
+              onPress={this.signInWithGoogle.bind(this)}>
+              <Image source={{uri: "https://developers.google.com/identity/images/g-logo.png"}} style={{width: 18, height: 18, marginRight: 5}}/>
+              <Text style={{fontSize: 18, fontWeight: "500"}}>Sign in with Google</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 20, marginBottom: 20}}>View other sign in options</Text></TouchableOpacity>
+          </>
+        );
+      }
+    }
   }
 
   render() {
@@ -108,23 +185,13 @@ export default class App extends React.Component {
       return this.signInScreen();
     }else if(screen == "logged"){
       if(API.user.active_profile == "noprofile"){
-        return (
-          <View style={{flex: 1}}>
-            <StatusBar backgroundColor="#fffff" barStyle={"dark-content"} />
-            <Text>no profile</Text>
-            <Text>no profile</Text>
-            <Text>no profile</Text>
-            <Text>no profile</Text>
-            <Text>no profile</Text>
-            <Text>no profile</Text>
-          </View>
-        );
+        return (<ProfileSetup done={this.setCurrentProfile.bind(this)}/>);
       }else if(API.user.active_profile == "multiple"){
         return (<Switch onChoose={this.setCurrentProfile.bind(this)}/>);
       }else if(API.user.active_profile.id){
         return (
           <View style={{flex: 1}}>
-            <StatusBar backgroundColor="#fffff" barStyle={"dark-content"} />
+            <StatusBar backgroundColor="#ffffff" barStyle={"dark-content"} />
             <Navigator/>
           </View>
         );
@@ -132,8 +199,11 @@ export default class App extends React.Component {
 
     }else if(screen == "loading"){
       return (
-        <View style={{justifyContent: "center", alignItems: "center", flex: 1}}>
-          <Text>Loading...</Text>
+        <View style={{flex: 1, backgroundColor: "#6989FF", justifyContent: "center", alignItems: "center"}}>
+          <StatusBar backgroundColor="#6989FF" barStyle={"light-content"} />
+          <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
+            <ActivityIndicator color={"#6989FF"}/>
+          </View>
         </View>
       )
     }
