@@ -17,7 +17,8 @@ export default class App extends React.Component {
 
     this.state = {
       screen: "loading",
-      moreSignin: false
+      moreSignin: false,
+      activity: false
     }
 
   }
@@ -55,6 +56,8 @@ export default class App extends React.Component {
 
   async signInWithApple(){
     try {
+      this.setState({activity: true});
+
       const credential = await AppleAuthentication.signInAsync({
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
@@ -62,35 +65,42 @@ export default class App extends React.Component {
         ],
       });
       let user = await API.signIn(credential.user, "apple", credential);
-      console.log(user);
       API.setData("identifier", credential.user);
 
       API.ramLanguage(user.language).then(res => {
-        this.setState({screen: "logged"});
+        this.setState({screen: "logged", activity: false});
       });
 
       // signed in
     } catch (e) {
       if (e.code === 'ERR_CANCELED') {
         // handle that the user canceled the sign-in flow
+        this.setState({activity: false});
       } else {
         // handle other errors
+        alert('Make sure to have internet connection and try again later:' + e.code);
+        this.setState({activity: false});
       }
     }
   }
 
   async signInWithGoogle(){
     try {
+      this.setState({activity: true});
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
         const credential = await GoogleSignIn.signInSilentlyAsync();
-        let googleSignin = await API.signIn(credential.uid, "google", credential);
+        let user = await API.signIn(credential.uid, "google", credential);
         API.setData("identifier", credential.uid);
-        this.setState({screen: "logged"});
+
+        API.ramLanguage(user.language).then(res => {
+          this.setState({screen: "logged", activity: false});
+        });
       }
     } catch ({ message }) {
-      alert('login: Error:' + message);
+      alert('Make sure to have internet connection and try again later:' + message);
+      this.setState({activity: false});
     }
   }
 
@@ -110,21 +120,30 @@ export default class App extends React.Component {
 
   signInScreen(){
     return (
-      <SafeAreaView style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#6989FF"}}>
-        <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30, paddingBottom: 0, marginTop: 20}}>
-          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 28, textAlign: "center"}]}>{API.t("setup_welcome_title1")}</Text>
-          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 42, textAlign: "center", marginBottom: 15}]}>{API.t("setup_welcome_title2")}</Text>
-          <Text style={[API.styles.pHome, {marginBottom: 0, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_welcome_description")}</Text>
-        </View>
-        <Image source={require("./assets/mascot.png")} style={{width: 150, height: 150, flex: 1}} resizeMode={"contain"} />
+      <>
+        <SafeAreaView style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#6989FF"}}>
+          <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30, paddingBottom: 0, marginTop: 20}}>
+            <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 28, textAlign: "center"}]}>{API.t("setup_welcome_title1")}</Text>
+            <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 42, textAlign: "center", marginBottom: 15}]}>{API.t("setup_welcome_title2")}</Text>
+            <Text style={[API.styles.pHome, {marginBottom: 0, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_welcome_description")}</Text>
+          </View>
+          <Image source={require("./assets/mascot.png")} style={{width: 150, height: 150, flex: 1}} resizeMode={"contain"} />
 
-        {this.renderSignInButtons()}
-        <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 30}}>
-          <Text style={[API.styles.pHome, {textAlign: "center"}]}>
-            By signing in you accept our <Text style={{fontWeight: "600"}}>Terms of Use</Text> and <Text style={{fontWeight: "600"}}>Privacy Policy</Text>.
-          </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+          {this.renderSignInButtons()}
+          <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 30}}>
+            <Text style={[API.styles.pHome, {textAlign: "center"}]}>
+              By signing in you accept our <Text style={{fontWeight: "600"}}>Terms of Use</Text> and <Text style={{fontWeight: "600"}}>Privacy Policy</Text>.
+            </Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+        {this.state.activity &&
+          <View style={{backgroundColor: "rgba(0,0,0,0.3)", width: "100%", height: "100%", position: "absolute", top: 0, left: 0, justifyContent: "center", alignItems: "center"}}>
+            <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
+              <ActivityIndicator color={"#6989FF"}/>
+            </View>
+          </View>
+        }
+      </>
     )
   }
 

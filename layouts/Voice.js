@@ -28,7 +28,7 @@ export default class Setting extends React.Component {
     }));
     // Move this so somewhere better + add a loading indicator
 
-    this.testPhrase = "This is a test voice.";
+    this.testPhrase = API.t("this_is_test_voice.");
   }
 
   componentDidMount(){

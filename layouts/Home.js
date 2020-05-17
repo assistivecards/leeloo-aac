@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 
 import API from '../api';
 import titleCase from '../js/titleCase';
@@ -98,7 +98,7 @@ export default class Setting extends React.Component {
   toggleSearch(status){
     if(this.state.search != status){
       this.setState({search: status});
-      
+
       Animated.timing(this.state.searchToggleAnim, {
         toValue: status ? 1:0,
         duration: 300
@@ -123,6 +123,28 @@ export default class Setting extends React.Component {
     }
   }
 
+  renderPacks(){
+    if(this.state.packs.length){
+      return(
+        this.state.packs.map((pack, i) => {
+          return (
+            <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack, i)}>
+              <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
+                <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
+                <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
+              </View>
+            </TouchableScale>
+          )
+        })
+      );
+    }else{
+      return (
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", height: 300}}>
+          <ActivityIndicator color={"#6989FF"}/>
+        </View>
+      )
+    }
+  }
 
   render() {
     let headerHeight = this.state.searchToggleAnim.interpolate({
@@ -176,18 +198,7 @@ export default class Setting extends React.Component {
           {!this.state.term &&
             <SafeAreaView>
               <Animated.View style={[styles.board, {opacity: boardOpacity, transform: [{translateY: boardTranslate}]}]}>
-                {
-                  API.user.active_profile && this.state.packs.map((pack, i) => {
-                    return (
-                      <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack, i)}>
-                        <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
-                          <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
-                          <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
-                        </View>
-                      </TouchableScale>
-                    )
-                  })
-                }
+                {API.user.active_profile && this.renderPacks()}
               </Animated.View>
             </SafeAreaView>
           }
