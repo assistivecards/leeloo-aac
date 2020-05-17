@@ -202,8 +202,12 @@ class Api {
 		}
 
 		this.user = userResponse;
-		if(this.user.language){
-			await this.ramLanguage(this.user.language);
+		if(registerAgain){
+			await this.ramLanguage(Localization.locale.substr(0, 2));
+		}else{
+			if(this.user.language){
+				await this.ramLanguage(this.user.language);
+			}
 		}
 		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
 		this.user.active_profile = await this.getCurrentProfile();
@@ -391,6 +395,7 @@ class Api {
 	}
 
 	speak(text, speed){
+		//text = this.phrase()
 		let rate = 1;
 		if(speed == "slow"){
 			rate = 0.5;
@@ -398,7 +403,7 @@ class Api {
 		if(this.user.voice != "unsupported"){
 			Speech.speak(text, {
 				voice: this.user.voice,
-				language: this.user.langauge,
+				language: this.user.language,
 				pitch: 1,
 				rate: rate
 			});
@@ -500,7 +505,11 @@ class Api {
 	}
 
 	phrase(string){
-		return string.replace("{name}", this.user.active_profile.name)
+		if(string.includes("{name}")){
+			return string.replace("{name}", this.user.active_profile.name)
+		}else{
+			return string;
+		}
 	}
 
 	async ramCards(slugArray, force){
@@ -538,7 +547,7 @@ class Api {
 				this.setData("cards:"+slug, JSON.stringify(cardsResponse));
 
 			} catch(error){
-				console.log("Offline, Falling back to cached cardData!", error);
+				console.log("Offline, Falling back to cached cardData!", error, slug);
 				let cardsResponseString = await this.getData("cards:"+slug);
 				if(cardsResponseString){
 					cardsResponse = JSON.parse(cardsResponseString);
@@ -594,11 +603,8 @@ class Api {
 
 	t(UITextIdentifier, variableArray){
 		let lang = "en";
-		if(this.user.language){
+		if(this.user){
 			lang = this.user.language
-			if(lang != "en" && lang != "tr"){
-				lang = "en";
-			}
 		}else{
 			lang = Localization.locale.substr(0, 2);
 		}

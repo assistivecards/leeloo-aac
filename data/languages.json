@@ -237,7 +237,7 @@
     {
       "code": "tr",
       "locale": ["tr-TR"],
-      "support": ["ios"],
+      "support": ["ios", "android"],
       "title": "Turkish",
       "native": "Türkçe",
       "rightToLeft": false,

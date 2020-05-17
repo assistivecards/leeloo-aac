@@ -73,6 +73,25 @@
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over padlock in order to unlock the Settings",
 
+	"setup_create_profile_title": "Create a profile!",
+	"setup_create_profile_description": "Choose a profile name or tell us the person who is going to use this application.",
+	"setup_your_name": "Your Name",
+
+	"setup_avatar_title": "Choose an avatar!",
+	"setup_avatar_description": "Choose an avatar for the person who is going to use this AAC application.",
+	"setup_label_boy": "Boy",
+	"setup_label_girl": "Girl",
+	"setup_label_mixed": "Mixed",
+
+	"setup_congrats_title": "Congratulations, $1!",
+	"setup_congrats_description": "Your user profile has been completed. You can start using Leeloo AAC app",
+
+	"setup_welcome_title1": "Welcome to",
+	"setup_welcome_title2": "Leeloo AAC",
+	"setup_welcome_description": "Thank you for downloading Leeloo AAC, let's get started with setting up your leeloo profile.",
+
+	"setup_other_options": "View other sign in options",
+
 	"login_choose_profile_title": "Who is using the app?",
 
 	"search_input_placeholder": "Search cards and phrases...",

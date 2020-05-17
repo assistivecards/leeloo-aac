@@ -111,15 +111,15 @@ export default class App extends React.Component {
   signInScreen(){
     return (
       <SafeAreaView style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "#6989FF"}}>
-        <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30, paddingBottom: 0, marginTop: 50}}>
-          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 28, textAlign: "center"}]}>Welcome to</Text>
-          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 42, textAlign: "center", marginBottom: 15}]}>Leeloo AAC</Text>
-          <Text style={[API.styles.pHome, {marginBottom: 0, marginHorizontal: 0, textAlign: "center"}]}>Thank you for downloading Leeloo AAC, let's get started with setting up your leeloo profile.</Text>
+        <View style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30, paddingBottom: 0, marginTop: 20}}>
+          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 28, textAlign: "center"}]}>{API.t("setup_welcome_title1")}</Text>
+          <Text style={[API.styles.h1, {color: "#fff", marginTop: 0, marginHorizontal: 0, fontSize: 42, textAlign: "center", marginBottom: 15}]}>{API.t("setup_welcome_title2")}</Text>
+          <Text style={[API.styles.pHome, {marginBottom: 0, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_welcome_description")}</Text>
         </View>
         <Image source={require("./assets/mascot.png")} style={{width: 150, height: 150, flex: 1}} resizeMode={"contain"} />
 
         {this.renderSignInButtons()}
-        <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 50}}>
+        <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 30}}>
           <Text style={[API.styles.pHome, {textAlign: "center"}]}>
             By signing in you accept our <Text style={{fontWeight: "600"}}>Terms of Use</Text> and <Text style={{fontWeight: "600"}}>Privacy Policy</Text>.
           </Text>
@@ -159,7 +159,7 @@ export default class App extends React.Component {
               style={{ width: 240, height: 50, borderRadius: 25 }}
               onPress={this.signInWithApple.bind(this)}
             />
-            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 18.5, marginBottom: 20}}>View other sign in options</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 18.5, marginBottom: 20}}>{API.t("setup_other_options")}</Text></TouchableOpacity>
           </>
         )
       }else{
@@ -171,7 +171,6 @@ export default class App extends React.Component {
               <Image source={{uri: "https://developers.google.com/identity/images/g-logo.png"}} style={{width: 18, height: 18, marginRight: 5}}/>
               <Text style={{fontSize: 18, fontWeight: "500"}}>Sign in with Google</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 20, marginBottom: 20}}>View other sign in options</Text></TouchableOpacity>
           </>
         );
       }

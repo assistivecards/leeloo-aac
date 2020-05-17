@@ -37,8 +37,12 @@ export default class App extends React.Component {
     });
 
     this.state.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+        return gestureState.dx != 0 && gestureState.dy != 0;
+      },
       onPanResponderGrant: (evt, gestureState) => {
         this.state.pan.setOffset({x: 0, y: this.offsetValue});
         this.state.pan.setValue({x: 0, y: 0});

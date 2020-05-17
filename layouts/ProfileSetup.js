@@ -78,9 +78,9 @@ export default class Setting extends React.Component {
       <View style={{flex: 1}}>
         <KeyboardAvoidingView style={{flex: 1}}  behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30}}>
-            <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>Create a profile!</Text>
-            <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>Choose a profile name or tell us the person who is going to use this application.</Text>
-            <TextInput style={[API.styles.input, {width: "100%", backgroundColor: "#fff"}]} placeholder={"Your Name"} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
+            <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_create_profile_title")}</Text>
+            <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_create_profile_description")}</Text>
+            <TextInput style={[API.styles.input, {width: "100%", backgroundColor: "#fff"}]} placeholder={API.t("setup_your_name")} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
             <TouchableOpacity style={[API.styles.whiteButton, {marginTop: 30}]} onPress={() => this.setName()}>
               <Text style={{color: "#6989FF", fontWeight: "bold", fontSize: 18}}>{API.t("button_next")}</Text>
             </TouchableOpacity>
@@ -110,16 +110,16 @@ export default class Setting extends React.Component {
       <KeyboardAvoidingView style={{flex: 1}}>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={{justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30}}>
-            <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>Choose an avatar!</Text>
-            <Text style={[API.styles.pHome, {marginBottom: 10, marginHorizontal: 0, textAlign: "center"}]}>Choose a profile name or tell us the person who is going to use this application.</Text>
+            <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_avatar_title")}</Text>
+            <Text style={[API.styles.pHome, {marginBottom: 10, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_avatar_description")}</Text>
           </View>
 
           <View style={{borderWidth: 1, marginBottom: 10, borderColor: "rgba(255,255,255,0.5)", height: 36, backgroundColor: "rgba(255,255,255,0.1)", flexDirection: "row", borderRadius: 18, overflow: "hidden", marginHorizontal: 25}}>
-            <TouchableOpacity onPress={() => this.setState({boy: true, girl: false, mixed: false})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.boy ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>Boy</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({boy: true, girl: false, mixed: false})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.boy ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>{API.t("setup_label_boy")}</Text></TouchableOpacity>
             <View style={{height: "100%", borderLeftWidth: 1, borderLeftColor: "rgba(255,255,255,0.5)"}}></View>
-            <TouchableOpacity onPress={() => this.setState({boy: false, girl: true, mixed: false})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.girl ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>Girl</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({boy: false, girl: true, mixed: false})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.girl ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>{API.t("setup_label_girl")}</Text></TouchableOpacity>
             <View style={{height: "100%", borderLeftWidth: 1, borderLeftColor: "rgba(255,255,255,0.5)"}}></View>
-            <TouchableOpacity onPress={() => this.setState({boy: false, girl: false, mixed: true})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.mixed ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>Mixed</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({boy: false, girl: false, mixed: true})} style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: this.state.mixed ? "rgba(255,255,255,0.2)" : "transparent"}}><Text style={{fontSize: 15, fontWeight: "bold", color: "#fff"}}>{API.t("setup_label_mixed")}</Text></TouchableOpacity>
           </View>
 
           <View style={{ paddingHorizontal: 30, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", paddingTop: 15}}>
@@ -311,8 +311,8 @@ export default class Setting extends React.Component {
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30}}>
-          <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>Congratulations, {this.state.name}!</Text>
-          <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>Your user profile has been completed. You can start using Leeloo AAC app.</Text>
+          <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_congrats_title", this.state.name)}</Text>
+          <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_congrats_description")}</Text>
           <Image source={require("../assets/leeloo_magic.png")} style={{width: 200, height: 300, padding: 10}} resizeMode={"contain"}/>
           {!this.state.creating &&
             <TouchableOpacity style={API.styles.whiteButton} onPress={() => this.createProfile()}>
