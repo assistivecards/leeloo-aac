@@ -1,5 +1,10 @@
 # Leeloo AAC
 
+Set a splash;
+```
+yarn run @expo/configure-splash-screen --mode contain --platform "all" #6989FF ./assets/splash.png
+```
+
 Todo;
 
 ⚠️  iOS configuration applied with warnings that should be fixed:
