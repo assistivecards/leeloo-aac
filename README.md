@@ -19,8 +19,9 @@ Todo;
 Keystore Info:
 
 Keystore credentials
-  Keystore password: b4b2942e-9301-11e7-8b61-0a580a781a6a
-  Key alias:         QGJ1cmFrL2xlZWxvbw==
-  Key password:      b4b2943f-9301-11e7-8b61-0a580a781a6a
+- Keystore password: b4b2942e-9301-11e7-8b61-0a580a781a6a
+- Key alias:         QGJ1cmFrL2xlZWxvbw==
+- Key password:      b4b2943f-9301-11e7-8b61-0a580a781a6a
+- Path to Keystore:  /Users/burak/Documents/GitHub/leeloo-aac/leeloo.jks
 
-  Path to Keystore:  /Users/burak/Documents/GitHub/leeloo-aac/leeloo.jks
+Android SDK: /Users/burak/Library/Android/sdk
