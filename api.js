@@ -7,7 +7,7 @@ import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
 import * as Device from 'expo-device';
-import { Analytics, ScreenHit } from 'expo-analytics';
+import { Analytics, ScreenHit } from 'expo-analytics-safe';
 import { Notifications } from 'expo';
 import {CacheManager} from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
@@ -19,7 +19,7 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const _DEVELOPMENT = false;
+const _DEVELOPMENT = true;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -54,7 +54,7 @@ class Api {
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
-		this.analytics = new Analytics(ANALYTICS_KEY);
+		this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.0.1"});
 
 		this.config = {
 			theme: themes.light

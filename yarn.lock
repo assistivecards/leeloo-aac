@@ -3798,10 +3798,10 @@ expect@^25.5.0:
     jest-message-util "^25.5.0"
     jest-regex-util "^25.2.6"
 
-expo-analytics@^1.0.15:
+expo-analytics-safe@^1.0.15:
   version "1.0.15"
-  resolved "https://registry.yarnpkg.com/expo-analytics/-/expo-analytics-1.0.15.tgz#6c3215f6cce78ec2e1b8bb2554c068e254275259"
-  integrity sha512-dR1446EExM+xZhdKOP6Zw/tVD775OCdBil/L/GNvibGWVXKu/5EaoX6UMY/XLPP2IioYgN1+wXzNxuhyMc+kRg==
+  resolved "https://registry.yarnpkg.com/expo-analytics-safe/-/expo-analytics-safe-1.0.15.tgz#f0ed100414e54eec4b929f3e0308cd4fa33efa21"
+  integrity sha512-BjJsKUNUVL2tPlAIKc5bnHh6enufx88PN804Csgjx29tXQNsl1//01vV0ZD4+6JjV2oF5KlsDNvYld4AKfEw8A==
   dependencies:
     expo-constants "^5.0.1"
 
