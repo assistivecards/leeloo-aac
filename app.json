@@ -37,6 +37,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "privacy": "public"
+    "privacy": "public",
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }

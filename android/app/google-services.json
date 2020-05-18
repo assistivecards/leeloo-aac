@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "977244603146",
+    "firebase_url": "https://leeloo-aac.firebaseio.com",
+    "project_id": "leeloo-aac",
+    "storage_bucket": "leeloo-aac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977244603146:android:37f04df052c39bde",
+        "android_client_info": {
+          "package_name": "org.dreamoriented.leeloo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9nY--XXZ3uF8q7u5KuCyZZCBm4I-jS4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
