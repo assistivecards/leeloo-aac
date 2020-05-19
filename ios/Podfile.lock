@@ -652,6 +652,7 @@ SPEC CHECKSUMS:
   UMFontInterface: 884955c5fd329095e2072d16de9b5bf1bce93005
   UMImageLoaderInterface: 3781f05d7e0be1c5b00dd3cc9c390b94d8484300
   UMPermissionsInterface: a3c5910e28a5ec31810dbfd1936e4948a4439310
+  UMReactNativeAdapter: e936c48fd15114cd1d5b06310797198a06f72ca0
   UMSensorsInterface: fc92b1f92202166284ca0f95e0acc1daab5d16a8
   UMTaskManagerInterface: 4e6c4c34a89512e2225d336154df1cb689226a29
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
