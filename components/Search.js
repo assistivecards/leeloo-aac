@@ -33,6 +33,7 @@ export default class App extends React.Component {
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}
           value={this.props.term}
+          placeholderTextColor={"#b6b6b7"}
           onChangeText={this.props.onChangeText}
         />
 
