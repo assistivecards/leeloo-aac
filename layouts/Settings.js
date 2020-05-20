@@ -150,14 +150,14 @@ export default class App extends React.Component {
                 <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_notifications")}</Text>
               </TouchableOpacity>
 
-              <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+              <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} onPress={() => this.props.navigation.push("Subscription")}>
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <Path stroke="none" d="M0 0h24v24H0z"/>
                   <Path d="M6 5h12l3 5l-8.5 9.5a.7 .7 0 0 1 -1 0l-8.5 -9.5l3 -5" />
                   <Path d="M10 12l-2 -2.2l.6 -1" />
                 </Svg>
                 <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_subscriptions")}</Text>
-              </View>
+              </TouchableOpacity>
 
               <TouchableOpacity onPress={() => API.signout()}>
                 <View style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0}]}>

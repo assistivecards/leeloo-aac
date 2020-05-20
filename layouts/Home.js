@@ -175,7 +175,7 @@ export default class Setting extends React.Component {
           <SafeAreaView>
             <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
                 <View style={{flexDirection: API.user.isRTL ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
-                  <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
+                  <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)} ({API.premium})</Text>
                   <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
                     <CachedImage uri={`${API.assetEndpoint}cards/avatar/${API.user.active_profile.avatar}.png?v=${API.version}`}
                       style={{width: 40, height: 40, position: "relative", top: 4}}
@@ -188,7 +188,6 @@ export default class Setting extends React.Component {
           <SafeAreaView>
             <Search onFocus={() => this.toggleSearch(true)} term={this.state.term} onBlur={() => this.onBlur(false)} onChangeText={this.onSearch.bind(this)} dismiss={this.dismissSearch.bind(this)}/>
           </SafeAreaView>
-
           <View>
             {(this.state.search && this.state.term != "") &&
               <SearchResults term={this.state.term} orientation={this.state.orientation}/>

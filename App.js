@@ -18,12 +18,18 @@ export default class App extends React.Component {
     this.state = {
       screen: "loading",
       moreSignin: false,
-      activity: false
+      activity: false,
+      premium: API.premium
     }
+
+    API.event.on("premium", () => {
+      console.log("$$$$$", API.premium)
+      this.setState({premium: API.premium});
+    })
 
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     this.checkIdentifier();
 
     API.event.on("refresh", (type) => {
@@ -196,6 +202,17 @@ export default class App extends React.Component {
     }
   }
 
+  renderLoading(){
+    return (
+      <View style={{flex: 1, backgroundColor: "#6989FF", justifyContent: "center", alignItems: "center"}}>
+        <StatusBar backgroundColor="#6989FF" barStyle={"light-content"} />
+        <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
+          <ActivityIndicator color={"#6989FF"}/>
+        </View>
+      </View>
+    )
+  }
+
   render() {
     let screen = this.state.screen;
 
@@ -207,23 +224,20 @@ export default class App extends React.Component {
       }else if(API.user.active_profile == "multiple"){
         return (<Switch onChoose={this.setCurrentProfile.bind(this)}/>);
       }else if(API.user.active_profile.id){
-        return (
-          <View style={{flex: 1}}>
-            <StatusBar backgroundColor="#ffffff" barStyle={"dark-content"} />
-            <Navigator/>
-          </View>
-        );
+        if(this.state.premium == "determining"){
+          return this.renderLoading();
+        }else{
+          return (
+            <View style={{flex: 1}}>
+              <StatusBar backgroundColor="#ffffff" barStyle={"dark-content"} />
+              <Navigator/>
+            </View>
+          );
+        }
       }
 
     }else if(screen == "loading"){
-      return (
-        <View style={{flex: 1, backgroundColor: "#6989FF", justifyContent: "center", alignItems: "center"}}>
-          <StatusBar backgroundColor="#6989FF" barStyle={"light-content"} />
-          <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
-            <ActivityIndicator color={"#6989FF"}/>
-          </View>
-        </View>
-      )
+      return this.renderLoading();
     }
   }
 }

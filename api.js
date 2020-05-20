@@ -7,6 +7,8 @@ import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
 import * as Device from 'expo-device';
+import * as InAppPurchases from 'expo-in-app-purchases';
+
 import { Analytics, ScreenHit } from 'expo-analytics-safe';
 import { Notifications } from 'expo';
 import {CacheManager} from "react-native-expo-image-cache";
@@ -71,11 +73,15 @@ class Api {
 
 		this.locked = true;
 		this.activeProfileId = null;
+		this.premium = "determining";
+		this.premiumPlans = [];
 
     console.log("API: Created instance");
 		if(!_DEVELOPMENT){
 			this._listenNetwork();
 		}
+
+		this._initSubscriptions();
   }
 
 	hit(screen){
@@ -531,6 +537,81 @@ class Api {
 			});
 		});
 
+	}
+
+	async _initSubscriptions(){
+    try{
+      const history = await InAppPurchases.connectAsync();
+			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
+			  // get to know if user is premium or npt.
+				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
+				if(lifetime){
+					this.premium = "lifetime";
+				}else{
+					let orderedHistory = history.results.sort((a, b) => (a.purchaseTime > b.purchaseTime) ? 1 : -1);
+					if(orderedHistory[0]){
+						this.premium = orderedHistory[0].productId;
+					}else{
+						this.premium = "none";
+					}
+				}
+
+				this.event.emit("premium");
+				await this.setData("premium", this.premium);
+
+
+	      const { responseCode, results } = await InAppPurchases.getProductsAsync(["monthly", "yearly", "lifetime"]);
+	      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+					console.log("results", results);
+					this.premiumPlans = results;
+				}
+
+	      InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
+	        // Purchase was successful
+	        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+	          results.forEach(purchase => {
+	            if (!purchase.acknowledged) {
+	              console.log(`Successfully purchased ${purchase.productId}`);
+	              // Process transaction here and unlock content...
+								this.premium = purchase.productId;
+								this.event.emit("premium");
+								this.setData("premium", this.premium);
+								this.event.emit("refresh");
+
+	              // Then when you're done
+	              InAppPurchases.finishTransactionAsync(purchase, true);
+	            }
+	          });
+	        }
+
+	        // Else find out what went wrong
+	        if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
+	          console.log('User canceled the transaction');
+	        } else if (responseCode === InAppPurchases.IAPResponseCode.DEFERRED) {
+	          console.log('User does not have permissions to buy but requested parental approval (iOS only)');
+	        } else {
+	          console.warn(`Something went wrong with the purchase. Received errorCode ${responseCode}`);
+	        }
+	      });
+			}else{
+				console.log("#### Appstore status is not ok.");
+				this.premium = await this.getData("premium");
+				this.event.emit("premium");
+			}
+
+    } catch(err){
+      console.log("##########maybe no internet, or the app reloaded in dev mode", err);
+			this.premium = await this.getData("premium");
+			this.event.emit("premium");
+    }
+	}
+
+	async purchasePremium(productId, oldProductId){
+		if(oldProductId && oldProductId != "none"){
+			await InAppPurchases.purchaseItemAsync(productId, oldProductId);
+		}else{
+			await InAppPurchases.purchaseItemAsync(productId);
+		}
 	}
 
 	async getCards(slug, force){

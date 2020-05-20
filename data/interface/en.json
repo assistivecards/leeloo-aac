@@ -56,7 +56,12 @@
 	"settings_notifications_tipsAndPromo_promotion_description": "Let us notify you when we have a discount for the subscription",
 
 	"settings_selection_subscriptions": "Subscriptions",
-	"settings_subscriptions_description": "Subscriptions",
+	"settings_subscriptions_description": "Manage your subscriptions and Leeloo Premium purchases and switch between plans.",
+	"settings_subscriptions_cancel_notice": "In order to cancel a subscription, please go to your device or market settings and subscriptions.",
+	"settings_subscriptions_downgrade_notice": "You can't downgrade your lifetime premium subscription.",
+	"settings_subscriptions_oneTimePayment": "One-time payment",
+	"settings_subscriptions_recurringPayment": "Recurring payment",
+
 
 	"settings_selection_signout": "Sign Out",
 	"settings_selection_sendFeedback": "Send Feedback",
