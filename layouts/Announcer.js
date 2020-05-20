@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   content: {
-    paddingBottom: 100
+    paddingBottom: 130
   },
   cardHolder: {
     justifyContent: "space-around",

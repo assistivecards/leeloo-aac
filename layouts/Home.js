@@ -253,6 +253,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
-    opacity: 0.75
+    color: "rgba(0,0,0,0.75)"
   }
 });

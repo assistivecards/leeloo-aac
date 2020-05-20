@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   searchItemText:{
     fontSize: 16,
     fontWeight: "bold",
-    opacity: 0.75,
+    color: "rgba(0,0,0,0.75)",
     flex: 1,
     paddingRight: 10
   },
