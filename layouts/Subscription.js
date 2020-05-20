@@ -22,8 +22,9 @@ export default class Setting extends React.Component {
   }
 
   _listenPremiumPurchase = (changedTo) => {
+    console.log("asdasdasdasd", changedTo);
     this.setState({premium: changedTo});
-    this.save();
+    this.save(changedTo);
   }
 
   componentWillUnmount(){
@@ -31,12 +32,14 @@ export default class Setting extends React.Component {
     API.event.removeListener("premiumPurchase", this._listenPremiumPurchase)
   }
 
-  async save(){
+  async save(toPremiumValue){
     API.haptics("touch");
     let { premium } = this.state;
     let changedFields = [];
     let changedValues = [];
-
+    if(toPremiumValue){
+      premium = toPremiumValue;
+    }
     changedFields.push("premium");
     changedValues.push(premium);
 
@@ -79,7 +82,7 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-          {API.premiumPlans &&
+          {API.premiumPlans[0] &&
             <>
               {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
               {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "yearly")[0])}
@@ -88,7 +91,6 @@ export default class Setting extends React.Component {
           }
             {this.state.premium == "lifetime" && <Text style={API.styles.p}>{API.t("settings_subscriptions_downgrade_notice")}</Text>}
             <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
-            <TouchableOpacity onPress={() => this._listenPremiumPurchase("lifetime")}><Text>Mmake lifetime</Text></TouchableOpacity>
             <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>

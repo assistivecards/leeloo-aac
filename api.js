@@ -11,7 +11,7 @@ import * as InAppPurchases from 'expo-in-app-purchases';
 
 import { Analytics, ScreenHit } from 'expo-analytics-safe';
 import { Notifications } from 'expo';
-import {CacheManager} from "react-native-expo-image-cache";
+import { CacheManager } from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
 
@@ -21,11 +21,11 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const _DEVELOPMENT = false;
+const _DEVELOPMENT = true;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
-const _DEVUSERIDENTIFIER = "114203700870626824237";
+const _DEVUSERIDENTIFIER = "109677539152659927717";
 const _DEVLOCALE = "en-US";
 const _ISPREMIUM = false;
 
@@ -569,6 +569,12 @@ class Api {
 
 	async _initSubscriptions(){
     try{
+			if(_DEVELOPMENT){
+				if(!_ISPREMIUM){
+					this.premium = "none";
+					this.event.emit("premium");
+				}
+			}
       const history = await InAppPurchases.connectAsync();
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
