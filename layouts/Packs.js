@@ -38,8 +38,35 @@ export default class Setting extends React.Component {
     this.props.navigation.pop();
   }
 
-  renderItem = (item) => {
+  renderAddButton(item){
+    if(API.isPremium()){
+      return (
+        <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
+          <TouchableOpacity onPress={() => this.addAction(item.slug)} style={styles.button}>
+            <Text style={{color: "#fff", fontWeight: "bold"}}>{API.t("button_add")}</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }else{
+      return (
+        <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
+          {item.premium == 1 &&
+            <TouchableOpacity onPress={() => this.props.navigation.push("Subscription")} style={[styles.button, {backgroundColor: "#a2ddfd"}]}>
+              <Text style={{color: "#3e455b", fontWeight: "bold"}}>Premium</Text>
+            </TouchableOpacity>
+          }
+          {item.premium == 0 &&
+            <TouchableOpacity onPress={() => this.addAction(item.slug)} style={styles.button}>
+              <Text style={{color: "#fff", fontWeight: "bold"}}>{API.t("button_add")}</Text>
+            </TouchableOpacity>
+          }
+        </View>
+      )
+    }
 
+  }
+
+  renderItem = (item) => {
     return (
       <View key={item.slug} style={styles.packItem}>
         <View style={[styles.pack, {backgroundColor: item.color ? item.color : "#F5F5F7"}]}>
@@ -49,14 +76,7 @@ export default class Setting extends React.Component {
           <Text style={[API.styles.h3, {marginLeft: 0, marginBottom: 3, marginTop: 0}]}>{titleCase(item.locale)}</Text>
           <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0}]}>{API.t("settings_cards", item.count)}</Text>
         </View>
-        <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
-          {false &&
-            <View style={styles.premium}><Text style={{fontWeight: "600", fontSize: 12, color: "#fff"}}>Premium</Text></View>
-          }
-          <TouchableOpacity onPress={() => this.addAction(item.slug)} style={styles.button}>
-            <Text style={{color: "#fff", fontWeight: "bold"}}>{API.t("button_add")}</Text>
-          </TouchableOpacity>
-        </View>
+        {this.renderAddButton(item)}
       </View>
     );
   };
@@ -68,7 +88,7 @@ export default class Setting extends React.Component {
         <View style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30}}>
             <FlatList
-               style={{flex: 1,  paddingTop: 20, paddingHorizontal: 25}}
+               style={{flex: 1,  paddingTop: 20, paddingHorizontal: 25, width: "100%"}}
                data={this.state.data}
                renderItem={({ item }) => this.renderItem(item)}
                keyExtractor={item => "pack-"+item.id}
@@ -118,8 +138,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#6989FF",
     height: 30,
-    width: 60,
     borderRadius: 15,
+    paddingHorizontal: 15,
     alignItems: "center",
     justifyContent: "center"
   }

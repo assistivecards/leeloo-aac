@@ -21,12 +21,13 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const _DEVELOPMENT = true;
+const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
 const _DEVUSERIDENTIFIER = "114203700870626824237";
 const _DEVLOCALE = "en-US";
+const _ISPREMIUM = false;
 
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
@@ -98,6 +99,21 @@ class Api {
 		  console.log('Is connected?', state.isConnected);
 			this.isOnline = state.isConnected;
 		});
+	}
+
+	isPremium(){
+		if(_DEVELOPMENT){
+			return _ISPREMIUM;
+		}
+		if(this.premium == "lifetime" || this.premium == "yearly" || this.premium == "monthly"){
+			return true;
+		}else{
+			if(this.isGift){
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}
 
 	haptics(style){
@@ -216,6 +232,9 @@ class Api {
 			}
 		}
 		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
+		if(this.user.premium == "gift"){
+			this.isGift = true;
+		}
 		this.user.active_profile = await this.getCurrentProfile();
 		return userResponse;
 	}
@@ -523,6 +542,15 @@ class Api {
 			await this.getCards(slugArray[i], force);
 		}
 
+		if(!this.isPremium()){
+			let allPacks = await this.getPacks();
+			slugArray = slugArray.map(slug => {
+				if(!allPacks.filter(allpack => allpack.slug == slug)[0].premium){
+					return slug;
+				}
+			}).filter(slug => slug != null);
+		}
+
 
 		this.searchArray = []; // empty the old search array.
 
@@ -559,10 +587,8 @@ class Api {
 				this.event.emit("premium");
 				await this.setData("premium", this.premium);
 
-
 	      const { responseCode, results } = await InAppPurchases.getProductsAsync(["monthly", "yearly", "lifetime"]);
 	      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-					console.log("results", results);
 					this.premiumPlans = results;
 				}
 
@@ -571,10 +597,11 @@ class Api {
 	        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
 	          results.forEach(purchase => {
 	            if (!purchase.acknowledged) {
-	              console.log(`Successfully purchased ${purchase.productId}`);
+	              alert(`Successfully purchased ${purchase.productId}`);
 	              // Process transaction here and unlock content...
 								this.premium = purchase.productId;
 								this.event.emit("premium");
+								this.event.emit("premiumPurchase", this.premium);
 								this.setData("premium", this.premium);
 								this.event.emit("refresh");
 

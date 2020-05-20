@@ -3,6 +3,7 @@ import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, Toucha
 
 import API from '../api';
 import TopBar from '../components/TopBar'
+import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 
 export default class Setting extends React.Component {
   constructor(props){
@@ -67,7 +68,16 @@ export default class Setting extends React.Component {
                 <Text style={API.styles.subSmall}>{API.t("settings_account_section3_description")}</Text>
                 <TextInput style={[API.styles.input, {backgroundColor: "#f1f1f1"}]} value={API.user.identifier.substr(0, 3) + "-" + API.user.type + "-" + API.user.id} selectTextOnFocus={true}/>
               </View>
-
+              <TouchableOpacity onPress={() => API.signout()}>
+                <View style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0, padding: 25}]}>
+                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <Path stroke="none" d="M0 0h24v24H0z"/>
+                    <Path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                    <Path d="M7 12h14l-3 -3m0 6l3 -3" />
+                  </Svg>
+                  <Text style={[API.styles.b, {fontSize: 15, marginLeft: 10}]}>{API.t("settings_selection_signout")}</Text>
+                </View>
+              </TouchableOpacity>
               <View style={API.styles.iosBottomPadder}></View>
             </View>
           </ScrollView>

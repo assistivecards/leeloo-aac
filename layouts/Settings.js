@@ -158,23 +158,12 @@ export default class App extends React.Component {
                 </Svg>
                 <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_subscriptions")}</Text>
               </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => API.signout()}>
-                <View style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0}]}>
-                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <Path stroke="none" d="M0 0h24v24H0z"/>
-                    <Path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                    <Path d="M7 12h14l-3 -3m0 6l3 -3" />
-                  </Svg>
-                  <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_signout")}</Text>
-                </View>
-              </TouchableOpacity>
             </View>
 
             <View style={styles.appSettings}>
               <View style={styles.selectionCarrier}>
 
-                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/feedback/"})}>
+                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/leeloo-feedback/"})}>
                   <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
                     <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <Path stroke="none" d="M0 0h24v24H0z"/>
@@ -221,6 +210,7 @@ export default class App extends React.Component {
                   </View>
                 </TouchableOpacity>
 
+              {false &&
                 <TouchableOpacity style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0}]} onPress={() => this.props.navigation.push("Remove")}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path stroke="none" d="M0 0h24v24H0z"/>
@@ -232,6 +222,8 @@ export default class App extends React.Component {
                   </Svg>
                   <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_removeMyData")}</Text>
                 </TouchableOpacity>
+              }
+                <View style={{height: 10}}></View>
               </View>
             </View>
             <View style={API.styles.iosBottomPadder}></View>

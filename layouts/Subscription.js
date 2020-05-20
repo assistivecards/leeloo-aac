@@ -14,14 +14,21 @@ export default class Setting extends React.Component {
 
   componentDidMount(){
     API.event.on("premium", this._listenPremiumChange.bind(this))
+    API.event.on("premiumPurchase", this._listenPremiumPurchase.bind(this))
   }
 
   _listenPremiumChange = () => {
     this.setState({premium: API.premium});
   }
 
+  _listenPremiumPurchase = (changedTo) => {
+    this.setState({premium: changedTo});
+    this.save();
+  }
+
   componentWillUnmount(){
     API.event.removeListener("premium", this._listenPremiumChange);
+    API.event.removeListener("premiumPurchase", this._listenPremiumPurchase)
   }
 
   async save(){
@@ -72,12 +79,16 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-            {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
-            {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "yearly")[0])}
-            {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "lifetime")[0])}
-
+          {API.premiumPlans &&
+            <>
+              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
+              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "yearly")[0])}
+              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "lifetime")[0])}
+            </>
+          }
             {this.state.premium == "lifetime" && <Text style={API.styles.p}>{API.t("settings_subscriptions_downgrade_notice")}</Text>}
             <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
+            <TouchableOpacity onPress={() => this._listenPremiumPurchase("lifetime")}><Text>Mmake lifetime</Text></TouchableOpacity>
             <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>

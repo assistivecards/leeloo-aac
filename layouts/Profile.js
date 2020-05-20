@@ -231,6 +231,7 @@ export default class Setting extends React.Component {
 
                   ListFooterComponent={(<View style={{height: 100}}></View>)}
                   data={this.state.data}
+                  style={{width: "100%"}}
                   renderItem={this.renderItem}
                   keyExtractor={(item, index) => `draggable-item-${item.id}`}
                   onDragEnd={({ data }) => { this.setState({ data, changed: true }); API.haptics("touch"); }}
