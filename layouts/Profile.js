@@ -176,12 +176,14 @@ export default class Setting extends React.Component {
 
                 {this.profile.id == API.user.active_profile.id &&
                   <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", padding: 5}}>
-                    <TextInput style={[API.styles.h1, {marginRight: 0, marginLeft: 10}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})}/>
-                    <Svg width="24" height="24" viewBox="0 0 24 24" style={{marginLeft: 4}}>
-                      <Path d="M0,0H24V24H0Z" fill="none"/>
-                      <Path d="M4,20H8L18.5,9.5a2.828,2.828,0,0,0-4-4L4,16v4" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                      <Line x2="4" y2="4" transform="translate(13.5 6.5)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-                    </Svg>
+                    <TextInput style={[API.styles.h1, {marginRight: 0, marginLeft: 10}]} defaultValue={this.profile.name} onChangeText={(text) => this.setState({name: text})} ref={comp => this._input = comp}/>
+                    <TouchableOpacity onPress={() => this._input.focus()}>
+                      <Svg width="24" height="24" viewBox="0 0 24 24" style={{marginLeft: 4}}>
+                        <Path d="M0,0H24V24H0Z" fill="none"/>
+                        <Path d="M4,20H8L18.5,9.5a2.828,2.828,0,0,0-4-4L4,16v4" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                        <Line x2="4" y2="4" transform="translate(13.5 6.5)" fill="none" stroke="#fff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+                      </Svg>
+                    </TouchableOpacity>
                   </View>
                 }
 
