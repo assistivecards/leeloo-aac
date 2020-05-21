@@ -223,7 +223,7 @@ export default class App extends React.Component {
         return (<ProfileSetup done={this.setCurrentProfile.bind(this)}/>);
       }else if(API.user.active_profile == "multiple"){
         return (<Switch onChoose={this.setCurrentProfile.bind(this)}/>);
-      }else if(API.user.active_profile.id){
+      }else if(API.user.active_profile){
         if(this.state.premium == "determining"){
           return this.renderLoading();
         }else{
@@ -235,6 +235,8 @@ export default class App extends React.Component {
           );
         }
       }
+
+      console.log("######", API.user.profiles)
 
     }else if(screen == "loading"){
       return this.renderLoading();

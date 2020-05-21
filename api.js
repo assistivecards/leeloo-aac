@@ -21,7 +21,7 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 // For test cases
-const _DEVELOPMENT = true;
+const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
