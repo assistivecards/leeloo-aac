@@ -31,6 +31,11 @@ Keystore credentials
 
 Android SDK: /Users/burak/Library/Android/sdk
 
+Debug Keystore
+- Keypass: android
+- keyalias: android
+
+
 tablet size:
 
 home screen:
