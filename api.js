@@ -8,9 +8,9 @@ import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
 import * as Device from 'expo-device';
 import * as InAppPurchases from 'expo-in-app-purchases';
+import * as Notifications from 'expo-notifications';
 
 import { Analytics, ScreenHit } from 'expo-analytics-safe';
-import { Notifications } from 'expo';
 import { CacheManager } from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
@@ -141,6 +141,7 @@ class Api {
 	    if(Constants.isDevice) {
 	      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 	      let finalStatus = existingStatus;
+				console.log("##############", finalStatus)
 	      if(existingStatus !== 'granted'){
 	        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 	        finalStatus = status;
@@ -148,8 +149,15 @@ class Api {
 	      if(finalStatus !== 'granted'){
 	        return "ungranted";
 	      }
-
-	      let token = await Notifications.getExpoPushTokenAsync();
+				let experienceId = undefined;
+			   if (!Constants.manifest) {
+			     // Absence of the manifest means we're in bare workflow
+			     experienceId = '@username/example';
+			   }
+	      let token = await Notifications.getExpoPushTokenAsync({
+			    experienceId,
+			  });
+				console.log(token);
 
 		    if(Platform.OS === 'android'){
 		      Notifications.createChannelAndroidAsync('default', {

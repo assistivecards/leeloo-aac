@@ -42,6 +42,7 @@ export default class Setting extends React.Component {
 
   async componentDidMount(){
     let token = await API.registerForPushNotificationsAsync();
+    console.log("####", token);
     this.setState({notificationToken: token});
     if(token == "ungranted"){
       AppState.addEventListener("change", this._handleAppStateChange);
