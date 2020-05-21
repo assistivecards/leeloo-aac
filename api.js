@@ -139,27 +139,32 @@ class Api {
 
 	async registerForPushNotificationsAsync(){
 	    if(Constants.isDevice) {
+
 	      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 	      let finalStatus = existingStatus;
-				console.log("##############", finalStatus)
-	      if(existingStatus !== 'granted'){
-	        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-	        finalStatus = status;
-	      }
-	      if(finalStatus !== 'granted'){
-	        return "ungranted";
-	      }
+
+
+				if(true){
+		      if(existingStatus !== 'granted'){
+		        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+		        finalStatus = status;
+		      }
+		      if(finalStatus !== 'granted'){
+		        return "ungranted";
+		      }
+				}
+
 				let experienceId = undefined;
 			   if (!Constants.manifest) {
 			     // Absence of the manifest means we're in bare workflow
-			     experienceId = '@username/example';
+			     experienceId = '@burak/leeloo';
 			   }
 	      let token = await Notifications.getExpoPushTokenAsync({
 			    experienceId,
 			  });
-				console.log(token);
+				token = token.data;
 
-		    if(Platform.OS === 'android'){
+		    if(Platform.OS === 'android' && typeof Notifications.createChannelAndroidAsync == "function"){
 		      Notifications.createChannelAndroidAsync('default', {
 		        name: 'default',
 		        sound: true,
@@ -169,10 +174,9 @@ class Api {
 		    }
 
 				if(token != this.user.notificationToken){
-					this.update(["notificationToken"], [token]).then(res => {
-						console.log("updated notification token");
-			    })
+					await this.update(["notificationToken"], [token]);
 				}
+				return token;
 
 	    }else{
 	      console.log('Must use physical device for Push Notifications');
