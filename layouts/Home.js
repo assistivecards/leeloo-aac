@@ -134,10 +134,10 @@ export default class Setting extends React.Component {
       return(
         this.state.packs.map((pack, i) => {
           return (
-            <TouchableScale key={i} style={this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape} onPress={() => this.openCards(pack, i)}>
+            <TouchableScale key={i} style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.openCards(pack, i)}>
               <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
-                <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: 90, height: 90, margin: 15, marginBottom: 10}}/>
-                <Text style={styles.categoryItemText}>{titleCase(pack.locale)}</Text>
+                <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: API.isTablet ? 130 : 90, height: API.isTablet ? 130 : 90, margin: 15, marginBottom: 10}}/>
+                <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16}]}>{titleCase(pack.locale)}</Text>
               </View>
             </TouchableScale>
           )
@@ -230,12 +230,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   categoryItem: {
-    width: "50%",
-    height: 160
+    width: "50%"
   },
   categoryItemLandscape: {
-    width: "33.3%",
-    height: 160
+    width: "33.3%"
   },
   board: {
     justifyContent: "flex-start",
@@ -250,7 +248,6 @@ const styles = StyleSheet.create({
     margin: 5
   },
   categoryItemText:{
-    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
     color: "rgba(0,0,0,0.75)"

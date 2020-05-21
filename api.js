@@ -32,7 +32,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 204;
+const ASSET_VERSION = 205;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -57,7 +57,9 @@ class Api {
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
-		this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.0.1"});
+		this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.0.3"});
+		this.isTablet = false;
+		this._checkIfTablet();
 
 		this.config = {
 			theme: themes.light
@@ -99,6 +101,12 @@ class Api {
 		  console.log('Is connected?', state.isConnected);
 			this.isOnline = state.isConnected;
 		});
+	}
+
+	async _checkIfTablet(){
+		let deviceType = await Device.getDeviceTypeAsync()
+
+		this.isTablet = deviceType == Device.DeviceType.TABLET;
 	}
 
 	isPremium(){

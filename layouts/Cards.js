@@ -98,10 +98,10 @@ export default class Setting extends React.Component {
               {this.state.cards.map((card, i) => {
                 return (
                   <TouchableScale key={i} onPress={() => this.props.navigation.push("Announcer", {card, pack: this.pack, orientation: this.state.orientation})}
-                    style={this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape}>
+                    style={[this.state.orientation == "portrait" ? styles.cardItem : styles.cardItemLandscape, {height: API.isTablet ? 200 : 130}]}>
                     <View style={styles.cardItemInner}>
-                      <CachedImage uri={`${API.assetEndpoint}cards/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: 70, height: 70, margin: 10, marginBottom: 5}}/>
-                      <Text style={styles.cardItemText}>{titleCase(card.title)}</Text>
+                      <CachedImage uri={`${API.assetEndpoint}cards/${this.pack.slug}/${card.slug}.png?v=${API.version}`} style={{width: API.isTablet ? 110 : 70, height: API.isTablet ? 110 : 70, margin: 10, marginBottom: 5}}/>
+                      <Text style={[styles.cardItemText, {fontSize: API.isTablet ? 21 : 14}]}>{titleCase(card.title)}</Text>
                     </View>
                   </TouchableScale>
                 )
@@ -141,12 +141,10 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22
   },
   cardItem: {
-    width: "33.3%",
-    height: 130
+    width: "33.3%"
   },
   cardItemLandscape: {
-    width: "20%",
-    height: 130
+    width: "20%"
   },
   cardItemInner: {
     justifyContent: "center",
@@ -156,7 +154,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F7F7"
   },
   cardItemText:{
-    fontSize: 14,
     fontWeight: "normal",
     marginBottom: 10,
     marginTop: 3,

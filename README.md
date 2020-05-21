@@ -30,3 +30,13 @@ Keystore credentials
 - Path to Keystore:  /Users/burak/Documents/GitHub/leeloo-aac/leeloo.jks
 
 Android SDK: /Users/burak/Library/Android/sdk
+
+tablet size:
+
+home screen:
+- 3 for portait
+- 4 for landscape
+
+card screen
+- 4 for portait
+- 6 for landscape
