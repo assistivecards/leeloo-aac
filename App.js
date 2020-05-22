@@ -8,6 +8,7 @@ import * as Font from 'expo-font';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as GoogleSignIn from 'expo-google-sign-in';
 import * as Localization from 'expo-localization';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import API from './api';
 
@@ -30,6 +31,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount(){
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     this.checkIdentifier();
 
     API.event.on("refresh", (type) => {
@@ -47,6 +49,7 @@ export default class App extends React.Component {
       if(user.language){
         API.ramLanguage(user.language).then(res => {
           this.setState({screen: "logged"});
+          ScreenOrientation.unlockAsync();
         });
       }else{
         API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
@@ -235,8 +238,6 @@ export default class App extends React.Component {
           );
         }
       }
-
-      console.log("######", API.user.profiles)
 
     }else if(screen == "loading"){
       return this.renderLoading();
