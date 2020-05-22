@@ -17,6 +17,7 @@ import Remove from './layouts/Remove'
 import Packs from './layouts/Packs'
 import Avatar from './layouts/Avatar'
 import Subscription from './layouts/Subscription'
+import Premium from './layouts/Premium'
 
 const AppNavigator = createStackNavigator({
     Home:         { screen: Home          },
@@ -33,6 +34,7 @@ const AppNavigator = createStackNavigator({
     Packs:        { screen: Packs         },
     Avatar:       { screen: Avatar        },
     Subscription: { screen: Subscription  },
+    Premium:      { screen: Premium       },
   },
   {
     headerMode: 'none',

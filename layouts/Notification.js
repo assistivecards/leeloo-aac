@@ -70,7 +70,7 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_notifications_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-            {this.state.notificationToken == "ungranted" &&
+            {false &&
               <Text>You need to enable notification from your device settings for this app.</Text>
             }
             <View style={styles.preferenceItem}>

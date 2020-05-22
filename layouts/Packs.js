@@ -51,7 +51,7 @@ export default class Setting extends React.Component {
       return (
         <View style={{flex: 1, justifyContent: "flex-end", alignItems: "flex-end", flexDirection: "row", alignItems: "center"}}>
           {item.premium == 1 &&
-            <TouchableOpacity onPress={() => this.props.navigation.push("Subscription")} style={[styles.button, {backgroundColor: "#a2ddfd"}]}>
+            <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={[styles.button, {backgroundColor: "#a2ddfd"}]}>
               <Text style={{color: "#3e455b", fontWeight: "bold"}}>Premium</Text>
             </TouchableOpacity>
           }

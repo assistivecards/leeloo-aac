@@ -32,7 +32,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 205;
+const ASSET_VERSION = 206;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -143,7 +143,6 @@ class Api {
 	      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 	      let finalStatus = existingStatus;
 
-
 				if(true){
 		      if(existingStatus !== 'granted'){
 		        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -155,13 +154,12 @@ class Api {
 				}
 
 				let experienceId = undefined;
-			   if (!Constants.manifest) {
-			     // Absence of the manifest means we're in bare workflow
-			     experienceId = '@burak/leeloo';
-			   }
-	      let token = await Notifications.getExpoPushTokenAsync({
-			    experienceId,
-			  });
+				if (!Constants.manifest) {
+				 // Absence of the manifest means we're in bare workflow
+				 experienceId = '@burak/leeloo';
+				}
+
+	      let token = await Notifications.getExpoPushTokenAsync();
 				token = token.data;
 
 		    if(Platform.OS === 'android' && typeof Notifications.createChannelAndroidAsync == "function"){
@@ -172,7 +170,7 @@ class Api {
 		        vibrate: [0, 250, 250, 250],
 		      });
 		    }
-
+				console.log(token);
 				if(token != this.user.notificationToken){
 					await this.update(["notificationToken"], [token]);
 				}
@@ -693,6 +691,7 @@ class Api {
 	}
 
 	getCardData(slug, pack){
+		console.log(slug, pack);
 		return this.cards[pack].filter(ramCard => ramCard.slug == slug)[0];
 	}
 

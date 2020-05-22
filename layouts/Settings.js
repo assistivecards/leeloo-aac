@@ -210,21 +210,22 @@ export default class App extends React.Component {
                   </View>
                 </TouchableOpacity>
 
-              {false &&
-                <TouchableOpacity style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0}]} onPress={() => this.props.navigation.push("Remove")}>
-                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <Path stroke="none" d="M0 0h24v24H0z"/>
-                    <Line x1="4" y1="7" x2="20" y2="7" />
-                    <Line x1="10" y1="11" x2="10" y2="17" />
-                    <Line x1="14" y1="11" x2="14" y2="17" />
-                    <Path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                    <Path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                  </Svg>
-                  <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_removeMyData")}</Text>
-                </TouchableOpacity>
-              }
+                {false &&
+                  <TouchableOpacity style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0}]} onPress={() => this.props.navigation.push("Remove")}>
+                    <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                      <Path stroke="none" d="M0 0h24v24H0z"/>
+                      <Line x1="4" y1="7" x2="20" y2="7" />
+                      <Line x1="10" y1="11" x2="10" y2="17" />
+                      <Line x1="14" y1="11" x2="14" y2="17" />
+                      <Path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                      <Path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                    </Svg>
+                    <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_removeMyData")}</Text>
+                  </TouchableOpacity>
+                }
                 <View style={{height: 10}}></View>
               </View>
+              <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={{height: 140, backgroundColor: "#a2ddfd"}}></TouchableOpacity>
             </View>
             <View style={API.styles.iosBottomPadder}></View>
           </View>
