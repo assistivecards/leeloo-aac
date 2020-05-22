@@ -45,3 +45,15 @@ home screen:
 card screen
 - 4 for portait
 - 6 for landscape
+
+Screenshots;
+- Alternating Page
+- Main Screen
+- Conversations Pack
+- What? word
+- People Pack
+- Search "Tea"
+- Search "I love"
+- Lock Screen
+- Settings Screen
+- Profile Edit Screen
