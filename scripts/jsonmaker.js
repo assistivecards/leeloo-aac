@@ -8,7 +8,7 @@ let languages = require("../data/languages.json");
 
 let existCheck = false;
 let type = "free";
-let filename = "animals";
+let filename = "school";
 let content = fs.readFileSync("packs/"+type+"/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
@@ -38,7 +38,7 @@ function phraseTranslation(lang, cardRows){
 }
 
 function cardTranslation(lang){
-  return Promise.all(content.split("\r\n").map((card, i) => {
+  return Promise.all(content.split("\r\n").filter(c => c != "").map((card, i) => {
     if(i >= 2){
       let cardRows = card.split(",");
       return phraseTranslation(lang, cardRows).then(translatedPhrases => {
