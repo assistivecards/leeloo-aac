@@ -33,7 +33,6 @@ export default class Setting extends React.Component {
   }
 
   _listenPremiumPurchase = (changedTo) => {
-    console.log("asdasdasdasd", changedTo);
     this.setState({premium: changedTo});
     this.save(changedTo);
   }
@@ -60,7 +59,6 @@ export default class Setting extends React.Component {
   }
 
   renderSubscriptionPlan(plan, compare){
-    console.log(plan);
     if(plan.productId == "monthly"){
        return (
          <TouchableOpacity key={plan.productId} onPress={() => API.purchasePremium(plan.productId, this.state.premium)} style={styles.listItem}>
@@ -311,7 +309,6 @@ export default class Setting extends React.Component {
               <ScrollView style={{height: 140, width: "100%"}} horizontal={true}>
                 <View style={{width: 25}}></View>
                 {this.state.cards.map((pack, i) => {
-                  console.log(pack);
                   return (
                     <View key={i} style={[styles.card, {backgroundColor: pack.color}]}>
                       <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: 50, height: 50, margin: 5}}/>

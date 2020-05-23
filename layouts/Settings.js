@@ -8,6 +8,7 @@ import API from '../api'
 
 import TopBar from '../components/TopBar'
 import Profiles from '../components/Profiles'
+import Promo from '../components/Promo'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -225,7 +226,9 @@ export default class App extends React.Component {
                 }
                 <View style={{height: 10}}></View>
               </View>
-              <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={{height: 140, backgroundColor: "#a2ddfd"}}></TouchableOpacity>
+              {!API.isPremium() &&
+                <Promo showPremium={() => this.props.navigation.push("Premium")}/>
+              }
             </View>
             <View style={API.styles.iosBottomPadder}></View>
           </View>
