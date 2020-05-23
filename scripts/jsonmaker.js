@@ -6,9 +6,17 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
 let existCheck = false;
 let type = "free";
-let filename = "school";
+let filename = "food";
 let content = fs.readFileSync("packs/"+type+"/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
@@ -85,6 +93,7 @@ function savePack(index){
 
       index++;
       if(index != languages.languages.length){
+        sleep(5000);
         savePack(index);
       }else{
         console.log("ALL DONE!")
