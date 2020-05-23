@@ -49,7 +49,7 @@ function savePack(index){
             translationObj[trans] = res[i];
         });
 
-        fs.writeFileSync("../data/interface/"+language+".json", JSON.stringify(translationObj), {encoding: "utf8"});
+        fs.writeFileSync("../data/interface/"+language+".json", JSON.stringify(translationObj, null, 2), {encoding: "utf8"});
         console.log("Saved", language);
 
 
