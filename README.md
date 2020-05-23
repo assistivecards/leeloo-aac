@@ -57,3 +57,12 @@ Screenshots;
 - Lock Screen
 - Settings Screen
 - Profile Edit Screen
+
+
+In order to see this plan in the app;
+- Signin with Apple (or Google by touching more options)
+- Set a username and choose an avatar from selection
+- In the home screen, touch the right-top avatar
+- At the end of the page, touch the "Leeloo Premium" banner
+
+Middle plan with is the free trial offering is the yearly plan.
