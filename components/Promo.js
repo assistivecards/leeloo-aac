@@ -9,9 +9,9 @@ export default class App extends React.Component {
     return (
       <TouchableOpacity onPress={() => this.props.showPremium()} style={styles.promo}>
         <View style={{marginLeft: 20, position: "relative", zIndex: 9999}}>
-          <Text style={{fontSize: 21, color: "#fff", fontWeight: "bold", marginBottom: 5}}>Leeloo Premium</Text>
-          <Text style={{fontSize: 14, color: "#fff", marginBottom: 2}}>Subscribe to get more</Text>
-          <Text style={{fontSize: 14, color: "#fff", marginBottom: 2}}>Try 3 days for free</Text>
+          <Text style={{fontSize: 21, color: "#fff", fontWeight: "bold", marginBottom: 5}}>{API.t("premium_promo_title")}</Text>
+          <Text style={{fontSize: 14, color: "#fff", marginBottom: 2}}>{API.t("premium_promo_desc1")}</Text>
+          <Text style={{fontSize: 14, color: "#fff", marginBottom: 2}}>{API.t("premium_promo_desc2")}</Text>
         </View>
         <Image source={require("../assets/promo.png")} style={{width: 200, height: 150, position: "absolute", bottom: -39, right: -33}} resizeMode={"contain"} />
       </TouchableOpacity>
