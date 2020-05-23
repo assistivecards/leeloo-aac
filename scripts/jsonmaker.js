@@ -16,7 +16,7 @@ function sleep(milliseconds) {
 
 let existCheck = false;
 let type = "free";
-let filename = "food";
+let filename = "feelings";
 let content = fs.readFileSync("packs/"+type+"/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
