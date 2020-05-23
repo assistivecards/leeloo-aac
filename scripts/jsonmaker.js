@@ -7,8 +7,8 @@ const translate = new Translate();
 let languages = require("../data/languages.json");
 
 let existCheck = false;
-let type = "premium";
-let filename = "snacks";
+let type = "free";
+let filename = "animals";
 let content = fs.readFileSync("packs/"+type+"/"+filename+".csv", {encoding: "utf8"});
 
 function phraseTranslation(lang, cardRows){
