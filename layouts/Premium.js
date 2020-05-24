@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, SafeAreaView, ActivityIndicator } from 'react-native';
 
 import API from '../api';
 import TopBar from '../components/TopBar'
@@ -16,12 +16,15 @@ export default class Setting extends React.Component {
     super(props);
     this.state = {
       premium: API.premium,
-      cards: []
+      cards: [],
+      plans: []
     }
 
   }
 
   async componentDidMount(){
+    let plans = await API.getPlans();
+    this.setState({plans})
     API.event.on("premium", this._listenPremiumChange.bind(this))
     API.event.on("premiumPurchase", this._listenPremiumPurchase.bind(this))
     let cards = await API.getPacks();
@@ -275,6 +278,7 @@ export default class Setting extends React.Component {
   }
 
   render() {
+    let plans = this.state.plans;
     return(
       <>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}} contentInsetAdjustmentBehavior="automatic">
@@ -295,12 +299,17 @@ export default class Setting extends React.Component {
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
             <Text style={[API.styles.h2, {textAlign: "center"}]}>{API.t("premium_title")}</Text>
             <Text style={[API.styles.p, {textAlign: "center", marginBottom: 30}]}>{API.t("premium_description")}</Text>
-            {API.premiumPlans[0] &&
+            {plans[0] &&
               <>
-                {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
-                {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "yearly")[0], API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
-                {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "lifetime")[0])}
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "monthly")[0])}
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "yearly")[0], plans.filter(plan => plan.productId == "monthly")[0])}
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "lifetime")[0])}
               </>
+            }
+            {!plans[0] &&
+              <View style={{height: 150, justifyContent: "center", alignItems: "center"}}>
+                <ActivityIndicator/>
+              </View>
             }
 
             <View style={{paddingTop: 8}}>
@@ -323,7 +332,7 @@ export default class Setting extends React.Component {
             </View>
 
             <TouchableOpacity style={styles.button} onPress={() => API.purchasePremium("yearly", this.state.premium)}>
-              <Text style={[API.styles.h3, {color: "#3e445a", marginBottom: 0, marginTop: 0}]}>{API.t("premium_trial_title")}</Text>
+              <Text style={[API.styles.h3, {color: "#3e445a", marginBottom: 0, marginTop: 0, textAlign: "center"}]}>{API.t("premium_trial_title")}</Text>
               <Text style={[API.styles.h4, {color: "#3e445a", fontWeight: "normal", paddingTop: 3, opacity: 0.8}]}>{API.t("premium_trial_description")}</Text>
             </TouchableOpacity>
             <View>
@@ -372,10 +381,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#a2ddfd",
-    height: 70,
+    height: 80,
     margin: 30,
     marginVertical: 10,
-    borderRadius: 35,
+    borderRadius: 40,
     justifyContent: "center",
     alignItems: "center"
   },

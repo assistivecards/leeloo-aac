@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 
 import API from '../api';
 import TopBar from '../components/TopBar'
@@ -8,11 +8,15 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      premium: API.premium
+      premium: API.premium,
+      plans: []
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
+    let plans = await API.getPlans();
+    this.setState({plans});
+
     API.event.on("premium", this._listenPremiumChange.bind(this))
     API.event.on("premiumPurchase", this._listenPremiumPurchase.bind(this))
   }
@@ -22,7 +26,7 @@ export default class Setting extends React.Component {
   }
 
   _listenPremiumPurchase = (changedTo) => {
-    console.log("asdasdasdasd", changedTo);
+    console.log("Purchased: ", changedTo);
     this.setState({premium: changedTo});
     this.save(changedTo);
   }
@@ -73,6 +77,7 @@ export default class Setting extends React.Component {
   }
 
   render() {
+    let plans = this.state.plans;
     return(
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
@@ -82,13 +87,19 @@ export default class Setting extends React.Component {
             <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
           </View>
           <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-          {API.premiumPlans[0] &&
-            <>
-              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "monthly")[0])}
-              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "yearly")[0])}
-              {this.renderSubscriptionPlan(API.premiumPlans.filter(plan => plan.productId == "lifetime")[0])}
-            </>
-          }
+            {plans[0] &&
+              <>
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "monthly")[0])}
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "yearly")[0])}
+                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "lifetime")[0])}
+              </>
+            }
+
+            {!plans[0] &&
+              <View style={{height: 150, justifyContent: "center", alignItems: "center"}}>
+                <ActivityIndicator/>
+              </View>
+            }
             {this.state.premium == "lifetime" && <Text style={API.styles.p}>{API.t("settings_subscriptions_downgrade_notice")}</Text>}
             <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
             <View style={API.styles.iosBottomPadder}></View>

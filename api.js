@@ -594,6 +594,7 @@ class Api {
 				}
 			}
       const history = await InAppPurchases.connectAsync();
+
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
 				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
@@ -610,11 +611,6 @@ class Api {
 
 				this.event.emit("premium");
 				await this.setData("premium", this.premium);
-
-	      const { responseCode, results } = await InAppPurchases.getProductsAsync(["monthly", "yearly", "lifetime"]);
-	      if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-					this.premiumPlans = results;
-				}
 
 	      InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
 	        // Purchase was successful
@@ -647,14 +643,39 @@ class Api {
 			}else{
 				console.log("#### Appstore status is not ok.");
 				this.premium = await this.getData("premium");
+				if(!this.premium) {
+					this.premium = "none";
+					this.setData("premium", "none");
+				}
 				this.event.emit("premium");
 			}
 
     } catch(err){
-      console.log("##########maybe no internet, or the app reloaded in dev mode", err);
+      console.log("###### maybe no internet, or the app reloaded in dev mode", err);
 			this.premium = await this.getData("premium");
+			if(!this.premium) {
+				this.premium = "none";
+				this.setData("premium", "none");
+			}
 			this.event.emit("premium");
     }
+	}
+
+	async getPlans(){
+		if(this.premiumPlans.length != 0){
+			return this.premiumPlans;
+		}else{
+			try {
+	      const { responseCode, results } = await InAppPurchases.getProductsAsync(["monthly", "yearly", "lifetime"]);
+				console.log(results);
+				if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+					this.premiumPlans = results;
+				}
+			}catch (err) {
+				console.log("Issues with fetching products: ", err);
+			}
+			return this.premiumPlans;
+		}
 	}
 
 	async purchasePremium(productId, oldProductId){
@@ -711,6 +732,7 @@ class Api {
 	}
 
 	async ramLanguage(langCode, force){
+		console.log("ramming lang:", langCode);
 		var url = ASSET_ENDPOINT + "interface/" + langCode +".json?v="+this.version;
 		if(this.uitext[langCode] && force == null){
 			console.log("pulling from ram", "language", langCode);

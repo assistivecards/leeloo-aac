@@ -56,7 +56,7 @@ export default class App extends React.Component {
         });
       }
     }else{
-      API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
+      API.ramLanguage(Localization.locale.substr(0,2), 1).then(res => {
         this.setState({screen: "login"});
       });
     }
