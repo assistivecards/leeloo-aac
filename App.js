@@ -31,7 +31,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount(){
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    ScreenOrientation.unlockAsync();
     this.checkIdentifier();
 
     API.event.on("refresh", (type) => {
@@ -49,7 +49,6 @@ export default class App extends React.Component {
       if(user.language){
         API.ramLanguage(user.language).then(res => {
           this.setState({screen: "logged"});
-          ScreenOrientation.unlockAsync();
         });
       }else{
         API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
