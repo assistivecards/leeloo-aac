@@ -593,8 +593,13 @@ class Api {
 					this.event.emit("premium");
 				}
 			}
-      const history = await InAppPurchases.connectAsync();
+			console.log("$$$$$asdasd");
 
+	    if(!Constants.isDevice) {
+				this.premium = "none";
+				this.event.emit("premium");
+			}
+      const history = await InAppPurchases.connectAsync();
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
 				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
@@ -732,7 +737,7 @@ class Api {
 	}
 
 	async ramLanguage(langCode, force){
-		console.log("ramming lang:", langCode);
+
 		var url = ASSET_ENDPOINT + "interface/" + langCode +".json?v="+this.version;
 		if(this.uitext[langCode] && force == null){
 			console.log("pulling from ram", "language", langCode);

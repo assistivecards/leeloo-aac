@@ -31,8 +31,13 @@ export default class App extends React.Component {
   }
 
   async componentDidMount(){
-    ScreenOrientation.unlockAsync();
+    setTimeout(() => {
+      if(this.state.screen == "loading"){
+        this.setState({screen: "login"});
+      }
+    }, 5000);
     this.checkIdentifier();
+    ScreenOrientation.unlockAsync();
 
     API.event.on("refresh", (type) => {
       if(type == "signout"){
@@ -204,7 +209,12 @@ export default class App extends React.Component {
     }
   }
 
-  renderLoading(){
+  renderLoading(type){
+    if(type == "premium"){
+      setTimeout(() => {
+        this.setState({premium: "none"});
+      }, 5000);
+    }
     return (
       <View style={{flex: 1, backgroundColor: "#6989FF", justifyContent: "center", alignItems: "center"}}>
         <StatusBar backgroundColor="#6989FF" barStyle={"light-content"} />
@@ -227,7 +237,7 @@ export default class App extends React.Component {
         return (<Switch onChoose={this.setCurrentProfile.bind(this)}/>);
       }else if(API.user.active_profile){
         if(this.state.premium == "determining"){
-          return this.renderLoading();
+          return this.renderLoading("premium");
         }else{
           return (
             <View style={{flex: 1}}>
