@@ -20,6 +20,8 @@ import Event from './js/event';
 import styles from './js/styles';
 import themes from './js/themes';
 
+const fallbackUIText = require("./data/interface/en.json");
+
 // For test cases
 const _DEVELOPMENT = false;
 
@@ -32,7 +34,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 207;
+const ASSET_VERSION = 208;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -53,7 +55,7 @@ class Api {
 			CacheManager.clearCache();
 		}
 		this.cards = {};
-		this.uitext = {};
+		this.uitext = {en: fallbackUIText};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
@@ -767,6 +769,10 @@ class Api {
 			lang = this.user.language
 		}else{
 			lang = Localization.locale.substr(0, 2);
+		}
+
+		if(!this.uitext[lang]){
+			lang = "en";
 		}
 
 		if(typeof variableArray == "string" || typeof variableArray == "number"){
