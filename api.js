@@ -595,7 +595,6 @@ class Api {
 					this.event.emit("premium");
 				}
 			}
-			console.log("$$$$$asdasd");
 
 	    if(!Constants.isDevice) {
 				this.premium = "none";
@@ -618,6 +617,8 @@ class Api {
 
 				this.event.emit("premium");
 				await this.setData("premium", this.premium);
+
+				this.getPlans(); // async fetch the plans for later use.
 
 	      InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
 	        // Purchase was successful

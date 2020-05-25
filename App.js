@@ -91,7 +91,7 @@ export default class App extends React.Component {
         this.setState({activity: false});
       } else {
         // handle other errors
-        alert('Make sure to have internet connection and try again later:' + e.code);
+        alert('Make sure to have internet connection and try again later:' + JSON.stringify(e));
         this.setState({activity: false});
       }
     }
