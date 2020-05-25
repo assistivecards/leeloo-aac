@@ -20,8 +20,10 @@ import Event from './js/event';
 import styles from './js/styles';
 import themes from './js/themes';
 
+const fallbackUIText = require("./data/interface/en.json");
+
 // For test cases
-const _DEVELOPMENT = false;
+const _DEVELOPMENT = true;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -53,7 +55,7 @@ class Api {
 			CacheManager.clearCache();
 		}
 		this.cards = {};
-		this.uitext = {};
+		this.uitext = {en: fallbackUIText};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
@@ -767,6 +769,10 @@ class Api {
 			lang = this.user.language
 		}else{
 			lang = Localization.locale.substr(0, 2);
+		}
+
+		if(!this.uitext[lang]){
+			lang = "en";
 		}
 
 		if(typeof variableArray == "string" || typeof variableArray == "number"){
