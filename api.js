@@ -23,7 +23,7 @@ import themes from './js/themes';
 const fallbackUIText = require("./data/interface/en.json");
 
 // For test cases
-const _DEVELOPMENT = true;
+const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -34,7 +34,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 207;
+const ASSET_VERSION = 208;
 const RTL = ["ar","ur","he"];
 
 let storage;
