@@ -1,23 +1,20 @@
-slug,locale
-medical,Medical
-hospital-bed,Hospital bed
-weight-loss,Weight loss
-exercise,Exercise
-medical-history,Medical history
-vitamin-c,Vitamin-C
-thermometer,Thermometer
-pills,Pills
-medical-mask,Medical mask
-dental-care,Dental care
-hearing-exam,Hearing exam
-hospital,Hospital
-stethoscope,Stethoscope
-ambulance,Ambulance
-drugstore,Drugstore
-emergency,Emergency
-health-insurance,Health insurance
-doctor,Doctor
-nurse,Nurse
-microscope,Microscope
-wheelchair,Wheelchair
-ultrasound-machine,Ultrasound machine
+slug,locale,,,
+medical,Medical,,,
+hospital-bed,Hospital bed,🙋Can you help me with me hospital bed?,,
+weight-loss,Weight loss,🏋️I need to moderate my food intake.,🏃‍♀️I'm losing weight.,🥩I'm gaining weight.
+exercise,Exercise,🏋️I'm doing exercise.,⏲️I have an exercise routine.,
+medical-history,Medical history,📂Here is my medical history.,,
+vitamin-c,Vitamin C,🍹I need to take vitamin c.,🍊Oranges contain vitamin c.,
+thermometer,Thermometer,🤒Can you measure my fever?,🌡️How does a thermometer work?,
+pills,Pills,💊I need to take my pills.,👉Did you take your pills?,
+medical-mask,Medical mask,,,
+dental-care,Dental care,🦷My teeth hurt.,🦷I'm brushing my teeth.,
+hearing-exam,Hearing exam,👂I have hearing problems.,🦻I will have an hearing exam.,
+hospital,Hospital,🏥I'm going to the hospital.,🏥I'm in hospital.,
+stethoscope,Stethoscope,👨‍⚕️Doctors use stethoscope.,🩺Can I have a toy stethoscope?,
+ambulance,Ambulance,👀I saw an ambulance.,👂I heard an ambulance voice.,
+drugstore,Drugstore,🧾I need to fill my prescription.,➡️Here is my prescription.,
+emergency,Emergency,🚨I have a health emergency.,🚑I'm going to emergency room.,
+health-insurance,Health insurance,⚕️I have health insurance.,❌I don't have health insurance.,
+doctor,Doctor,❤️I like my doctor.,🤩Doctor is helping me.,
+nurse,Nurse,❤️I like my nurse.,🤩Nurse is helping me.,

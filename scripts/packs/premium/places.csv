@@ -1,26 +1,26 @@
-slug,locale
-places,Places
-park,Park
-mall,Mall
-restaurant,Restaurant
-cinema,Cinema
-school,School
-library,Library
-fair,Fair
-drugstore,Drugstore
-hospital,Hospital
-amusement-park,Amusement park
-dormitory,Dormitory
-laundry-place,Laundry place
-barber-shop,Barber shop
-hotel,Hotel
-kindergarten,Kindergarten
-parking-lot,Parking lot
-elevator,Elevator
-bank,Bank
-skycraper,Skycraper
-stadium,Stadium
-cruise-ship,Cruise ship
-forest,Forest
-tent,Tent
-beach,Beach
+slug,locale,,,
+places,Places,,,
+park,Park,🙋I want to go to park.,☝️Can you take me to park?,💡I can play in the park.
+mall,Mall,🙋I want to go to mall.,☝️Can you take me to mall?,💡I can shop in the mall.
+restaurant,Restaurant,🙋I want to go to restaurant.,☝️Can you take me to restaurant?,💡I can eat a meal in restaurant.
+cinema,Cinema,🙋I want to go to cinema.,☝️Can you take me to cinema?,💡I can watch a movie in cinema.
+school,School,🙋I want to go to school.,☝️Can you take me to school?,💡I can learn in the school.
+library,Library,🙋I want to go to library.,☝️Can you take me to library?,💡I can study in the library.
+fair,Fair,🙋I want to go to fair.,☝️Can you take me to fair?,💡I can have fun in fair.
+drugstore,Drugstore,🙋I want to go to drugstore.,☝️Can you take me to drugstore?,💡I can buy my medicine in drugstore.
+hospital,Hospital,🙋I want to go to hospital.,☝️Can you take me to hospital?,💡Sick people can go to hospital.
+amusement-park,Amusement park,🙋I want to go to amusement park.,☝️Can you take me to amusement park?,💡I can have fun in amusement park.
+dormitory,Dormitory,🙋I want to go to dormitory.,☝️Can you take me to dormitory?,💡I can stay in dormitory.
+laundry-place,Laundry place,🙋I want to go to laundry place.,☝️Can you take me to laundry place?,💡I can clean my laundry in laundry place.
+barber-shop,Barber shop,🙋I want to go to barber shop.,☝️Can you take me to barber shop?,💡I can get a haircut in barber shop.
+hotel,Hotel,🙋I want to go to hotel.,☝️Can you take me to hotel?,💡I can stay in a hotel.
+kindergarten,Kindergarten,🙋I want to go to kindergarten.,☝️Can you take me to kindergarten?,
+parking-lot,Parking lot,🙋I want to go to parking lot.,☝️Can you take me to parking lot?,
+elevator,Elevator,🙋I want to use the elevator.,💗I like using the elevator?,💡I can go upstairs using elevator.
+bank,Bank,🙋I want to go to bank.,☝️Can you take me to bank?,💡I can withdraw money in the bank.
+skycraper,Skycraper,🙋I want to go to skycraper.,☝️Can you take me to skycraper?,
+stadium,Stadium,🙋I want to go to stadium.,☝️Can you take me to stadium?,
+cruise-ship,Cruise ship,🙋I want to board a cruise ship.,☝️Can you take me to cruise ship?,
+forest,Forest,🙋I want to go to forest.,☝️Can you take me to forest?,
+tent,Tent,🙋I want to go to tent.,☝️Can we stay in a tent?,
+beach,Beach,🙋I want to go to beach.,☝️Can you take me to beach?,💡I can sunbath at the beach.

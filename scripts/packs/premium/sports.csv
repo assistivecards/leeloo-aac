@@ -1,21 +1,21 @@
-slug,locale
-sports,Sports
-basketball,Basketball
-boxing,Boxing
-tennis,Tennis
-golf,Golf
-hockey,Hockey
-swimming,Swimming
-baseball,Baseball
-american-football,American football
-cricket,Cricket
-racing,Racing
-skiing,Skiing
-volleyball,Volleyball
-fencing,Fencing
-referee,Referee
-coach,Coach
-kendo,Kendo
-table-tennis,Table tennis
-medal,Medal
-podium,Podium
+slug,locale,,
+sports,Sports,,
+basketball,Basketball,❤️I like playing basketball.,🙋Do you want to play basketball?
+boxing,Boxing,❤️I like boxing.,🙋Do you want to box together?
+tennis,Tennis,❤️I like playing tennis.,🙋Do you want to play tennis?
+golf,Golf,❤️I like playing golf.,🙋Do you want to play golf?
+hockey,Hockey,❤️I like playing hockey.,🙋Do you want to play hockey?
+swimming,Swimming,❤️I like swimming.,🙋Do you want to swim?
+baseball,Baseball,❤️I like playing baseball.,🙋Do you want to play baseball?
+american-football,American football,❤️I like playing american football.,🙋Do you want to play american football?
+cricket,Cricket,❤️I like cricket.,🙋Do you want to play cricket?
+racing,Racing,❤️I like racing.,🙋Do you want to race together?
+skiing,Skiing,❤️I like skiing.,🙋Do you want to ski?
+volleyball,Volleyball,❤️I like playing volleyball.,🙋Do you want to play volleyball?
+fencing,Fencing,❤️I like fencing.,
+referee,Referee,🏁Can I be the referee?,
+coach,Coach,🏁Can I be your coach?,
+kendo,Kendo,,
+table-tennis,Table tennis,❤️I like playing table tennis.,🙋Do you want to play table tennis?
+medal,Medal,😎I have got a medal.,
+podium,Podium,,
