@@ -62,6 +62,7 @@ export default class Setting extends React.Component {
   }
 
   renderSubscriptionPlan(plan, compare){
+    plan.price = plan.price.replace(",", ".");
     if(plan.productId == "monthly"){
        return (
          <TouchableOpacity key={plan.productId} onPress={() => API.purchasePremium(plan.productId, this.state.premium)} style={styles.listItem}>

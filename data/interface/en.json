@@ -80,7 +80,7 @@
 	"settings_locked_description": "Drag and drop the key over the padlock to unlock the Settings",
 
 	"setup_create_profile_title": "Create a profile!",
-	"setup_create_profile_description": "Choose a profile name or tell us the person who is going to use this application.",
+	"setup_create_profile_description": "Choose a profile name or tell us the first name of the person who is going to use this application.",
 	"setup_your_name": "Your Name",
 
 	"setup_avatar_title": "Choose an avatar!",

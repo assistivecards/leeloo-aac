@@ -26,7 +26,7 @@ const fallbackUIText = require("./data/interface/en.json");
 const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
-const _FLUSH = false;
+const _FLUSH = true;
 const _DEVUSERIDENTIFIER = "109677539152659927717";
 const _DEVLOCALE = "en-US";
 const _ISPREMIUM = false;
