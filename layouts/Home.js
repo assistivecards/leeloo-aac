@@ -5,6 +5,7 @@ import API from '../api';
 import titleCase from '../js/titleCase';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 import * as ScreenOrientation from 'expo-screen-orientation';
+import Svg, { Line } from 'react-native-svg';
 
 
 import Search from '../components/Search'
@@ -184,11 +185,19 @@ export default class Setting extends React.Component {
                   <View style={{flex: 1}}>
                     <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
                   </View>
-                  <TouchableOpacity style={styles.avatar} onPress={() => this.openSettings()}>
-                    <CachedImage uri={`${API.assetEndpoint}cards/avatar/${API.user.active_profile.avatar}.png?v=${API.version}`}
-                      style={{width: 40, height: 40, position: "relative", top: 4}}
-                      resizeMode={"contain"}
-                      />
+                  <TouchableOpacity style={styles.avatarHolder} onPress={() => this.openSettings()}>
+                    <View style={styles.avatar}>
+                      <CachedImage uri={`${API.assetEndpoint}cards/avatar/${API.user.active_profile.avatar}.png?v=${API.version}`}
+                        style={{width: 40, height: 40, position: "relative", top: 4}}
+                        resizeMode={"contain"}
+                        />
+                    </View>
+                    <View style={styles.avatarIcon}>
+                      <Svg width={11} height={11} viewBox="0 0 8 4">
+                        <Line x1="1" x2="7" y1="0.8" y2="0.8" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1"/>
+                        <Line x1="1" x2="7" y1="3.2" y2="3.2" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1"/>
+                      </Svg>
+                    </View>
                   </TouchableOpacity>
                 </View>
               </Animated.View>
@@ -230,6 +239,20 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     marginTop: 5,
+  },
+  avatarHolder: {
+    position: "relative"
+  },
+  avatarIcon: {
+    backgroundColor: "#fff",
+    width: 18,
+    height: 18,
+    position: "absolute",
+    bottom: -2,
+    right: 28,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center"
   },
   categoryItem: {
     width: "50%"

@@ -23,7 +23,7 @@ import themes from './js/themes';
 const fallbackUIText = require("./data/interface/en.json");
 
 // For test cases
-const _DEVELOPMENT = false;
+const _DEVELOPMENT = true;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -59,7 +59,11 @@ class Api {
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
-		this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.0.3"});
+		if(_DEVELOPMENT){
+			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.0.3"});
+		}else{
+			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.0.3"});
+		}
 		this.isTablet = false;
 		this._checkIfTablet();
 

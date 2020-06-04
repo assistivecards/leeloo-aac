@@ -81,9 +81,16 @@ export default class Setting extends React.Component {
             <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_create_profile_title")}</Text>
             <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_create_profile_description")}</Text>
             <TextInput style={[API.styles.input, {width: "100%", backgroundColor: "#fff"}]} placeholder={API.t("setup_your_name")} value={this.state.name} onChangeText={(name) => this.setState({name})}/>
-            <TouchableOpacity style={[API.styles.whiteButton, {marginTop: 30}]} onPress={() => this.setName()}>
-              <Text style={{color: "#6989FF", fontWeight: "bold", fontSize: 18}}>{API.t("button_next")}</Text>
-            </TouchableOpacity>
+            {this.state.name.length >= 2 &&
+              <TouchableOpacity style={[API.styles.whiteButton, {marginTop: 30}]} onPress={() => this.setName()}>
+                <Text style={{color: "#6989FF", fontWeight: "bold", fontSize: 18}}>{API.t("button_next")}</Text>
+              </TouchableOpacity>
+            }
+            {this.state.name.length < 2 &&
+              <View style={[API.styles.whiteButton, {marginTop: 30, backgroundColor: "rgba(255,255,255,0.5)"}]} onPress={() => this.setName()}>
+                <Text style={{color: "#6989FF", fontWeight: "bold", fontSize: 18}}>{API.t("button_next")}</Text>
+              </View>
+            }
           </View>
         </KeyboardAvoidingView>
         {this.renderLeeloo()}

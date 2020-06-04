@@ -154,6 +154,9 @@ export default class App extends React.Component {
             <View style={{width: 60, height: 60, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", borderRadius: 30}}>
               <ActivityIndicator color={"#6989FF"}/>
             </View>
+            <TouchableOpacity style={{marginTop: 30, position: "absolute", bottom: 30}} onPress={() => this.setState({activity: false})}>
+              <Text style={{color: "#fff", fontWeight: "bold", fontSize: 18}}>{API.t("alert_cancel")}</Text>
+            </TouchableOpacity>
           </View>
         }
       </>
