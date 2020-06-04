@@ -193,9 +193,9 @@ export default class Setting extends React.Component {
                         />
                     </View>
                     <View style={styles.avatarIcon}>
-                      <Svg width={12} height={12} viewBox="0 0 8 4">
-                        <Line x1="1" x2="7" y1="1" y2="1" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
-                        <Line x1="1" x2="7" y1="3" y2="3" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"/>
+                      <Svg width={11} height={11} viewBox="0 0 8 4">
+                        <Line x1="1" x2="7" y1="0.8" y2="0.8" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1"/>
+                        <Line x1="1" x2="7" y1="3.2" y2="3.2" fill="none" stroke="#6989FF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.1"/>
                       </Svg>
                     </View>
                   </TouchableOpacity>
