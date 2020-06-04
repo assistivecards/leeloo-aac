@@ -55,6 +55,8 @@ export default class Setting extends React.Component {
                </TouchableOpacity>
              )
            })}
+           <View style={[styles.childAvatar, {backgroundColor: "#fff", borderColor: "#fff"}]}>
+           </View>
           </View>
           <View style={{backgroundColor: "#fff"}}>
             <View style={API.styles.iosBottomPadder}></View>
