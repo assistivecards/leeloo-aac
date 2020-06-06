@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator, Alert } from 'react-native';
 
 import API from '../api';
 import TopBar from '../components/TopBar'
+import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 
 export default class Setting extends React.Component {
   constructor(props){
@@ -52,6 +53,42 @@ export default class Setting extends React.Component {
     API.haptics("impact");
   }
 
+  redeem(){
+    Alert.prompt(
+      "Redeem Promo Code",
+      "Enter the promo code we supplied to you, must be all capital.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: code => this.checkPromoCode(code)
+        }
+      ],
+      "plain-text"
+    );
+  }
+
+  async checkPromoCode(code){
+    if(code){
+
+      var formData = new FormData();
+  		formData.append('promo', code);
+      let resu = await fetch("https://leeloo.dreamoriented.org/code.php", { method: 'POST', body: formData })
+	    .then(res => res.json());
+      if(resu == "false"){
+        alert("The promo code is not valid.");
+      }else{
+        this.save("gift");
+      }
+    }else{
+      alert("Can't be empty!");
+    }
+  }
+
   renderSubscriptionPlan(plan){
     if(plan.productId == this.state.premium || (this.state.premium == "lifetime")){
       return (
@@ -78,35 +115,69 @@ export default class Setting extends React.Component {
 
   render() {
     let plans = this.state.plans;
-    return(
-      <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
-        <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-          <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
-            <Text style={API.styles.h1}>{API.t("settings_selection_subscriptions")}</Text>
-            <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
-          </View>
-          <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
-            {plans[0] &&
-              <>
-                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "monthly")[0])}
-                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "yearly")[0])}
-                {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "lifetime")[0])}
-              </>
-            }
+    if(API.user.premium == "gift"){
 
-            {!plans[0] &&
-              <View style={{height: 150, justifyContent: "center", alignItems: "center"}}>
-                <ActivityIndicator/>
-              </View>
-            }
-            {this.state.premium == "lifetime" && <Text style={API.styles.p}>{API.t("settings_subscriptions_downgrade_notice")}</Text>}
-            <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
-            <View style={API.styles.iosBottomPadder}></View>
-          </View>
-        </ScrollView>
-      </>
-    )
+      return(
+        <>
+          <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+          <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
+            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+              <Text style={API.styles.h1}>{API.t("settings_selection_subscriptions")}</Text>
+              <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
+            </View>
+            <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
+              <Text style={API.styles.p}>You have redeemed a promo code, this means using your account you can use and test this app's premium capabilities forever.</Text>
+              <Text style={API.styles.p}>Also, we love you! ❤️</Text>
+              <Text style={[API.styles.p, {opacity: 0.7}]}>Additionally if you are fluent in a language other than English, help us proofread your native language at "assistivecards.com/help"</Text>
+              <View style={API.styles.iosBottomPadder}></View>
+            </View>
+          </ScrollView>
+        </>
+      )
+    }else{
+
+      return(
+        <>
+          <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
+          <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
+            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+              <Text style={API.styles.h1}>{API.t("settings_selection_subscriptions")}</Text>
+              <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
+            </View>
+            <View style={{flex: 1, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingTop: 15}}>
+              {plans[0] &&
+                <>
+                  {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "monthly")[0])}
+                  {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "yearly")[0])}
+                  {this.renderSubscriptionPlan(plans.filter(plan => plan.productId == "lifetime")[0])}
+                </>
+              }
+
+              {!plans[0] &&
+                <View style={{height: 150, justifyContent: "center", alignItems: "center"}}>
+                  <ActivityIndicator/>
+                </View>
+              }
+              {this.state.premium == "lifetime" && <Text style={API.styles.p}>{API.t("settings_subscriptions_downgrade_notice")}</Text>}
+              <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
+              <TouchableOpacity onPress={() => this.redeem()}>
+                <View style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0, padding: 25, paddingHorizontal: 30}]}>
+                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <Path stroke="none" d="M0 0h24v24H0z"/>
+                    <Line x1="9" y1="15" x2="15" y2="9" />
+                    <Circle cx="9.5" cy="9.5" r=".5" fill="currentColor" />
+                    <Circle cx="14.5" cy="14.5" r=".5" fill="currentColor" />
+                    <Path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7a2.2 2.2 0 0 0 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1a2.2 2.2 0 0 0 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55 v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55 v-1" />
+                  </Svg>
+                  <Text style={[API.styles.b, {fontSize: 15, marginLeft: 10}]}>Redeem Promo Code</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={API.styles.iosBottomPadder}></View>
+            </View>
+          </ScrollView>
+        </>
+      )
+    }
   }
 }
 

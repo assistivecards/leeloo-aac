@@ -10,6 +10,7 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $language = $_POST['language'];
 $voice = $_POST['voice'];
+$premium = $_POST['premium'];
 $notificationToken = $_POST['notificationToken'];
 $notificationSettings = $_POST['notificationSettings'];
 
@@ -31,6 +32,17 @@ if($userIdentifier){
 
     if(!empty($voice)){
       $setString .= ", `voice` = '$voice'";
+    }
+
+    if(!empty($premium)){
+      $setString .= ", `premium` = '$premium'";
+      //https://api.trello.com/1/cards/OBXoXcxX/actions/comments?text=testing&key=e4abdea208bc321dd1aaef3029b717a4&token=81522f31fc5d354bd800dc18d0d552bb108fbf18a15f5a429bce6f53b3b688ce
+      $encoded = urlencode("A user has purchased premium plan: `$premium`");
+      $ch = curl_init("https://api.trello.com/1/cards/WuTZ0amD/actions/comments?text=".$encoded."&key=e4abdea208bc321dd1aaef3029b717a4&token=81522f31fc5d354bd800dc18d0d552bb108fbf18a15f5a429bce6f53b3b688ce");
+
+      curl_setopt ($ch, CURLOPT_POST, true);
+      curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_exec ($ch);
     }
 
     if(!empty($notificationToken)){

@@ -4,6 +4,7 @@ session_set_cookie_params(2592000);
 ini_set('session.cookie_domain', '.dreamoriented.org' );
 session_start();
 include("config.php");
+require 'vendor/autoload.php';
 
 $userIdentifier = $_POST['identifier'];
 $type = $_POST['type'];
@@ -31,6 +32,11 @@ if($userIdentifier){
       {
           $profiles[] = $row;
       }
+
+      for ($i=0; $i < sizeof($profiles); $i++) {
+        $profiles[$i]->packs = json_decode($profiles[$i]->packs);
+      }
+
       $data->profiles = $profiles;
     }
     $time = time();
@@ -39,14 +45,32 @@ if($userIdentifier){
     $data->session_id = session_id();
   }else{
     $time = time();
-    $add = mysqli_query($conn, "INSERT INTO `user` (`id`, `type`, `identifier`, `email`, `name`, `avatar`, `register_time`, `last_active`, `language`, `voice`, `os`, `modelName`, `timeline`) VALUES (NULL, '$type', '$userIdentifier', '$email', '$name', '$avatar', $time, $time, '$language', '$voice', '$os', '$modelName', '$timeline');");
-    $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
-    $data = mysqli_fetch_object($user);
+    if($type){
+      $add = mysqli_query($conn, "INSERT INTO `user` (`id`, `type`, `identifier`, `email`, `name`, `avatar`, `register_time`, `last_active`, `language`, `voice`, `os`, `modelName`, `timeline`) VALUES (NULL, '$type', '$userIdentifier', '$email', '$name', '$avatar', $time, $time, '$language', '$voice', '$os', '$modelName', '$timeline');");
 
-    $profiles = array();
-    $data->profiles = $profiles;
+      $groupsApi = (new MailerLiteApi\MailerLite("587f7f5d4fd7c7ea59c620b2ea9e4ad9"))->groups();
 
-    $_SESSION['user_id'] = intval($user->id);
+      $subscriber = [
+          'email' => $email,
+          'fields' => [
+              'name' => $name,
+              'language' => $language,
+              'timeline' => $os,
+              'os' => $timeline
+          ]
+      ];
+
+      $response = $groupsApi->addSubscriber(103002618, $subscriber);
+
+      $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
+      $data = mysqli_fetch_object($user);
+
+      $profiles = array();
+      $data->profiles = $profiles;
+
+
+      $_SESSION['user_id'] = intval($user->id);
+    }
     $data->session_id = session_id();
   }
 }else{

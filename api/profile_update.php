@@ -9,8 +9,8 @@ $profileId = $_POST['id'];
 $userIdentifier = $_POST['identifier'];
 $name = $_POST['name'];
 $active = $_POST['active'];
+$avatar = $_POST['avatar'];
 $packs = $_POST['packs'];
-$remove = $_POST['remove'];
 
 if($userIdentifier){
   $user = mysqli_query($conn, "SELECT * FROM `user` WHERE `identifier` = '$userIdentifier' LIMIT 1");
@@ -19,35 +19,33 @@ if($userIdentifier){
     $profile = mysqli_query($conn, "SELECT * FROM `profile` WHERE `parent` = $userId AND `id` = $profileId");
     if(mysqli_num_rows($profile)){
 
-      if($remove){
-        $delete = mysqli_query($conn, "DELETE FROM `profile` WHERE id = $profileId");
-        $data = "deleted";
-      }else{
-        $setString = "SET rate = rate+1";
-        if(!empty($name)){
-          $setString .= ", `name` = '$name'";
-        }
-
-        if(!empty($active)){
-          $setString .= ", `active` = '$active'";
-        }
-
-        if(!empty($packs)){
-          $setString .= ", `packs` = '$packs'";
-        }
-
-        $update = mysqli_query($conn, "UPDATE `profile` ".$setString." WHERE `id` = $profileId;");
-        $profileResult = mysqli_query($conn, "SELECT * FROM `profile` WHERE `id` = $profileId");
-
-        $data = mysqli_fetch_object($profileResult);
+      $setString = "SET rate = rate+1";
+      if(!empty($name)){
+        $setString .= ", `name` = '$name'";
       }
 
+      if(!empty($active)){
+        $setString .= ", `active` = '$active'";
+      }
+
+      if(!empty($avatar)){
+        $setString .= ", `avatar` = '$avatar'";
+      }
+
+      if(!empty($packs)){
+        $setString .= ", `packs` = '$packs'";
+      }
+
+      $update = mysqli_query($conn, "UPDATE `profile` ".$setString." WHERE `id` = $profileId;");
+      $profileResult = mysqli_query($conn, "SELECT * FROM `profile` WHERE `id` = $profileId");
+
+      $data = mysqli_fetch_object($profileResult);
     }else{
       $data = "no_auth";
     }
   }
 }else{
-  $data = "error";
+  $data = "error_update";
 }
 
 

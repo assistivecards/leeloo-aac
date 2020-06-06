@@ -23,7 +23,7 @@ import themes from './js/themes';
 const fallbackUIText = require("./data/interface/en.json");
 
 // For test cases
-const _DEVELOPMENT = true;
+const _DEVELOPMENT = false;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
@@ -302,6 +302,9 @@ class Api {
 				});
 				this.user = userResponse;
 				await this.ramLanguage(this.user.language);
+				if(this.user.premium == "gift"){
+					this.isGift = true;
+				}
 				this.user.isRTL = RTL.includes(this.user.language);
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){

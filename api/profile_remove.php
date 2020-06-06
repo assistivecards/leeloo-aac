@@ -21,7 +21,7 @@ if($userIdentifier){
     }
   }
 }else{
-  $data = "error";
+  $data = "error_remove";
 }
 
 
