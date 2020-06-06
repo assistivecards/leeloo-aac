@@ -17,6 +17,7 @@ export default class Setting extends React.Component {
   async componentDidMount(){
     let plans = await API.getPlans();
     this.setState({plans});
+    API.hit("Subscription");
 
     API.event.on("premium", this._listenPremiumChange.bind(this))
     API.event.on("premiumPurchase", this._listenPremiumPurchase.bind(this))

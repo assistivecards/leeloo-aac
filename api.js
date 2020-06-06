@@ -10,7 +10,7 @@ import * as Device from 'expo-device';
 import * as InAppPurchases from 'expo-in-app-purchases';
 import * as Notifications from 'expo-notifications';
 
-import { Analytics, ScreenHit } from 'expo-analytics-safe';
+import { Analytics, ScreenHit, Event as Avent } from 'expo-analytics-safe';
 import { CacheManager } from "react-native-expo-image-cache";
 import Constants from 'expo-constants';
 import NetInfo from '@react-native-community/netinfo';
@@ -99,6 +99,10 @@ class Api {
 				// hit done
 			})
 		  .catch(e => console.log(e.message));
+	}
+
+	avent(a,b,c){
+		this.analytics.event(new Avent(a, b, c))
 	}
 
 	_listenNetwork(){
@@ -699,6 +703,8 @@ class Api {
 		}else{
 			await InAppPurchases.purchaseItemAsync(productId);
 		}
+		this.avent("Premium", "PurchaseClick", productId);
+
 	}
 
 	async getCards(slug, force){
