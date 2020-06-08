@@ -37,10 +37,12 @@ export default class App extends React.Component {
           onChangeText={this.props.onChangeText}
         />
 
-        <Svg width={26} height={26} viewBox={"0 0 24 24"} style={searchIconStyle}>
-          <Circle cx="7" cy="7" r="7" transform="translate(7 3)" strokeWidth="2" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255,255,255,0)"/>
-          <Line y1="6" x2="6" transform="translate(3 15)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
-        </Svg>
+        <TouchableOpacity onPress={() => this._textInput.focus()} style={searchIconStyle}>
+          <Svg width={26} height={26} viewBox={"0 0 24 24"}>
+            <Circle cx="7" cy="7" r="7" transform="translate(7 3)" strokeWidth="2" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="rgba(255,255,255,0)"/>
+            <Line y1="6" x2="6" transform="translate(3 15)" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
+          </Svg>
+        </TouchableOpacity>
 
         {this.props.term != "" &&
           <TouchableOpacity onPress={this.props.back} style={clearIconStyle} onPress={() => this.clear()}>

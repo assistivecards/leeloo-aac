@@ -58,6 +58,11 @@ export default class Setting extends React.Component {
     }, 100);
   }
 
+  speakTitle(localeTitle){
+    API.speak(localeTitle);
+    API.haptics("touch");
+  }
+
   renderNavigation(){
     return (
       <View style={styles.navigation}>
@@ -91,9 +96,16 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={this.pack.color}/>
         <ScrollView style={{backgroundColor: this.pack.color}} contentInsetAdjustmentBehavior="automatic">
           <SafeAreaView>
-            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
-              <Text style={[API.styles.h1, {color: "#000"}]}>{titleCase(this.pack.locale)}</Text>
-            </View>
+            <TouchableScale style={[styles.head, {justifyContent: API.user.isRTL ? "flex-end" : "flex-start", flexDirection: "row", alignItems: "center"}]} onPress={() => this.speakTitle(this.pack.locale)}>
+              <Text style={[API.styles.h1, {color: "#000", marginHorizontal: 0}]}>{titleCase(this.pack.locale)}</Text>
+              <Svg width={26} height={26} viewBox="0 0 24 24" strokeLinecap="round" strokeWidth="2" stroke="#000" fill="none" style={{marginLeft: 5, opacity: 0.7}}>
+                <Path stroke="none" d="M0 0h24v24H0z"/>
+                <Path d="M0 0h24v24H0z" stroke="none"/>
+                <Path d="M15 8a5 5 0 0 1 0 8"/>
+                <Path d="M17.7 5a9 9 0 0 1 0 14"/>
+                <Path d="M6 15 h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5"/>
+              </Svg>
+            </TouchableScale>
             <View style={styles.board}>
               {this.state.cards.map((card, i) => {
                 return (
@@ -120,9 +132,11 @@ export default class Setting extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    height: 70,
-    justifyContent: "center",
-    alignItems: "flex-start"
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    marginHorizontal: 30,
+    marginVertical: 20,
+    marginTop: 10
   },
   board: {
     justifyContent: "flex-start",

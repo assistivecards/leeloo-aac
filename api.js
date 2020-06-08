@@ -23,7 +23,7 @@ import themes from './js/themes';
 const fallbackUIText = require("./data/interface/en.json");
 
 // For test cases
-const _DEVELOPMENT = false;
+const _DEVELOPMENT = true;
 
 const _NETWORK_STATUS = true;
 const _FLUSH = false;
