@@ -151,6 +151,16 @@ export default class App extends React.Component {
                 <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_notifications")}</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} onPress={() => this.props.navigation.push("Accessibility")}>
+                <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <Path d="M0 0h24v24H0z" stroke="none"/>
+                  <Path d="M10 16.5l2 -3l2 3m-2 -3v-2l3 -1m-6 0l3 1"/>
+                  <Circle cx="12" cy="12" r="9"/>
+                  <Circle cx="12" cy="7.5" r=".5"/>
+                </Svg>
+                <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_accessibility")}</Text>
+              </TouchableOpacity>
+
               <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} onPress={() => this.props.navigation.push("Subscription")}>
                 <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <Path stroke="none" d="M0 0h24v24H0z"/>
@@ -175,31 +185,7 @@ export default class App extends React.Component {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/licenses/"})}>
-                  <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
-                    <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <Path d="M0 0h24v24H0z" stroke="none"/>
-                      <Polyline points="7 8 3 12 7 16"/>
-                      <Polyline points="17 8 21 12 17 16"/>
-                      <Line x1="14" x2="10" y1="4" y2="20"/>
-                    </Svg>
-                    <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_openSourceLicenses")}</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/privacypolicy/"})}>
-                  <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
-                    <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <Path stroke="none" d="M0 0h24v24H0z"/>
-                      <Polyline points="14 3 14 8 19 8" />
-                      <Path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                      <Path d="M9 15l2 2l4 -4" />
-                    </Svg>
-                    <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_privacyPolicy")}</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/termsofuse/"})}>
+                <TouchableOpacity onPress={() => this.props.navigation.push("Legal")}>
                   <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
                     <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <Path stroke="none" d="M0 0h24v24H0z"/>
@@ -207,7 +193,7 @@ export default class App extends React.Component {
                       <Line x1="9" y1="7" x2="13" y2="7" />
                       <Line x1="9" y1="11" x2="13" y2="11" />
                     </Svg>
-                    <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_termsOfService")}</Text>
+                    <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_aboutapp")}</Text>
                   </View>
                 </TouchableOpacity>
 
