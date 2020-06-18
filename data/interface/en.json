@@ -70,6 +70,11 @@
 	"settings_selection_termsOfService": "Terms of Service",
 	"settings_selection_removeMyData": "Remove My Data",
 
+	"settings_selection_aboutapp": "About Application",
+	"settings_aboutapp_description": "See more about the application and legal documents on this screen.",
+	"settings_selection_company": "About the Company",
+	"settings_selection_accessibility": "Accessibility",
+
 	"settings_removeMyData_description": "Learn how we collect data and ask us to remove the collected data",
 	"settings_removeMyData_p1": "We do not collect Personally Identifiable Information (PII) for kids, minors or intellectually disabled users with appointed guardians.",
 	"settings_removeMyData_p2": "Following the guidelines of Children's Online Privacy Protection Act (COPPA), you can ask us to remove all your or your child's anonymous data anytime you want.",
@@ -125,6 +130,7 @@
 	"premium_promo_title": "Leeloo Premium",
 	"premium_promo_desc1": "Subscribe to get more",
 	"premium_promo_desc2": "Try 3 days for free",
+
 
 	"button_next": "Next",
 	"button_start": "Start",
