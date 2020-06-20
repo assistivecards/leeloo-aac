@@ -74,6 +74,11 @@
 	"settings_aboutapp_description": "See more about the application and legal documents on this screen.",
 	"settings_selection_company": "About the Company",
 	"settings_selection_accessibility": "Accessibility",
+	"settings_accessibility_description": "Customize the accessibility properies of your AAC application",
+	"settings_accessibility_sensory": "Sensory Preferences",
+	"settings_accessibility_sensory_description": "Customize the sensory input/output settings of the aac application",
+	"settings_accessibility_sensory_haptic": "Haptic & Vibration",
+	"settings_accessibility_sensory_haptic_description": "If enabled the app will give small haptic feedbacks when using app",
 
 	"settings_removeMyData_description": "Learn how we collect data and ask us to remove the collected data",
 	"settings_removeMyData_p1": "We do not collect Personally Identifiable Information (PII) for kids, minors or intellectually disabled users with appointed guardians.",

@@ -81,6 +81,9 @@ export default class Setting extends React.Component {
               <View style={{marginBottom:7}}><Text>Build Number: {API.version}</Text></View>
               <View style={{marginBottom:7}}><Text>Version: {String(API.version).split("").join(".")}</Text></View>
               <View style={{marginBottom:7}}><Text>Asset CDN: {API.assetEndpoint}</Text></View>
+              <View style={{marginBottom:7}}><Text>CDN Status: Active</Text></View>
+              <View style={{marginBottom:7}}><Text>Private API Status: Active</Text></View>
+              <View style={{marginBottom:7}}><Text></Text></View>
               <View style={{marginBottom:7}}><Text>2020 &copy; Dream Oriented Limited</Text></View>
             </View>
             <View style={API.styles.iosBottomPadder}></View>
