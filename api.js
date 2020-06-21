@@ -220,6 +220,8 @@ class Api {
 				formData.append('email', user.email);
 				formData.append('name', user.displayName);
 				formData.append('avatar', user.photoURL);
+			}else if(type == "email"){
+				formData.append('email', user.email);
 			}
 		}
 
@@ -444,6 +446,31 @@ class Api {
 			this.event.emit("refresh");
 		}
 	}
+
+
+	async getAuthIdentifier(email, pass){
+		if(email && pass){
+	    var url = API_ENDPOINT + "auth/";
+	    var formData = new FormData();
+			formData.append('email', email);
+			formData.append('pass', pass);
+
+			let identifier = null;
+
+			try {
+				let authIdentifierResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+
+				identifier = authIdentifierResponse.identifier;
+			} catch(error){
+				console.log("Please check your internet connectivity!", error);
+				alert("Please check your internet connectivity!");
+			}
+
+			return identifier;
+		}
+	}
+
 
 	speak(text, speed){
 		//text = this.phrase()

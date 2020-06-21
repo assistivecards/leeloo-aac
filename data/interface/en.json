@@ -89,6 +89,14 @@
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over the padlock to unlock the Settings",
 
+	"register_email_title": "Sign in with Email",
+	"register_email_description": "If you don't already have an account you can use the form to create a new one.",
+	"register_your_email": "Your Email",
+	"register_your_email_description": "The email you want to login or register with",
+	"register_your_pass": "Password",
+	"register_your_pass_description": "Enter your password or set a new one if you are registering",
+	"register_button_text": "Login / Register",
+
 	"setup_create_profile_title": "Create a profile!",
 	"setup_create_profile_description": "Choose a profile name or tell us the first name of the person who is going to use this application.",
 	"setup_your_name": "Your Name",
