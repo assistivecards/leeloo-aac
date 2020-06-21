@@ -6,7 +6,7 @@ const translate = new Translate();
 
 let languages = require("../data/languages.json");
 
-let checkExist = true;
+let checkExist = false;
 let content = require("../data/interface/en.json");
 
 let keys = Object.keys(content);
