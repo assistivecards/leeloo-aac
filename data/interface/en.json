@@ -89,6 +89,12 @@
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over the padlock to unlock the Settings",
 
+	"settings_share_title": "Leeloo AAC",
+	"settings_share_message": "Leeloo AAC helps non-verbal kids to communicate with their parents, teachers and friends.",
+	"settings_share_url": "https://assistivecards.com/leeloo/",
+	"settings_selection_share_the_app": "Share this App",
+	"settings_selection_rate_the_app": "Rate this App",
+
 	"register_email_title": "Sign in with Email",
 	"register_email_description": "If you don't already have an account you can use the form to create a new one.",
 	"register_your_email": "Your Email",

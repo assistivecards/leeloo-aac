@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, AppState } from 'react-native';
+import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, AppState, Linking, Share } from 'react-native';
 import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 
 import API from '../api';
@@ -16,6 +16,33 @@ export default class Setting extends React.Component {
   componentDidMount(){
     API.hit("Legal");
   }
+
+
+
+  async rateThisApp(){
+    if(Platform.OS == "ios"){
+      let url = 'itms-apps://itunes.apple.com/us/app/apple-store/1508952198?mt=8';
+      const supported = await Linking.canOpenURL(url);
+      if(supported){
+        Linking.openURL(url)
+      }
+    }else{
+      let url = 'market://details?id=4973589507294195479';
+      const supported = await Linking.canOpenURL(url);
+      if(supported){
+        Linking.openURL(url)
+      }
+    }
+  }
+
+  shareApp(){
+    Share.share({
+      title: API.t("settings_share_title"),
+      message: API.t("settings_share_message"),
+      url: API.t("settings_share_url")
+    })
+  }
+
 
   render() {
     return(
@@ -38,6 +65,30 @@ export default class Setting extends React.Component {
                     <Polyline points="11 12 12 12 12 16 13 16"/>
                   </Svg>
                   <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_company")}</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.shareApp()}>
+                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <Path d="M0 0h24v24H0z" stroke="none"/>
+                  	<Circle cx="6" cy="12" r="3"/>
+                  	<Circle cx="18" cy="6" r="3"/>
+                  	<Circle cx="18" cy="18" r="3"/>
+                  	<Line x1="8.7" x2="15.3" y1="10.7" y2="7.3"/>
+                  	<Line x1="8.7" x2="15.3" y1="13.3" y2="16.7"/>
+                  </Svg>
+                  <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_share_the_app")}</Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.rateThisApp()}>
+                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                  <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <Path d="M0 0h24v24H0z" stroke="none"/>
+                  	<Path d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"/>
+                  </Svg>
+                  <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_rate_the_app")}</Text>
                 </View>
               </TouchableOpacity>
 
