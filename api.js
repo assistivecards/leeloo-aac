@@ -135,62 +135,53 @@ class Api {
 	}
 
 	haptics(style){
-		switch (style) {
-			case "touch":
-				Haptics.selectionAsync()
-				break;
-			case "impact":
-				Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-				break;
-			default:
-				Haptics.selectionAsync()
+		if(this.user.haptic !== "0"){
+			switch (style) {
+				case "touch":
+					Haptics.selectionAsync()
+					break;
+				case "impact":
+					Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+					break;
+				default:
+					Haptics.selectionAsync()
+			}
 		}
 	}
 
 	async registerForPushNotificationsAsync(){
-	    if(Constants.isDevice) {
+    if(Constants.isDevice) {
+	    await Notifications.requestPermissionsAsync({
+	      ios: {
+	        allowAlert: true,
+	        allowBadge: true,
+	        allowSound: true,
+	        allowAnnouncements: true,
+	      },
+	    });
 
-	      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-	      let finalStatus = existingStatus;
-
-				if(true){
-		      if(existingStatus !== 'granted'){
-		        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-		        finalStatus = status;
-		      }
-		      if(finalStatus !== 'granted'){
-		        return "ungranted";
-		      }
-				}
-
-				let experienceId = undefined;
-				if (!Constants.manifest) {
-				 // Absence of the manifest means we're in bare workflow
-				 experienceId = '@burak/leeloo';
-				}
-
-	      let token = await Notifications.getExpoPushTokenAsync();
-				token = token.data;
-
-		    if(Platform.OS === 'android' && typeof Notifications.createChannelAndroidAsync == "function"){
-		      Notifications.createChannelAndroidAsync('default', {
-		        name: 'default',
-		        sound: true,
-		        priority: 'max',
-		        vibrate: [0, 250, 250, 250],
-		      });
-		    }
-				console.log(token);
-				if(token != this.user.notificationToken){
-					await this.update(["notificationToken"], [token]);
-				}
-				return token;
-
-	    }else{
-	      console.log('Must use physical device for Push Notifications');
-				return "";
+	    let experienceId = undefined;
+	    if (!Constants.manifest) {
+	      // Absence of the manifest means we're in bare workflow
+	      experienceId = '@burak/leeloo';
 	    }
-	  }
+
+	    const expoPushToken = await Notifications.getExpoPushTokenAsync({
+	      experienceId,
+	    });
+
+			console.log("token", expoPushToken.data);
+
+			if(token != this.user.notificationToken){
+				await this.update(["notificationToken"], [expoPushToken.data]);
+			}
+			return token;
+
+    }else{
+      console.log('Must use physical device for Push Notifications');
+			return "";
+    }
+  }
 
 	async signIn(identifier, type, user){
     var url = API_ENDPOINT + "user/";
@@ -229,6 +220,8 @@ class Api {
 				formData.append('email', user.email);
 				formData.append('name', user.displayName);
 				formData.append('avatar', user.photoURL);
+			}else if(type == "email"){
+				formData.append('email', user.email);
 			}
 		}
 
@@ -296,10 +289,14 @@ class Api {
 				formData.append(fields[i], values[i]);
 			}
 
+			console.log(formData);
+
 			try {
 				let userResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
 				await this.setData("user", JSON.stringify(userResponse));
+
+				console.log(userResponse);
 
 				userResponse.profiles.forEach((profile, i) => {
 					userResponse.profiles[i].packs = JSON.parse(profile.packs);
@@ -449,6 +446,31 @@ class Api {
 			this.event.emit("refresh");
 		}
 	}
+
+
+	async getAuthIdentifier(email, pass){
+		if(email && pass){
+	    var url = API_ENDPOINT + "auth/";
+	    var formData = new FormData();
+			formData.append('email', email);
+			formData.append('pass', pass);
+
+			let identifier = null;
+
+			try {
+				let authIdentifierResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+
+				identifier = authIdentifierResponse.identifier;
+			} catch(error){
+				console.log("Please check your internet connectivity!", error);
+				alert("Please check your internet connectivity!");
+			}
+
+			return identifier;
+		}
+	}
+
 
 	speak(text, speed){
 		//text = this.phrase()

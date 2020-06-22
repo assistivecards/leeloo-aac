@@ -74,6 +74,11 @@
 	"settings_aboutapp_description": "See more about the application and legal documents on this screen.",
 	"settings_selection_company": "About the Company",
 	"settings_selection_accessibility": "Accessibility",
+	"settings_accessibility_description": "Customize the accessibility properies of your AAC application",
+	"settings_accessibility_sensory": "Sensory Preferences",
+	"settings_accessibility_sensory_description": "Customize the sensory input/output settings of the aac application",
+	"settings_accessibility_sensory_haptic": "Haptic & Vibration",
+	"settings_accessibility_sensory_haptic_description": "If enabled the app will give small haptic feedbacks when using app",
 
 	"settings_removeMyData_description": "Learn how we collect data and ask us to remove the collected data",
 	"settings_removeMyData_p1": "We do not collect Personally Identifiable Information (PII) for kids, minors or intellectually disabled users with appointed guardians.",
@@ -83,6 +88,20 @@
 	"settings_removeMyData_button": "I understand, remove my data.",
 	"settings_locked_title": "Parents Only",
 	"settings_locked_description": "Drag and drop the key over the padlock to unlock the Settings",
+
+	"settings_share_title": "Leeloo AAC",
+	"settings_share_message": "Leeloo AAC helps non-verbal kids to communicate with their parents, teachers and friends.",
+	"settings_share_url": "https://assistivecards.com/leeloo/",
+	"settings_selection_share_the_app": "Share this App",
+	"settings_selection_rate_the_app": "Rate this App",
+
+	"register_email_title": "Sign in with Email",
+	"register_email_description": "If you don't already have an account you can use the form to create a new one.",
+	"register_your_email": "Your Email",
+	"register_your_email_description": "The email you want to login or register with",
+	"register_your_pass": "Password",
+	"register_your_pass_description": "Enter your password or set a new one if you are registering",
+	"register_button_text": "Login / Register",
 
 	"setup_create_profile_title": "Create a profile!",
 	"setup_create_profile_description": "Choose a profile name or tell us the first name of the person who is going to use this application.",

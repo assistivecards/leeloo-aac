@@ -9,6 +9,12 @@ export default class App extends React.Component {
   state = {
     rightButtonActivity: false
   }
+  constructor(props){
+    super(props);
+    if(typeof API.user == "undefined"){
+      API.user = {isRTL: false}
+    }
+  }
 
   onRightButtonPress(){
     this.setState({rightButtonActivity: true})
