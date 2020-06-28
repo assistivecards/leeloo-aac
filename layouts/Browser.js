@@ -12,11 +12,18 @@ export default class App extends React.Component {
   }
 
   render() {
-    this.link = this.props.navigation.getParam("link");
+    if(this.props.navigation){
+      this.link = this.props.navigation.getParam("link");
+      this.back = this.props.navigation.pop;
+    }else{
+      this.link = this.props.link;
+      this.back = this.props.back;
+    }
+
     return (
       <View style={{flex: 1, flexDirection: "column", backgroundColor: "#6989FF"}}>
         <TopBar back={() => {
-          this.props.navigation.pop();
+          this.back();
         }} backgroundColor={"#6989FF"} />
         <View style={{flex: 1, borderTopRightRadius: 30, borderTopLeftRadius: 30, overflow: "hidden" }}>
           <WebView source={{uri: this.link}} style={{flex: 1}}
