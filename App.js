@@ -4,6 +4,7 @@ import Navigator from './Navigator';
 import Switch from './layouts/Switch';
 import ProfileSetup from './layouts/ProfileSetup';
 import EmailSignIn from './layouts/EmailSignIn';
+import Browser from './layouts/Browser';
 
 import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 
@@ -158,7 +159,7 @@ export default class App extends React.Component {
           <Image source={require("./assets/mascot.png")} style={{width: 150, height: 150, flex: 1}} resizeMode={"contain"} />
 
           {this.renderSignInButtons()}
-          <TouchableOpacity onPress={() => Linking.openURL("https://dreamoriented.org/privacypolicy/")} style={{marginTop: 15, marginBottom: 30}}>
+          <TouchableOpacity onPress={() => this.setState({screen: "policy"})} style={{marginTop: 15, marginBottom: 30}}>
             <Text style={[API.styles.pHome, {textAlign: "center"}]}>
               By signing in you accept our <Text style={{fontWeight: "600"}}>Terms of Use</Text> and <Text style={{fontWeight: "600"}}>Privacy Policy</Text>.
             </Text>
@@ -254,7 +255,16 @@ export default class App extends React.Component {
               <Image source={{uri: "https://developers.google.com/identity/images/g-logo.png"}} style={{width: 18, height: 18, marginRight: 5}}/>
               <Text style={{fontSize: 18, fontWeight: "500"}}>Sign in with Google</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.setState({moreSignin: true})}><Text style={{color: "rgba(255,255,255,0.9)", marginTop: 18.5, marginBottom: 20}}>{API.t("setup_other_options")}</Text></TouchableOpacity>
+            <TouchableOpacity
+              style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row"}}
+              onPress={this.signInWithEmail.bind(this)}>
+              <Svg height={18} width={18} viewBox="0 0 24 24" style={{marginRight: 5}} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <Path d="M0 0h24v24H0z" stroke="none"/>
+                <Rect height="14" width="18" rx="2" x="3" y="5"/>
+                <Polyline points="3 7 12 13 21 7"/>
+              </Svg>
+              <Text style={{fontSize: 19, fontWeight: "500"}}>Sign in with Email</Text>
+            </TouchableOpacity>
           </>
         );
       }
@@ -282,6 +292,9 @@ export default class App extends React.Component {
 
     if(screen == "login"){
       return this.signInScreen();
+    }else if(screen == "policy"
+  ){
+      return (<Browser link={"https://dreamoriented.org/privacypolicy/"} back={() => this.setState({screen: "login"})}/>);
     }else if(screen == "email"){
       return (<EmailSignIn back={() => this.setState({screen: "login"})}/>);
     }else if(screen == "logged"){
@@ -300,6 +313,8 @@ export default class App extends React.Component {
             </View>
           );
         }
+      }else{
+        return (<ProfileSetup done={this.setCurrentProfile.bind(this)}/>);
       }
 
     }else if(screen == "loading"){
