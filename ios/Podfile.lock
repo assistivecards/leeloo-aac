@@ -8,7 +8,7 @@ PODS:
   - DoubleConversion (1.1.6)
   - EXAppleAuthentication (2.1.1):
     - UMCore
-  - EXApplication (2.1.1):
+  - EXApplication (2.2.1):
     - UMCore
   - EXAV (8.1.0):
     - UMCore
@@ -16,7 +16,7 @@ PODS:
     - UMPermissionsInterface
   - EXBlur (8.1.0):
     - UMCore
-  - EXConstants (9.0.0):
+  - EXConstants (9.1.1):
     - UMConstantsInterface
     - UMCore
   - EXDevice (2.1.0):
@@ -50,7 +50,7 @@ PODS:
     - UMCore
     - UMPermissionsInterface
     - UMTaskManagerInterface
-  - EXNotifications (0.1.7):
+  - EXNotifications (0.4.0):
     - UMCore
     - UMPermissionsInterface
   - EXPermissions (8.1.0):
@@ -360,7 +360,7 @@ DEPENDENCIES:
   - EXApplication (from `../node_modules/expo-application/ios`)
   - EXAV (from `../node_modules/expo-av/ios`)
   - EXBlur (from `../node_modules/expo-blur/ios`)
-  - EXConstants (from `../node_modules/expo-constants/ios`)
+  - EXConstants (from `../node_modules/expo-notifications/node_modules/expo-constants/ios`)
   - EXDevice (from `../node_modules/expo-device/ios`)
   - EXErrorRecovery (from `../node_modules/expo-error-recovery/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
@@ -454,7 +454,7 @@ EXTERNAL SOURCES:
   EXBlur:
     :path: "../node_modules/expo-blur/ios"
   EXConstants:
-    :path: "../node_modules/expo-constants/ios"
+    :path: "../node_modules/expo-notifications/node_modules/expo-constants/ios"
   EXDevice:
     :path: "../node_modules/expo-device/ios"
   EXErrorRecovery:
@@ -593,10 +593,10 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   EXAppleAuthentication: 046c76335343eaa97f6ed8d35a9cf493a2c4d351
-  EXApplication: 7cf81de6fafccff42f5d1caa5c24a159db6b9437
+  EXApplication: d7ccb60c33fa4d506967ff6adde42a0f872d69ad
   EXAV: 2edd9cd30fe98d04b55325303c7ff01db02d1d0f
   EXBlur: aa14d84bff6e9c2232fbcaf54ad809eee1cc41dc
-  EXConstants: 5304709b1bea70a4828f48ba4c7fc3ec3b2d9b17
+  EXConstants: f907b3b6ce16e20d1750f22af1e095e924574bcb
   EXDevice: 6e2b0178ab15cf57a46325e87f6e797cc72f6ddc
   EXErrorRecovery: 8f4c21ab2f51bf75defe4536f841a37de59b0661
   EXFileSystem: cf4232ba7c62dc49b78c2d36005f97b6fddf0b01
@@ -609,7 +609,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: 97d8095d1e4ad96f7893e010e564796ed8aeea42
   EXLocalization: 1997068470bdfb7601fd58dbbf85ba1cde36fb82
   EXLocation: bbd487fd96a18a3ad9725389bbb94c4a5f78edf3
-  EXNotifications: cc5d647c15b5f00602e1c4f7244d6a3a15dd2eb6
+  EXNotifications: f0f89e5ba8ef5ad7568b9f1e65031a6f40fbd313
   EXPermissions: 24b97f734ce9172d245a5be38ad9ccfcb6135964
   EXScreenOrientation: 44d3cd3a99a86b9cb681e742697bc2c057d7fbd2
   EXSharing: bc85d2f46a2bb6c8077260632ad33039fb888ad4
