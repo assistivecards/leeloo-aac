@@ -8,12 +8,24 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "events": "^3.2.0",
     "expo": "~38.0.8",
+    "expo-analytics-safe": "^1.0.15",
+    "expo-apple-authentication": "~2.2.1",
+    "expo-blur": "~8.1.2",
+    "expo-constants": "~9.1.1",
+    "expo-haptics": "~8.2.1",
+    "expo-notifications": "~0.3.3",
+    "expo-permissions": "~9.0.1",
+    "expo-screen-orientation": "~1.1.1",
+    "expo-sharing": "~8.2.1",
+    "expo-speech": "~8.2.1",
     "expo-status-bar": "^1.0.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "react-navigation": "3.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
