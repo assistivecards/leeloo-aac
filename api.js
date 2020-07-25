@@ -151,7 +151,7 @@ class Api {
 
 	async registerForPushNotificationsAsync(){
     if(Constants.isDevice) {
-	    await Notifications.requestPermissionsAsync({
+			await Notifications.requestPermissionsAsync({
 	      ios: {
 	        allowAlert: true,
 	        allowBadge: true,
@@ -170,7 +170,7 @@ class Api {
 	      experienceId,
 	    });
 
-			console.log("token", expoPushToken.data);
+	    console.log(expoPushToken);
 
 			if(token != this.user.notificationToken){
 				await this.update(["notificationToken"], [expoPushToken.data]);
