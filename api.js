@@ -662,10 +662,11 @@ class Api {
 
 								this.premium = purchase.productId;
 
+								let consume = (purchase.productId == "lifetime");
+								console.log("Should I consume?", consume);
 				        // Then when you're done
-				        let resfinish = await InAppPurchases.finishTransactionAsync(purchase, false);
-								console.log(purchase, resfinish);
-								alert("done");
+				        let resfinish = await InAppPurchases.finishTransactionAsync(purchase, consume);
+								alert(`Successfully purchased ${purchase.productId}`);
 								this.event.emit("premium");
 								this.event.emit("premiumPurchase", this.premium);
 								this.setData("premium", this.premium);

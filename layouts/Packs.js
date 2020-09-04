@@ -19,14 +19,21 @@ export default class Setting extends React.Component {
     }
   }
 
-  componentDidMount(){
-    API.hit("AddPacks");
-  }
-
   async componentDidMount(){
+    API.hit("AddPacks");
     let data = await this.getPacks();
     this.setState({data});
+    API.event.on("premium", this._refreshHandler);
   }
+
+  _refreshHandler = () => {
+    this.forceUpdate();
+  };
+
+  componentWillUnmount(){
+    API.event.removeListener("refresh", this._refreshHandler);
+  }
+
 
   async getPacks(){
     let allPacks = await API.getPacks(true);

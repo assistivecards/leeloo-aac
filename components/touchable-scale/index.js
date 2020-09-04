@@ -52,7 +52,7 @@ var Touchable = /** @class */ (function (_super) {
         return _this;
     }
     Touchable.prototype.render = function () {
-        return (<react_native_1.TouchableWithoutFeedback onPress={this.props.onPress} onPressIn={this.handlePressIn} onPressOut={this.handlePresOut} disabled={this.props.disabled}>
+        return (<react_native_1.TouchableWithoutFeedback onLongPress={this.props.onLongPress} delayLongPress={this.props.delayLongPress} onPress={this.props.onPress} onPressIn={this.handlePressIn} onPressOut={this.handlePresOut} disabled={this.props.disabled}>
         <react_native_1.Animated.View style={[
             styles.root,
             this.props.style,
