@@ -108,7 +108,8 @@ export default class Setting extends React.Component {
 
       Animated.timing(this.state.searchToggleAnim, {
         toValue: status ? 1:0,
-        duration: 300
+        duration: 300,
+        useNativeDriver: false
       }).start();
     }
   }

@@ -29,7 +29,7 @@ export default class App extends React.Component {
           dx: this.state.pan.x, // x,y are Animated.Value
           dy: this.state.pan.y
         }
-      ]),
+      ], { useNativeDriver: false }),
       onPanResponderRelease: () => {
         let xVal = this.state.pan.x._value;
         let yVal = this.state.pan.y._value;
@@ -39,7 +39,8 @@ export default class App extends React.Component {
 
             Animated.timing(this.state.lockAnim, {
               toValue: 0,
-              duration: 200
+              duration: 200,
+              useNativeDriver: false
             }).start();
             setTimeout(() => {
               this.setState({lock: false});
@@ -49,7 +50,10 @@ export default class App extends React.Component {
         }
         Animated.spring(
           this.state.pan, // Auto-multiplexed
-          { toValue: { x: 0, y: 0 } } // Back to zero
+          {
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: false
+          } // Back to zero
         ).start();
       }
     });
@@ -89,7 +93,8 @@ export default class App extends React.Component {
 
     Animated.timing(this.state.lockAnim, {
       toValue: 1,
-      duration: 400
+      duration: 400,
+      useNativeDriver: false
     }).start();
 
     setTimeout(() => {

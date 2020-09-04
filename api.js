@@ -89,7 +89,6 @@ class Api {
 		if(!_DEVELOPMENT){
 			this._listenNetwork();
 		}
-
 		this._initSubscriptions();
   }
 
@@ -653,34 +652,39 @@ class Api {
 
 				this.getPlans(); // async fetch the plans for later use.
 
-	      InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
-	        // Purchase was successful
-	        if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-	          results.forEach(purchase => {
-	            if (!purchase.acknowledged) {
-	              alert(`Successfully purchased ${purchase.productId}`);
-	              // Process transaction here and unlock content...
+				InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
+				  // Purchase was successful
+				  if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+				    results.forEach(async (purchase) => {
+				      if (!purchase.acknowledged) {
+				        console.log(`Successfully purchased ${purchase.productId}`);
+				        // Process transaction here and unlock content...
+
 								this.premium = purchase.productId;
+
+								let consume = (purchase.productId == "lifetime");
+								console.log("Should I consume?", consume);
+				        // Then when you're done
+				        let resfinish = await InAppPurchases.finishTransactionAsync(purchase, consume);
+								alert(`Successfully purchased ${purchase.productId}`);
 								this.event.emit("premium");
 								this.event.emit("premiumPurchase", this.premium);
 								this.setData("premium", this.premium);
 								this.event.emit("refresh");
+				      }
+				    });
+				  }
 
-	              // Then when you're done
-	              InAppPurchases.finishTransactionAsync(purchase, true);
-	            }
-	          });
-	        }
+				  // Else find out what went wrong
+				  if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
+				    console.log('User canceled the transaction');
+				  } else if (responseCode === InAppPurchases.IAPResponseCode.DEFERRED) {
+				    console.log('User does not have permissions to buy but requested parental approval (iOS only)');
+				  } else {
+				    console.warn(`Something went wrong with the purchase. Received errorCode ${responseCode}`);
+				  }
+				});
 
-	        // Else find out what went wrong
-	        if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
-	          console.log('User canceled the transaction');
-	        } else if (responseCode === InAppPurchases.IAPResponseCode.DEFERRED) {
-	          console.log('User does not have permissions to buy but requested parental approval (iOS only)');
-	        } else {
-	          console.warn(`Something went wrong with the purchase. Received errorCode ${responseCode}`);
-	        }
-	      });
 			}else{
 				console.log("#### Appstore status is not ok.");
 				this.premium = await this.getData("premium");

@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginHorizontal: 10,
     textAlign: "center",
+    color: "#000",
     opacity: 0.8
   },
   navigation: {
