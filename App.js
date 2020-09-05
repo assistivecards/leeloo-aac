@@ -256,7 +256,7 @@ export default class App extends React.Component {
               <Text style={{fontSize: 18, fontWeight: "500"}}>Sign in with Google</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row"}}
+              style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row", marginTop: 10}}
               onPress={this.signInWithEmail.bind(this)}>
               <Svg height={18} width={18} viewBox="0 0 24 24" style={{marginRight: 5}} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                 <Path d="M0 0h24v24H0z" stroke="none"/>
