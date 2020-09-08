@@ -122,6 +122,10 @@ class Api {
 		if(_DEVELOPMENT){
 			return _ISPREMIUM;
 		}
+		if(this.user.premium == "lifetime"){
+			return true;
+		}
+		
 		if(this.premium == "lifetime" || this.premium == "yearly" || this.premium == "monthly"){
 			return true;
 		}else{
@@ -169,10 +173,11 @@ class Api {
 	      experienceId,
 	    });
 
-	    console.log(expoPushToken);
+		  let token = expoPushToken.data;
+			console.log(token);
 
 			if(token != this.user.notificationToken){
-				await this.update(["notificationToken"], [expoPushToken.data]);
+				await this.update(["notificationToken"], [token]);
 			}
 			return token;
 
@@ -635,6 +640,7 @@ class Api {
       const history = await InAppPurchases.connectAsync();
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
+				console.log(history.results);
 				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
 				if(lifetime){
 					this.premium = "lifetime";
