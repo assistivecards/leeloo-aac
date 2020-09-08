@@ -1046,22 +1046,6 @@
     xcode "^3.0.0"
     xml-js "^1.6.11"
 
-"@expo/configure-splash-screen@~0.1.0":
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.1.15.tgz#4e30bae340026c3737a0778a249d945ab6b0411f"
-  integrity sha512-jKall/3aq3g/dQd0gPijsCxHyPXWh8rq/F2h0IYf1mcixlrMGTTFl/0um48SMJzyEg4HYMe4w8thn79vseI+AA==
-  dependencies:
-    "@react-native-community/cli-platform-android" "^4.10.0"
-    "@react-native-community/cli-platform-ios" "^4.10.0"
-    color-string "^1.5.3"
-    commander "^5.1.0"
-    core-js "^3.6.5"
-    deep-equal "^2.0.3"
-    fs-extra "^9.0.0"
-    pngjs "^5.0.0"
-    xcode "^3.0.0"
-    xml-js "^1.6.11"
-
 "@expo/vector-icons@^10.0.2":
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-10.2.1.tgz#47fb2fa12d7ad601835babde6bd3ddea7f6fde89"
@@ -3562,13 +3546,6 @@ expo-speech@~8.2.1:
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/expo-speech/-/expo-speech-8.2.1.tgz#ca0a18356ccc79f514c259587f12ba76941c0b36"
   integrity sha512-hjzKatGp1TptXexsZizyEtJA29tXsRZTd1CVW3llC2OIiMWu1I8/p9zMRggvAvr93G0S//vBLtZI/CPSB3ACRg==
-
-expo-splash-screen@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.3.1.tgz#4dd79d9d1ab8135281f7cc5889a68e3003223f37"
-  integrity sha512-j87n6utSq8irvx9dA3YvFwHsqT9c/Cc/QnmpZHB0g3mPh3QBWReKgR3x41tHnkLMKHAi9Au9D4k/o615kUNeDg==
-  dependencies:
-    "@expo/configure-splash-screen" "~0.1.0"
 
 expo-splash-screen@^0.5.0:
   version "0.5.0"

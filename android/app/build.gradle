@@ -132,8 +132,8 @@ android {
         applicationId 'org.dreamoriented.leeloo'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 217
-        versionName "2.1.7"
+        versionCode 218
+        versionName "2.1.8"
         multiDexEnabled true
     }
     splits {
@@ -195,7 +195,6 @@ android {
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 
 dependencies {
-    addUnimodulesDependencies()
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     addUnimodulesDependencies()
@@ -217,5 +216,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
 apply plugin: 'com.google.gms.google-services'

@@ -21,12 +21,12 @@ PODS:
     - UMCore
   - EXDevice (2.2.1):
     - UMCore
-  - EXErrorRecovery (1.2.1):
+  - EXErrorRecovery (1.2.2):
     - UMCore
   - EXFileSystem (9.0.1):
     - UMCore
     - UMFileSystemInterface
-  - EXFont (8.2.1):
+  - EXFont (8.2.2):
     - UMCore
     - UMFontInterface
   - EXGoogleSignIn (8.2.1):
@@ -61,7 +61,8 @@ PODS:
     - UMCore
   - EXSpeech (8.2.1):
     - UMCore
-  - EXSplashScreen (0.3.1):
+  - EXSplashScreen (0.5.0):
+    - React
     - UMCore
   - EXSQLite (8.2.1):
     - UMCore
@@ -605,9 +606,9 @@ SPEC CHECKSUMS:
   EXBlur: b622dc0f8a8fe74f05fb437cfb1c5ee16259dab1
   EXConstants: f907b3b6ce16e20d1750f22af1e095e924574bcb
   EXDevice: befd3b2619915e615c3753c9f83309808aa0cdf5
-  EXErrorRecovery: 500f1d4231c534f415e86caeb3fc677c7f5dd23c
+  EXErrorRecovery: ff58873bf2714fcd5290935d49b74d9fc589d575
   EXFileSystem: 76875135b61708b9afa7e6a89b72a60ba0fdfa20
-  EXFont: d6cabb73989fc29296972c52915a023f46b2c7f5
+  EXFont: e583875d5d37a9e272d1cdba7f383bd576952919
   EXGoogleSignIn: 02f0db1efb39c8e2508832a0175319f0ce08a80f
   EXHaptics: 5428b344a216ca5d9df6ca8f65720b2a1ad9f109
   EXImageLoader: 02ca02c9cd5cc8a97b423207a73a791e0a86bea5
@@ -620,7 +621,7 @@ SPEC CHECKSUMS:
   EXPermissions: 80ac3acbdb145930079810fe5b08c022b3428aa8
   EXScreenOrientation: c9cfb33eaff7ce83330c5238eba523d027b9eb53
   EXSpeech: 9917a04a410a42904f1507a2e06234a91aff1c6d
-  EXSplashScreen: c4ed5d39cd5dbc1329f8dec720e280276bafa28b
+  EXSplashScreen: 9423d258b71afa5bf128a83dcb57b636d9900a74
   EXSQLite: 64611c1b369c0f1e9cae4e551d0aa4478a58cadf
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e
