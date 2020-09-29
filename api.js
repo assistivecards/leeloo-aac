@@ -174,7 +174,8 @@ class Api {
 	    });
 
 		  let token = expoPushToken.data;
-			console.log(token);
+
+	    this.scheduleNotif();
 
 			if(token != this.user.notificationToken){
 				await this.update(["notificationToken"], [token]);
@@ -184,6 +185,26 @@ class Api {
     }else{
       console.log('Must use physical device for Push Notifications');
 			return "";
+    }
+  }
+
+  async scheduleNotif(){
+    let scheduledNotifs = await Notifications.getAllScheduledNotificationsAsync();
+    if(scheduledNotifs.length == 0){
+
+      let content = {
+        sound: 'default',
+        title: this.t("setup_notification_badge_title"),
+        body: this.t("setup_notification_badge_description"),
+      };
+
+      Notifications.scheduleNotificationAsync({
+        content: content,
+        trigger: {
+          seconds: 60*60*24*2, // 2 days = 60*60*24*2
+          repeats: true
+        },
+      });
     }
   }
 

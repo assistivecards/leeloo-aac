@@ -54,7 +54,11 @@
 	"settings_notifications_tipsAndPromo_tips_description": "How to effectively use the app",
 	"settings_notifications_tipsAndPromo_promotion": "Promotions",
 	"settings_notifications_tipsAndPromo_promotion_description": "Let us notify you when we have a discount for the subscription",
-
+	"setup_notification_badge_title": "Come back and practice! 🦙",
+	"setup_notification_badge_description": "Regular practice is very important for learning, let's start another session.",
+	"setup_notification_title": "Practice Reminder",
+	"setup_notification_description": "If you want us to send you notifications to remind you to practice, you can enable notifications!",
+	
 	"settings_selection_subscriptions": "Subscriptions",
 	"settings_subscriptions_description": "Manage your subscriptions and Leeloo Premium purchases and switch between plans.",
 	"settings_subscriptions_cancel_notice": "In order to cancel a subscription, please go to your device or market settings and subscriptions.",

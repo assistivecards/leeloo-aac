@@ -51,7 +51,7 @@ export default class Setting extends React.Component {
 
   chooseAvatar(avatar){
     this.setState({avatar})
-    this.animateTransition("finish");
+    this.animateTransition("notification");
   }
 
   _getTransitionInt = (from, to) => {
@@ -71,6 +71,26 @@ export default class Setting extends React.Component {
 
   setName(){
     this.animateTransition("avatar");
+  }
+
+
+  notificationEnabled(){
+    API.registerForPushNotificationsAsync();
+    this.animateTransition("finish");
+  }
+
+  renderNotification(){
+    return (
+      <View style={{flex: 1}}>
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "column", padding: 30}}>
+          <Text style={[API.styles.h2, {color: "#fff", marginTop: 30, fontSize: 26, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_notification_title")}</Text>
+          <Text style={[API.styles.pHome, {marginBottom: 35, marginHorizontal: 0, textAlign: "center"}]}>{API.t("setup_notification_description")}</Text>
+          <TouchableOpacity style={API.styles.whiteButton} onPress={() => this.notificationEnabled()}>
+            <Text style={{color: API.config.backgroundColor, fontWeight: "bold", fontSize: 18}}>{API.t("alert_ok")}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
   }
 
   renderName(){
@@ -343,6 +363,7 @@ export default class Setting extends React.Component {
         <Animated.View style={{flex: 1, opacity: this._getTransitionInt(0, 1), transform: [{translateY: this._getTransitionInt(50, 0)}]}}>
           {this.state.page == "name" && this.renderName()}
           {this.state.page == "avatar" && this.renderAvatar()}
+          {this.state.page == "notification" && this.renderNotification()}
           {this.state.page == "finish" && this.renderFinish()}
         </Animated.View>
       </View>
