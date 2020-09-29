@@ -125,7 +125,7 @@ class Api {
 		if(this.user.premium == "lifetime"){
 			return true;
 		}
-		
+
 		if(this.premium == "lifetime" || this.premium == "yearly" || this.premium == "monthly"){
 			return true;
 		}else{
@@ -637,7 +637,42 @@ class Api {
 				this.premium = "none";
 				this.event.emit("premium");
 			}
-      const history = await InAppPurchases.connectAsync();
+			await InAppPurchases.connectAsync();
+
+			InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
+			  // Purchase was successful
+			  if (responseCode === InAppPurchases.IAPResponseCode.OK) {
+			    results.forEach(async (purchase) => {
+			      if (!purchase.acknowledged) {
+			        console.log(`Successfully purchased ${purchase.productId}`);
+			        // Process transaction here and unlock content...
+
+							this.premium = purchase.productId;
+
+							let consume = (purchase.productId == "lifetime");
+							console.log("Should I consume?", consume);
+			        // Then when you're done
+			        let resfinish = await InAppPurchases.finishTransactionAsync(purchase, consume);
+							alert(`Successfully purchased ${purchase.productId}`);
+							this.event.emit("premium");
+							this.event.emit("premiumPurchase", this.premium);
+							this.setData("premium", this.premium);
+							this.event.emit("refresh");
+			      }
+			    });
+			  }
+
+			  // Else find out what went wrong
+			  if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
+			    console.log('User canceled the transaction');
+			  } else if (responseCode === InAppPurchases.IAPResponseCode.DEFERRED) {
+			    console.log('User does not have permissions to buy but requested parental approval (iOS only)');
+			  } else {
+			    console.warn(`Something went wrong with the purchase. Received errorCode ${responseCode}`);
+			  }
+			});
+
+			const history = await InAppPurchases.getPurchaseHistoryAsync(true);
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
 				console.log(history.results);
@@ -657,39 +692,6 @@ class Api {
 				await this.setData("premium", this.premium);
 
 				this.getPlans(); // async fetch the plans for later use.
-
-				InAppPurchases.setPurchaseListener(({ responseCode, results, errorCode }) => {
-				  // Purchase was successful
-				  if (responseCode === InAppPurchases.IAPResponseCode.OK) {
-				    results.forEach(async (purchase) => {
-				      if (!purchase.acknowledged) {
-				        console.log(`Successfully purchased ${purchase.productId}`);
-				        // Process transaction here and unlock content...
-
-								this.premium = purchase.productId;
-
-								let consume = (purchase.productId == "lifetime");
-								console.log("Should I consume?", consume);
-				        // Then when you're done
-				        let resfinish = await InAppPurchases.finishTransactionAsync(purchase, consume);
-								alert(`Successfully purchased ${purchase.productId}`);
-								this.event.emit("premium");
-								this.event.emit("premiumPurchase", this.premium);
-								this.setData("premium", this.premium);
-								this.event.emit("refresh");
-				      }
-				    });
-				  }
-
-				  // Else find out what went wrong
-				  if (responseCode === InAppPurchases.IAPResponseCode.USER_CANCELED) {
-				    console.log('User canceled the transaction');
-				  } else if (responseCode === InAppPurchases.IAPResponseCode.DEFERRED) {
-				    console.log('User does not have permissions to buy but requested parental approval (iOS only)');
-				  } else {
-				    console.warn(`Something went wrong with the purchase. Received errorCode ${responseCode}`);
-				  }
-				});
 
 			}else{
 				console.log("#### Appstore status is not ok.");
