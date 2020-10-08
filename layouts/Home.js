@@ -38,6 +38,12 @@ export default class Setting extends React.Component {
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
 
     API.event.on("announce", this._announcer.bind(this))
+
+    // Try to register for push notifications for old users.
+    // We should remove this later.
+    setTimeout(() => {
+      API.registerForPushNotificationsAsync();
+    }, 1000);
   }
 
   _orientationChanged(orientation){
