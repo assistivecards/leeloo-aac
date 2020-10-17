@@ -34,7 +34,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 215;
+const ASSET_VERSION = 222;
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -60,9 +60,9 @@ class Api {
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		if(_DEVELOPMENT){
-			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.1.5"});
+			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.2.2"});
 		}else{
-			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.1.5"});
+			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.2.2"});
 		}
 		this.isTablet = false;
 		this._checkIfTablet();
