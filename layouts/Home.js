@@ -5,7 +5,7 @@ import API from '../api';
 import titleCase from '../js/titleCase';
 import { Image as CachedImage } from "react-native-expo-image-cache";
 import * as ScreenOrientation from 'expo-screen-orientation';
-import Svg, { Line } from 'react-native-svg';
+import Svg, { Line, Path } from 'react-native-svg';
 
 
 import Search from '../components/Search'
@@ -106,6 +106,10 @@ export default class Setting extends React.Component {
 
   openCards(pack, packIndex){
     this.props.navigation.push("Cards", {pack, packs: this.state.packs, packIndex, orientation: this.state.orientation});
+  }
+
+  addPack(){
+    this.props.navigation.push("Profile", {profile: API.user.active_profile, forceAdd: true});
   }
 
   toggleSearch(status){
@@ -222,6 +226,14 @@ export default class Setting extends React.Component {
             <SafeAreaView>
               <Animated.View style={[styles.board, {opacity: boardOpacity, transform: [{translateY: boardTranslate}]}]}>
                 {API.user.active_profile && this.renderPacks()}
+                <TouchableScale style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.addPack()}>
+                  <View style={[styles.categoryItemInner, styles.addPack]}>
+                    <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginHorizontal: 4}}>
+                      <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
+                    </Svg>
+                    <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16, color: "#395A85"}]}>Add Pack</Text>
+                  </View>
+                </TouchableScale>
               </Animated.View>
             </SafeAreaView>
           }
@@ -283,5 +295,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "rgba(0,0,0,0.75)"
-  }
+  },
+  addPack: {
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderColor: "#ddd"
+  },
 });

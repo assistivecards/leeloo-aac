@@ -12,6 +12,7 @@ export default class Setting extends React.Component {
   constructor(props){
     super(props);
     this.profile = this.props.navigation.getParam("profile");
+    this.forceAdd = this.props.navigation.getParam("forceAdd");
     this.state = {
       name: this.profile.name,
       data: [],
@@ -19,10 +20,6 @@ export default class Setting extends React.Component {
       changed: false,
       buttons: new Animated.Value(0)
     }
-  }
-
-  componentDidMount(){
-    API.hit("Profile");
   }
 
   toggleButtons(){
@@ -33,8 +30,15 @@ export default class Setting extends React.Component {
   }
 
   async componentDidMount(){
+    API.hit("Profile");
     let data = await this.getDraggableData(this.profile.packs);
     this.setState({data});
+    if(this.forceAdd){
+      setTimeout(() => {
+        API.hit("forceAdd");
+        this.props.navigation.push("Packs", { packsInUse: this.state.data.map(pack => pack.slug), add: this.addPack.bind(this)})
+      }, 100);
+    }
   }
 
   async getDraggableData(packs){
@@ -50,7 +54,7 @@ export default class Setting extends React.Component {
     }).filter(data => typeof data != "undefined");
   }
 
-  save(){
+  save(nopop){
     let { name, data, avatar } = this.state;
     let changedFields = [];
     let changedValues = [];
@@ -72,7 +76,9 @@ export default class Setting extends React.Component {
     }
 
     API.updateProfile(this.profile.id, changedFields, changedValues).then(res => {
-      this.props.navigation.pop();
+      if(!nopop){
+        this.props.navigation.pop();
+      }
     })
   }
 
@@ -112,6 +118,9 @@ export default class Setting extends React.Component {
 
     let data = await this.getDraggableData(packs);
     this.setState({data, changed: true});
+    setTimeout(() => {
+      this.save(true)
+    }, 100);
   }
 
   async changeAvatar(avatar){
@@ -224,10 +233,11 @@ export default class Setting extends React.Component {
               {this.state.data &&
                 <DraggableFlatList
                   ListHeaderComponent={(
-                    <TouchableOpacity style={[styles.addNew, {marginTop: 20}]} onPress={() => this.props.navigation.push("Packs", { packsInUse: this.state.data.map(pack => pack.slug), add: this.addPack.bind(this)})}>
-                      <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, opacity: 0.5}}>
+                    <TouchableOpacity style={[styles.addNew, {marginTop: 20, backgroundColor: "#fafafa"}]} onPress={() => this.props.navigation.push("Packs", { packsInUse: this.state.data.map(pack => pack.slug), add: this.addPack.bind(this)})}>
+                      <Svg height={25} width={25} viewBox="0 0 24 24" style={{margin: 10, marginHorizontal: 4}}>
                         <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
                       </Svg>
+                      <Text style={{color: "#395A85", fontWeight: "bold"}}>Add Packs</Text>
                     </TouchableOpacity>
                   )}
 

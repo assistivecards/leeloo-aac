@@ -350,7 +350,7 @@ class Api {
 			formData.append('identifier', this.user.identifier);
 			formData.append('name', profile.name);
 			formData.append('avatar', profile.avatar);
-			formData.append('packs', `["conversation","people","feelings","food","animals","school","activities","shapes","colors","clothes"]`);
+			formData.append('packs', `["conversation","people","feelings","food","animals","school","activities","shapes","colors"]`);
 
 			try {
 				let newProfileResponse = await fetch(url, { method: 'POST', body: formData })
