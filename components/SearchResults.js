@@ -20,6 +20,7 @@ export default class App extends React.Component {
               return (<SearchItem key={i} result={result} width={this.props.orientation == "portrait" ? "100%" : "50%"}/>);
             })
           }
+          <View style={{width: "100%", height: 25}}></View>
         </View>
       </SafeAreaView>
     );
