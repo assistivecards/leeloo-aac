@@ -1,4 +1,7 @@
-import { createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
+
 import { Easing, Animated } from 'react-native';
 
 import Home from './layouts/Home'
