@@ -144,16 +144,28 @@ export default class Setting extends React.Component {
   renderPacks(){
     if(this.state.packs.length){
       return(
-        this.state.packs.map((pack, i) => {
-          return (
-            <TouchableScale key={i} style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.openCards(pack, i)}>
-              <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
-                <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: API.isTablet ? 130 : 90, height: API.isTablet ? 130 : 90, margin: 15, marginBottom: 10}}/>
-                <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16}]}>{titleCase(pack.locale)}</Text>
-              </View>
-            </TouchableScale>
-          )
-        })
+        <>
+          {
+            this.state.packs.map((pack, i) => {
+              return (
+                <TouchableScale key={i} style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.openCards(pack, i)}>
+                  <View style={[styles.categoryItemInner, { backgroundColor: pack.color }]}>
+                    <CachedImage uri={`${API.assetEndpoint}cards/icon/${pack.slug}.png?v=${API.version}`} style={{width: API.isTablet ? 130 : 90, height: API.isTablet ? 130 : 90, margin: 15, marginBottom: 10}}/>
+                    <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16}]}>{titleCase(pack.locale)}</Text>
+                  </View>
+                </TouchableScale>
+              )
+            })
+          }
+          <TouchableScale style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.addPack()}>
+            <View style={[styles.categoryItemInner, styles.addPack]}>
+              <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginHorizontal: 4}}>
+                <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
+              </Svg>
+              <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16, color: "#395A85"}]}>Add Pack</Text>
+            </View>
+          </TouchableScale>
+        </>
       );
     }else{
       return (
@@ -226,14 +238,6 @@ export default class Setting extends React.Component {
             <SafeAreaView>
               <Animated.View style={[styles.board, {opacity: boardOpacity, transform: [{translateY: boardTranslate}]}]}>
                 {API.user.active_profile && this.renderPacks()}
-                <TouchableScale style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.addPack()}>
-                  <View style={[styles.categoryItemInner, styles.addPack]}>
-                    <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginHorizontal: 4}}>
-                      <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
-                    </Svg>
-                    <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16, color: "#395A85"}]}>Add Pack</Text>
-                  </View>
-                </TouchableScale>
               </Animated.View>
             </SafeAreaView>
           }
