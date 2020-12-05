@@ -1,4 +1,6 @@
 import { registerRootComponent } from 'expo';
+var Sound = require('react-native-sound');
+Sound.setCategory('Playback'); // this will enable sound on silent mode
 
 import App from './App';
 
