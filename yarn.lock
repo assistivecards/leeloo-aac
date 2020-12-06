@@ -3473,10 +3473,10 @@ expo-image-loader@~1.2.0:
   resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-1.2.0.tgz#1cf70fc14c45e8595c3d1a2b16f40a53810b4ba4"
   integrity sha512-cftM8EonIPD4Tjydr5aFpFM1/GsNoIC79YV+ulVR3Zfn3RYcR4whwDcmzFCPuVFEO1Df4oBfEbdXfqlk96DR5Q==
 
-expo-in-app-purchases@~9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/expo-in-app-purchases/-/expo-in-app-purchases-9.0.0.tgz#6b1b046ce2fdef967afcd1527ba71509b5bbe463"
-  integrity sha512-2xyQspPFQRP2ig+x7cggh/qZAt95/w4LJ52JhqdbkTSO1LtnImhwgeJpr98N+V7YXCD/bNi+dFL4E2mpmpnfDw==
+expo-in-app-purchases@9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/expo-in-app-purchases/-/expo-in-app-purchases-9.1.0.tgz#86fbb794c4db6347338bd0cb14fc167126eaeb50"
+  integrity sha512-E45cCuccI5tvOYDKlb4Uq4P4JHoRYFi1QOeLdoHzv772eQHepmSPBfBjXUMqIjy7DFWUVKlVSlKajLGJPc391Q==
 
 expo-keep-awake@~8.3.0:
   version "8.3.0"

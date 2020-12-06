@@ -38,7 +38,7 @@ PODS:
     - React-Core
     - UMCore
     - UMImageLoaderInterface
-  - EXInAppPurchases (9.0.0):
+  - EXInAppPurchases (9.1.0):
     - UMCore
   - EXKeepAwake (8.3.0):
     - UMCore
@@ -626,7 +626,7 @@ SPEC CHECKSUMS:
   EXGoogleSignIn: c575e4bc3c34882908167788a2c4a0cd8dfb2eb3
   EXHaptics: 4db5fa74b5a87148af4355246981b2dd2d7b9e77
   EXImageLoader: 7153fb1307ac643299a9072b71da0d276f4c7789
-  EXInAppPurchases: efef0c19273abc1027a3c8bfe97741263459f888
+  EXInAppPurchases: c647953e5e1dad71bbda2e3bb92966dac440ede4
   EXKeepAwake: 76eed36786534f6a476748e600fa6faf07ac3d09
   EXLinearGradient: c7ca1c2933ac240ffbc805c014a72947e227ac75
   EXLocalization: 8621f60b37c3d3ad8c8e27c2cb3b05ebc7b484a2

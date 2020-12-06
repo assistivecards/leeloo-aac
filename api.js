@@ -201,7 +201,7 @@ class Api {
       Notifications.scheduleNotificationAsync({
         content: content,
         trigger: {
-          seconds: 60*60*24*2, // 2 days = 60*60*24*2
+          seconds: 60*60*24*3, // 2 days = 60*60*24*2
           repeats: true
         },
       });
@@ -693,10 +693,9 @@ class Api {
 			  }
 			});
 
-			const history = await InAppPurchases.getPurchaseHistoryAsync(true);
+			const history = await InAppPurchases.getPurchaseHistoryAsync();
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
-				console.log(history.results);
 				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
 				if(lifetime){
 					this.premium = "lifetime";
