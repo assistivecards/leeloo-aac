@@ -84,11 +84,11 @@ export default class Setting extends React.Component {
        return (
          <TouchableOpacity key={plan.productId} onPress={() => API.purchasePremium(plan.productId, this.state.premium)} style={[styles.listItem, {borderColor: "#a2ddfd"}]}>
            <View>
-              <Text style={[API.styles.h3, {marginHorizontal: 0, marginVertical: 0, marginTop: 0, marginBottom: 5, fontSize: 16}]}>{API.t("premium_yearly")}</Text>
-             <Text style={[API.styles.h3, {marginHorizontal: 0, marginVertical: 0, marginTop: 0, fontSize: 16}]}>{API.t("premium_then_info", plan.price)}</Text>
+             <Text style={[API.styles.h3, {marginHorizontal: 0, marginVertical: 0, marginTop: 0}]}>{API.t("premium_yearly")}</Text>
+             <Text style={[API.styles.p, {marginHorizontal: 0, marginVertical: 0, marginTop: 0, padding: 0, paddingBottom: 0, marginBottom: 0}]}>{API.t("premium_yearly_sub")}</Text>
            </View>
            <View style={{alignItems: "flex-end"}}>
-            <Text style={styles.price}>{API.t("premium_monthly_priceShow", yearlyToMonthlyPrice)}</Text>
+            <Text style={[styles.price, {paddingBottom: 7}]}>{API.t("premium_yearly_priceShow", plan.price)}</Text>
             <View style={{padding: 3, paddingHorizontal: 10, borderRadius: 15, backgroundColor: "#a2ddfd"}}>
               <Text style={{color: "#3e445a", fontWeight: "600"}}>{API.t("premium_save_percent", comparePercent)}</Text>
             </View>
@@ -336,9 +336,12 @@ export default class Setting extends React.Component {
 
             <TouchableOpacity style={styles.button} onPress={() => API.purchasePremium("yearly", this.state.premium)}>
               <Text style={[API.styles.h3, {color: "#3e445a", marginBottom: 0, marginTop: 0, textAlign: "center"}]}>{API.t("premium_trial_title")}</Text>
-              <Text style={[API.styles.h4, {color: "#3e445a", fontWeight: "normal", paddingTop: 3, opacity: 0.8}]}>{API.t("premium_trial_description")}</Text>
+              {plans[0] &&
+                <Text style={[API.styles.h4, {color: "#3e445a", fontWeight: "normal", paddingTop: 3, opacity: 0.8}]}>{API.t("premium_then_info", plans.filter(plan => plan.productId == "yearly")[0].price)}</Text>
+              }
             </TouchableOpacity>
             <View>
+              <Text style={[API.styles.p, {textAlign: "center", marginHorizontal: 40}]}>{API.t("premium_trial_description")}</Text>
               <Text style={[API.styles.p, {textAlign: "center", marginHorizontal: 40}]}>{API.t("premium_details1")}</Text>
               <View style={{borderBottomWidth: 1, borderBottomColor: "#eee", marginTop: 5, marginBottom: 15}}></View>
               <Text style={API.styles.sub}>{API.t("premium_details2")}</Text>

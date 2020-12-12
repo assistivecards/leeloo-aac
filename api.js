@@ -510,6 +510,14 @@ class Api {
 				pitch: 1,
 				rate: rate
 			});
+			/*
+				let deviceLanguage = Localization.locale.substr(0,2);
+				this.getBestAvailableVoiceDriver(deviceLanguage).then(bestTTS => {
+					if(bestTTS){
+						this.update(["voice"], [bestTTS])
+					}
+				});
+			*/
 		}
 	}
 
@@ -693,7 +701,7 @@ class Api {
 			  }
 			});
 
-			const history = await InAppPurchases.getPurchaseHistoryAsync();
+			const history = await InAppPurchases.getPurchaseHistoryAsync(Platform.OS == "ios");
 			if (history.responseCode === InAppPurchases.IAPResponseCode.OK) {
 			  // get to know if user is premium or npt.
 				let lifetime = history.results.filter(res => res.productId == "lifetime")[0];
