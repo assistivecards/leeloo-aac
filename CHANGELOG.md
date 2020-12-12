@@ -1,3 +1,7 @@
+# v2.2.4
+
+- Changes on premium presentation based on Apple review
+
 # v2.2.3
 
 - TTS plays in silent mode

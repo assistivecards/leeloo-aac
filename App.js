@@ -145,7 +145,11 @@ export default class App extends React.Component {
 
     }else{
       API.getCurrentProfile().then(profile => {
-        API.setCurrentProfile(profile.id);
+        if(profile){
+          API.setCurrentProfile(profile.id);
+        }else{
+          API.setCurrentProfile(API.user.profiles[0].id);
+        }
         this.forceUpdate();
       })
     }
