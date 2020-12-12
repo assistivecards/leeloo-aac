@@ -60,9 +60,9 @@ class Api {
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 		if(_DEVELOPMENT){
-			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.2.2"});
+			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.2.4"});
 		}else{
-			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.2.2"});
+			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.2.4"});
 		}
 		this.isTablet = false;
 		this._checkIfTablet();
