@@ -402,7 +402,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.2.4;
+				CURRENT_PROJECT_VERSION = 2.2.4.1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7ZD9G5H3ZM;
 				INFOPLIST_FILE = Leeloo/Info.plist;
@@ -431,7 +431,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.2.4;
+				CURRENT_PROJECT_VERSION = 2.2.4.1;
 				DEVELOPMENT_TEAM = 7ZD9G5H3ZM;
 				INFOPLIST_FILE = Leeloo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
