@@ -337,7 +337,7 @@ export default class Setting extends React.Component {
             <TouchableOpacity style={styles.button} onPress={() => API.purchasePremium("yearly", this.state.premium)}>
               <Text style={[API.styles.h3, {color: "#3e445a", marginBottom: 0, marginTop: 0, textAlign: "center"}]}>{API.t("premium_trial_title")}</Text>
               {plans[0] &&
-                <Text style={[API.styles.h4, {color: "#3e445a", fontWeight: "normal", paddingTop: 3, opacity: 0.8}]}>{API.t("premium_then_info", plans.filter(plan => plan.productId == "yearly")[0].price)}</Text>
+                <Text style={[API.styles.h3, {color: "#3e445a", marginBottom: 0, marginTop: 0, paddingTop: 5}]}>{API.t("premium_then_info", plans.filter(plan => plan.productId == "yearly")[0].price)}</Text>
               }
             </TouchableOpacity>
             <View>
