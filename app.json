@@ -3,7 +3,7 @@
     "name": "Leeloo",
     "slug": "leeloo",
     "icon": "./assets/icon.png",
-    "version": "2.2.4",
+    "version": "2.3.0",
     "platforms": [
       "ios",
       "android"
@@ -16,7 +16,7 @@
     "ios": {
       "bundleIdentifier": "org.dreamoriented.leeloo",
       "usesAppleSignIn": true,
-      "buildNumber": "2.2.4",
+      "buildNumber": "2.3.0",
       "requireFullScreen": true,
       "supportsTablet": true,
       "config": {
@@ -31,7 +31,7 @@
       "permissions": [
         "WAKE_LOCK"
       ],
-      "versionCode": 224,
+      "versionCode": 230,
       "googleServicesFile": "./google-services.json"
     },
     "assetBundlePatterns": [
