@@ -60,6 +60,8 @@ class Api {
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
 
+		this.setSpeechEngine();
+
 		if(_DEVELOPMENT){
 			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.2.4"});
 		}else{
@@ -93,10 +95,44 @@ class Api {
 		this._initSubscriptions();
   }
 
+	requestSpeechInstall(){
+		if(Platform.OS == "android"){
+			Speech.getInitStatus().then(() => {
+				Speech.requestInstallData();
+			}, (err) => {
+			  if (err.code === 'no_engine') {
+					Speech.requestInstallEngine();
+			  }
+			});
+		}
+	}
+
+	setSpeechEngine(){
+		if(Platform.OS == "android"){
+			Speech.engines().then(engines => {
+				engines.forEach(engine => {
+					if(engine.label){
+						if(engine.label.includes("Google") || engine.label.includes("google") || engine.label.includes("google")){
+							if(!engine.default){
+								Speech.setDefaultEngine(engine.name);
+							}
+						}
+					}
+				});
+			});
+		}
+	}
+
 	initSpeech(){
 		console.log("Speech Initialized");
-		Speech.setDefaultVoice(this.user.voice);
+
+		Speech.setDefaultVoice(this.user.voice).then(res => {
+			console.log(res);
+		}, (err) => {
+		  console.log("Error: ", err);
+		});
 		Speech.setIgnoreSilentSwitch("ignore");
+		Speech.setDucking(true);
 		Speech.addEventListener('tts-start', () => {});
 		Speech.addEventListener('tts-finish', () => {});
 		Speech.addEventListener('tts-cancel', () => {});
@@ -111,6 +147,7 @@ class Api {
 	}
 
 	avent(a,b,c){
+		// Analytic Event, nice abbr, right?
 		this.analytics.event(new Avent(a, b, c))
 	}
 

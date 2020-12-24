@@ -77,7 +77,12 @@ export default class Setting extends React.Component {
       if(this.state.loading){
         return (<View style={{flex: 1, height: 200, justifyContent: "center", alignItems: "center"}}><ActivityIndicator color={"#000"}/></View>);
       }else{
-        return (<View style={{flex: 1, justifyContent: "center", alignItems: "center"}}><Text style={[API.styles.p, {paddingTop: 10}]}>{API.t("alert_yourDeviceDoesNotSupportTTS")}</Text></View>);
+        return (
+          <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <Text style={[API.styles.p, {paddingTop: 10}]}>{API.t("alert_yourDeviceDoesNotSupportTTS")}</Text>
+            <TouchableOpacity onPress={() => API.requestSpeechInstall()}><Text style={API.styles.h2}>Install TTS Voices (Experimental)</Text></TouchableOpacity>
+          </View>
+        );
       }
     }else if(voices.length == 1){
       return this.listVoices(voices);
