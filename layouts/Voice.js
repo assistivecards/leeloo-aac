@@ -119,11 +119,17 @@ export default class Setting extends React.Component {
     }
   }
 
+
+  // no voice engine
+  // one engine and its not google (samsung, huawei)
+  // one engine and its google
+  // multiple engines present and google is default
+  // multiple engines present and google is not default
   // no voice driver x
   // one voice driver x
   // no voice for the locale, but multiple for that language
   // one voice driver for your locale, and one or more for that language
-  // multiple voice driver for your locale, and
+  // multiple voice driver for your locale, and others
 
   render() {
     return(

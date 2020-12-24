@@ -563,14 +563,6 @@ class Api {
 					KEY_PARAM_STREAM: 'STREAM_MUSIC'
 				}
 			});
-			/*
-				let deviceLanguage = Localization.locale.substr(0,2);
-				this.getBestAvailableVoiceDriver(deviceLanguage).then(bestTTS => {
-					if(bestTTS){
-						this.update(["voice"], [bestTTS])
-					}
-				});
-			*/
 		}
 	}
 
