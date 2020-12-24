@@ -509,9 +509,9 @@ class Api {
 
 
 	speak(text, speed, voice){
-		/*if(voice){
+		if(voice){
 			Speech.setDefaultVoice(voice);
-		}*/
+		}
 		//text = this.phrase()
 		let rate = 0.5;
 		if(speed == "slow"){
@@ -519,7 +519,6 @@ class Api {
 		}
 		if(this.user.voice != "unsupported"){
 			Speech.speak(text, {
-				iosVoiceId: voice,
 				language: this.user.language,
 				pitch: 1,
 				rate: rate,

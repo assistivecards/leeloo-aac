@@ -75,7 +75,7 @@ export default class Setting extends React.Component {
 
     if(voices.length == 0){
       if(this.state.loading){
-        return (<View style={{flex: 1, height: 200, justifyContent: "center", alignItems: "center"}}><ActivityIndicator/></View>);
+        return (<View style={{flex: 1, height: 200, justifyContent: "center", alignItems: "center"}}><ActivityIndicator color={"#000"}/></View>);
       }else{
         return (<View style={{flex: 1, justifyContent: "center", alignItems: "center"}}><Text style={[API.styles.p, {paddingTop: 10}]}>{API.t("alert_yourDeviceDoesNotSupportTTS")}</Text></View>);
       }
@@ -123,7 +123,7 @@ export default class Setting extends React.Component {
   render() {
     return(
       <>
-        <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
+        <TopBar back={() => { this.props.navigation.pop(); API.initSpeech() }} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
           <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
             <Text style={API.styles.h1}>{API.t("settings_selection_voice")}</Text>
