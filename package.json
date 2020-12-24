@@ -59,6 +59,7 @@
     "react-native-screens": "~2.10.1",
     "react-native-storage": "^1.0.0",
     "react-native-svg": "12.1.0",
+    "react-native-tts": "^3.2.0",
     "react-native-unimodules": "~0.11.0",
     "react-native-web": "~0.13.7",
     "react-native-webview": "10.7.0",

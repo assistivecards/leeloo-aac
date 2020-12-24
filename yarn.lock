@@ -6879,6 +6879,11 @@ react-native-tab-view@^2.15.2:
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.15.2.tgz#4bc7832d33a119306614efee667509672a7ee64e"
   integrity sha512-2hxLkBnZtEKFDyfvNO5EUywhy3f/EiLOBO8SWqKj4BMBTO0QwnybaPE5MVF00Fhz+VA4+h/iI40Dkrrtq70dGg==
 
+react-native-tts@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-tts/-/react-native-tts-3.2.0.tgz#6c271c6809c164f86699b4b6c420f7bae0f68b4e"
+  integrity sha512-z8p9OfWd9N1QTs3EcZCt05iqNFs9qZ9s743Pt1xqqVlL+vE4ju2pybNE/pjxA2L+RvuD3L0wOdNvXcCNP5qi2g==
+
 react-native-unimodules@~0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-native-unimodules/-/react-native-unimodules-0.11.0.tgz#78483ee4e7eb27b439d34c3ba7455f40087ff166"

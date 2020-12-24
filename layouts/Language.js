@@ -49,6 +49,7 @@ export default class Setting extends React.Component {
     let updateRes = await API.update(changedFields, changedValues);
     this.props.navigation.pop();
     API.haptics("impact");
+    API.initSpeech();
   }
 
   didChange(){

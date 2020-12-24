@@ -2,7 +2,7 @@ import Storage from 'react-native-storage';
 
 import { AsyncStorage, Platform, Alert } from 'react-native';
 
-import * as Speech from 'expo-speech';
+import Speech from 'react-native-tts';
 import * as Localization from 'expo-localization';
 import * as Haptics from 'expo-haptics';
 import * as Permissions from 'expo-permissions';
@@ -59,6 +59,7 @@ class Api {
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
+
 		if(_DEVELOPMENT){
 			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.2.4"});
 		}else{
@@ -91,6 +92,15 @@ class Api {
 		}
 		this._initSubscriptions();
   }
+
+	initSpeech(){
+		console.log("Speech Initialized");
+		Speech.setDefaultVoice(this.user.voice);
+		Speech.setIgnoreSilentSwitch("ignore");
+		Speech.addEventListener('tts-start', () => {});
+		Speech.addEventListener('tts-finish', () => {});
+		Speech.addEventListener('tts-cancel', () => {});
+	}
 
 	hit(screen){
 		this.analytics.hit(new ScreenHit(screen))
@@ -282,6 +292,7 @@ class Api {
 			this.isGift = true;
 		}
 		this.user.active_profile = await this.getCurrentProfile();
+		this.initSpeech();
 		return userResponse;
 	}
 
@@ -497,18 +508,24 @@ class Api {
 	}
 
 
-	speak(text, speed){
+	speak(text, speed, voice){
+		/*if(voice){
+			Speech.setDefaultVoice(voice);
+		}*/
 		//text = this.phrase()
-		let rate = 1;
+		let rate = 0.5;
 		if(speed == "slow"){
-			rate = 0.5;
+			rate = 0.25;
 		}
 		if(this.user.voice != "unsupported"){
 			Speech.speak(text, {
-				voice: this.user.voice,
+				iosVoiceId: voice,
 				language: this.user.language,
 				pitch: 1,
-				rate: rate
+				rate: rate,
+				androidParams: {
+					KEY_PARAM_STREAM: 'STREAM_MUSIC'
+				}
 			});
 			/*
 				let deviceLanguage = Localization.locale.substr(0,2);
@@ -522,17 +539,22 @@ class Api {
 	}
 
 	async getAvailableVoicesAsync(recall){
-		let voices = await Speech.getAvailableVoicesAsync();
+		let voices = await Speech.voices();
 		if(voices.length == 0){
 			if(recall){
 				return [];
 			}else{
 				await new Promise(function(resolve) {
-		        setTimeout(resolve, 1000);
+		        setTimeout(resolve, 8000);
 		    });
 				return await this.getAvailableVoicesAsync(true);
 			}
 		}else{
+			voices.map(voice => {
+				voice.name = voice.id;
+				voice.identifier = voice.id;
+				voice.quality == 500 ? voice.quality = "Enhanced" : voice.quality = "Optimal";
+			});
 			return voices;
 		}
 	}

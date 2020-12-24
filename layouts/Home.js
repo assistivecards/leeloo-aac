@@ -23,6 +23,8 @@ export default class Setting extends React.Component {
       orientation: "portrait"
     }
 
+    API.initSpeech();
+
     ScreenOrientation.getOrientationAsync().then(orientation => {
       if(orientation == 3 || orientation == 4){
         this.setState({orientation: "landscape"});

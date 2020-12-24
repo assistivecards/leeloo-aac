@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import * as Localization from 'expo-localization';
-import * as Speech from 'expo-speech';
 
 import API from '../api';
-import Languages from '../data/languages.json';
 import TopBar from '../components/TopBar'
 
 export default class Setting extends React.Component {
@@ -49,6 +47,7 @@ export default class Setting extends React.Component {
     API.update(changedFields, changedValues).then(res => {
       this.props.navigation.pop();
       API.haptics("impact");
+      API.initSpeech();
     })
   }
 
@@ -59,9 +58,9 @@ export default class Setting extends React.Component {
   listVoices(voices){
     return voices.map((voice, i) => {
       return (
-        <TouchableOpacity onPress={() => { API.haptics("touch"); Speech.speak(this.testPhrase, {voice: voice.identifier}); this.setState({voice: voice.identifier})}} key={i} style={styles.listItem}>
+        <TouchableOpacity onPress={() => { API.haptics("touch"); API.speak(this.testPhrase, "normal", voice.identifier); this.setState({voice: voice.identifier})}} key={i} style={styles.listItem}>
           <View style={{width: "80%"}}>
-            <Text style={[API.styles.h3, {marginVertical: 0}]}>{voice.name}</Text>
+            <Text style={[API.styles.h3, {marginVertical: 0}]}>{voice.name.split(".").pop().replace(/_/g, " ").replace(/-compact/g, " ").replace(/ compact/g, " ")}</Text>
             <Text style={[API.styles.p, {marginBottom: 2}]}>{voice.language} - {voice.quality}</Text>
             <Text style={API.styles.sub}>{voice.identifier}</Text>
           </View>

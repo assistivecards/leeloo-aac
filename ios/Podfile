@@ -8,4 +8,6 @@ target 'Leeloo' do
   use_unimodules!(modules_paths: ['../node_modules'])
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
+  pod 'TextToSpeech', :path => '../node_modules/react-native-tts'
+
 end
