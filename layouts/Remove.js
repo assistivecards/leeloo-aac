@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Text, ScrollView, Animated, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import * as Localization from 'expo-localization';
-import * as Speech from 'expo-speech';
 
 import API from '../api';
 import Languages from '../data/languages.json';
