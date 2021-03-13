@@ -16,7 +16,7 @@ export default class App extends React.Component {
     let result = this.props.result;
     return (
       <TouchableScale style={{width: this.props.width}} onPress={() => this.speak(this.props.term)}>
-        <View style={[styles.item, {flexDirection: API.user.isRTL ? "row-reverse" : "row", backgroundColor: "#F7F7F7"}]}>
+        <View style={[styles.item, {flexDirection: API.isRTL() ? "row-reverse" : "row", backgroundColor: "#F7F7F7"}]}>
           <Image source={require("../assets/voice.png")} style={{width: API.isTablet ? 70 : 50, height: API.isTablet ? 70 : 50, margin: 5}}/>
           <Text style={[styles.searchItemText, {fontSize: 19, marginLeft: 10, color: "#555"}]}>{this.props.term}</Text>
         </View>

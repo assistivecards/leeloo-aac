@@ -21,7 +21,7 @@ import styles from './js/styles';
 import themes from './js/themes';
 
 const fallbackUIText = require("./data/interface/en.json");
-
+const APP = require("./app.json");
 // For test cases
 const _DEVELOPMENT = false;
 
@@ -70,9 +70,9 @@ class Api {
 		this.isTablet = false;
 		this._checkIfTablet();
 
-		this.config = {
-			theme: themes.light
-		}
+		this.config = APP.config;
+		this.config.theme = themes.light;
+
 		this.version = ASSET_VERSION;
 		this.assetEndpoint = ASSET_ENDPOINT;
 
@@ -94,6 +94,14 @@ class Api {
 		}
 		this._initSubscriptions();
   }
+
+	isRTL(){
+		if(this.user.language){
+			return RTL.includes(this.user.language);
+		}else{
+			return false;
+		}
+	}
 
 	requestSpeechInstall(){
 		if(Platform.OS == "android"){
@@ -324,7 +332,7 @@ class Api {
 				await this.ramLanguage(this.user.language);
 			}
 		}
-		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
+
 		if(this.user.premium == "gift"){
 			this.isGift = true;
 		}
@@ -379,7 +387,6 @@ class Api {
 				if(this.user.premium == "gift"){
 					this.isGift = true;
 				}
-				this.user.isRTL = RTL.includes(this.user.language);
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
 				alert("Please check your internet connectivity!");

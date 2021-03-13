@@ -211,9 +211,9 @@ export default class App extends React.Component {
             <View style={styles.content}>
               {this.card.phrases.map((phrase, pi) => {
                 return(
-                  <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} key={pi} onLongPress={() => this.speak(API.phrase(phrase.phrase))} delayLongPress={16}>
+                  <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} key={pi} onLongPress={() => this.speak(API.phrase(phrase.phrase))} delayLongPress={16}>
                     <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>{phrase.type}</Text>
-                    <Text style={[API.styles.bBig, {textAlign: API.user.isRTL ? "right" : "left"}]}>{API.phrase(phrase.phrase)}</Text>
+                    <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase(phrase.phrase)}</Text>
                   </TouchableOpacity>
                 );
               })}

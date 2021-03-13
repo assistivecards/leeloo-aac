@@ -49,7 +49,7 @@ export default class Setting extends React.Component {
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
         <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-          <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+          <View style={[styles.head, {alignItems: API.isRTL() ? "flex-end" : "flex-start"}]}>
             <Text style={API.styles.h1}>{API.t("settings_selection_aboutapp")}</Text>
             <Text style={API.styles.pHome}>{API.t("settings_aboutapp_description")}</Text>
           </View>
@@ -57,7 +57,7 @@ export default class Setting extends React.Component {
             <View style={styles.selectionCarrier}>
 
               <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/"})}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path d="M0 0h24v24H0z" stroke="none"/>
                     <Circle cx="12" cy="12" r="9"/>
@@ -69,7 +69,7 @@ export default class Setting extends React.Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.shareApp()}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path d="M0 0h24v24H0z" stroke="none"/>
                   	<Circle cx="6" cy="12" r="3"/>
@@ -83,7 +83,7 @@ export default class Setting extends React.Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.rateThisApp()}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path d="M0 0h24v24H0z" stroke="none"/>
                   	<Path d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"/>
@@ -93,7 +93,7 @@ export default class Setting extends React.Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/licenses/"})}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path d="M0 0h24v24H0z" stroke="none"/>
                     <Polyline points="7 8 3 12 7 16"/>
@@ -105,7 +105,7 @@ export default class Setting extends React.Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/privacypolicy/"})}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path stroke="none" d="M0 0h24v24H0z"/>
                     <Polyline points="14 3 14 8 19 8" />
@@ -117,7 +117,7 @@ export default class Setting extends React.Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/termsofuse/"})}>
-                <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
+                <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
                   <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <Path stroke="none" d="M0 0h24v24H0z"/>
                     <Path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11" />
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     borderBottomWidth: 1,
     paddingBottom: 25,
-    borderBottomColor: API.config.theme.mainBorderColor
+    borderBottomColor: "#eee"
   },
   selectionItem: {
     flexDirection: "row",

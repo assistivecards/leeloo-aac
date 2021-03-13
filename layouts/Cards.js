@@ -96,7 +96,7 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={this.pack.color}/>
         <ScrollView style={{backgroundColor: this.pack.color}} contentInsetAdjustmentBehavior="automatic">
           <SafeAreaView>
-            <TouchableScale style={[styles.head, {justifyContent: API.user.isRTL ? "flex-end" : "flex-start", flexDirection: "row", alignItems: "center"}]} onPress={() => this.speakTitle(this.pack.locale)}>
+            <TouchableScale style={[styles.head, {justifyContent: API.isRTL() ? "flex-end" : "flex-start", flexDirection: "row", alignItems: "center"}]} onPress={() => this.speakTitle(this.pack.locale)}>
               <Text style={[API.styles.h1, {color: "#000", marginHorizontal: 0}]}>{titleCase(this.pack.locale)}</Text>
               <Svg width={26} height={26} viewBox="0 0 24 24" strokeLinecap="round" strokeWidth="2" stroke="#000" fill="none" style={{marginLeft: 5, opacity: 0.7}}>
                 <Path stroke="none" d="M0 0h24v24H0z"/>

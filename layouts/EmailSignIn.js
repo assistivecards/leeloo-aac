@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     borderBottomWidth: 1,
     paddingBottom: 25,
-    borderBottomColor: API.config.theme.mainBorderColor
+    borderBottomColor: "#eee"
   },
   selectionItem: {
     flexDirection: "row",

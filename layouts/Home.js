@@ -206,7 +206,7 @@ export default class Setting extends React.Component {
         <ScrollView stickyHeaderIndices={[1]} contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled" keyboardDismissMode={"on-drag"}>
           <SafeAreaView>
             <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
-                <View style={{flexDirection: API.user.isRTL ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
+                <View style={{flexDirection: API.isRTL() ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
                   <View style={{flex: 1}}>
                     <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
                   </View>

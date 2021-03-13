@@ -122,7 +122,7 @@ export default class Setting extends React.Component {
         <>
           <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
           <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+            <View style={[styles.head, {alignItems: API.isRTL() ? "flex-end" : "flex-start"}]}>
               <Text style={API.styles.h1}>{API.t("settings_selection_subscriptions")}</Text>
               <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
             </View>
@@ -141,7 +141,7 @@ export default class Setting extends React.Component {
         <>
           <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"}/>
           <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+            <View style={[styles.head, {alignItems: API.isRTL() ? "flex-end" : "flex-start"}]}>
               <Text style={API.styles.h1}>{API.t("settings_selection_subscriptions")}</Text>
               <Text style={API.styles.pHome}>{API.t("settings_subscriptions_description")}</Text>
             </View>
@@ -163,7 +163,7 @@ export default class Setting extends React.Component {
               <Text style={API.styles.p}>{API.t("settings_subscriptions_cancel_notice")}</Text>
               {Platform.OS != "ios" &&
                 <TouchableOpacity onPress={() => this.redeem()}>
-                  <View style={[[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}], {borderBottomWidth: 0, padding: 25, paddingHorizontal: 30}]}>
+                  <View style={[[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}], {borderBottomWidth: 0, padding: 25, paddingHorizontal: 30}]}>
                     <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <Path stroke="none" d="M0 0h24v24H0z"/>
                       <Line x1="9" y1="15" x2="15" y2="9" />

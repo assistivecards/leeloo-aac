@@ -15,12 +15,12 @@ export default class App extends React.Component {
   render(){
 
     let searchIconStyle = {position: "absolute", top: 16, left: 40 };
-    if(API.user.isRTL){
+    if(API.isRTL()){
       searchIconStyle = {position: "absolute", top: 16, right: 40, transform: [{rotateY: "180deg"}]};
     }
 
     let clearIconStyle = {padding: 15, position: "absolute", top: 0, right: 25};
-    if(API.user.isRTL){
+    if(API.isRTL()){
       clearIconStyle = {padding: 15, position: "absolute", top: 0, left: 25};
     }
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
       <LinearGradient style={styles.textInputCarrier} colors={['rgba(255,255,255,1)', 'rgba(255,255,255,0.9)', 'rgba(255,255,255,0)']}>
         <TextInput
           placeholder={API.t("search_input_placeholder")}
-          style={[styles.textInput, {textAlign: API.user.isRTL ? "right" : "left"}]}
+          style={[styles.textInput, {textAlign: API.isRTL() ? "right" : "left"}]}
           ref={component => this._textInput = component}
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}
