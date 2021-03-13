@@ -178,7 +178,24 @@ export default class App extends React.Component {
 
             <View style={styles.appSettings}>
               <View style={styles.selectionCarrier}>
-
+                {API.config.apps &&
+                  <TouchableOpacity onPress={() => this.props.navigation.push("Apps")}>
+                    <View style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]}>
+                      <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <Rect height="6" width="6" rx="1" x="4" y="4"/>
+                          <Rect height="6" width="6" rx="1" x="4" y="14"/>
+                          <Rect height="6" width="6" rx="1" x="14" y="14"/>
+                          <Line x1="14" x2="20" y1="7" y2="7"/>
+                          <Line x1="17" x2="17" y1="4" y2="10"/>
+                      </Svg>
+                      <Text style={[API.styles.b, {fontSize: 15}]}>{API.t("settings_selection_apps")}</Text>
+                      <View style={{ backgroundColor: API.config.backgroundColor, borderRadius: 5, marginHorizontal: 10, paddingHorizontal: 7}}>
+                        <Text style={[API.styles.b, {fontSize: 12, color: "#fff"}]}>{API.t("settings_selection_apps_new")}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                }
+                
                 <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/leeloo-feedback/"})}>
                   <View style={[styles.selectionItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]}>
                     <Svg height={24} width={24} viewBox="0 0 24 24" style={styles.selectionIcon} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">

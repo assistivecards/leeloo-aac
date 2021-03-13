@@ -1,4 +1,23 @@
 {
+  "name": "leeloo",
+  "displayName": "Leeloo",
+  "analyticsKey": "UA-111111111-1",
+  "apiEndpoint": "https://leeloo.dreamoriented.org/",
+  "assetEndpoint": "https://api.assistivecards.com/",
+  "assetVersion": 215,
+  "planPrefix": "templateapp_",
+  "config": {
+    "language": true,
+    "tts": true,
+    "accent": false,
+    "apps": true,
+    "backgroundColor": "#6989FF",
+    "pFontColor": "#333333"
+  },
+  "storeId": {
+    "appStore": 1508952198,
+    "googlePlay": 4973589507294196000
+  },
   "expo": {
     "name": "Leeloo",
     "slug": "leeloo",

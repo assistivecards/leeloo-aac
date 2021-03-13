@@ -648,6 +648,27 @@ class Api {
 		}
 	}
 
+	async getAllApps(){
+		var url = ASSET_ENDPOINT + "apps/metadata.json?v="+this.version;
+		let appsResponse = [];
+		try {
+			appsResponse = await fetch(url, {cache: "no-cache"})
+			.then(res => res.json());
+			appsResponse = appsResponse.apps;
+
+			appsResponse.map(app => {
+				app.tagline = app.tagline[this.user.language];
+				app.description = app.description[this.user.language];
+				return app;
+			})
+
+		} catch(error){
+			console.log("Offline, Falling back to cached cardData!", error);
+		}
+
+		return appsResponse;
+	}
+
 	search(term){
 		if(term.length >= 2){
 			let results = [];
