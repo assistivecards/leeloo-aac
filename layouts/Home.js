@@ -110,6 +110,10 @@ export default class Setting extends React.Component {
     this.props.navigation.push("Cards", {pack, packs: this.state.packs, packIndex, orientation: this.state.orientation});
   }
 
+  openFavorites(){
+    this.props.navigation.push("Favorites", {orientation: this.state.orientation});
+  }
+
   addPack(){
     this.props.navigation.push("Profile", {profile: API.user.active_profile, forceAdd: true});
   }
@@ -147,6 +151,12 @@ export default class Setting extends React.Component {
     if(this.state.packs.length){
       return(
         <>
+          <TouchableScale style={[this.state.orientation == "portrait" ? styles.categoryItem : styles.categoryItemLandscape, {height: API.isTablet ? 230 : 160}]} onPress={() => this.openFavorites()}>
+            <View style={[styles.categoryItemInner, { backgroundColor: "#e3fff0" }]}>
+              <Image source={require("../assets/favorite.png")} style={{width: API.isTablet ? 130 : 90, height: API.isTablet ? 130 : 90, margin: 15, marginBottom: 10}}/>
+              <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16}]}>{API.t("favorites")}</Text>
+            </View>
+          </TouchableScale>
           {
             this.state.packs.map((pack, i) => {
               return (
@@ -164,7 +174,7 @@ export default class Setting extends React.Component {
               <Svg height={30} width={30} viewBox="0 0 24 24" style={{margin: 10, marginHorizontal: 4}}>
                 <Path fill={"#395A85"} d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></Path>
               </Svg>
-              <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16, color: "#395A85"}]}>Add Pack</Text>
+              <Text style={[styles.categoryItemText, {fontSize: API.isTablet ? 23 : 16, color: "#395A85"}]}>{API.t("add_pack")}</Text>
             </View>
           </TouchableScale>
         </>

@@ -162,6 +162,12 @@
 	"premium_promo_desc2": "Try 3 days for free",
 
 
+	"favorites": "Favorites",
+	"no_favorites_title": "No Favorites",
+	"no_favorites_desc1": "You don't have any favorite cards right now.",
+	"no_favorites_desc2": "Press star icon to add favorite cards to your favorites collection in card screens.",
+	"add_pack": "Add Pack",
+
 	"button_next": "Next",
 	"button_start": "Start",
 	"button_use": "USE",

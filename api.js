@@ -866,6 +866,46 @@ class Api {
 		return this.cards[pack].filter(ramCard => ramCard.slug == slug)[0];
 	}
 
+	async getFavorites(){
+		if(this.favorites){
+			return this.favorites;
+		}else{
+			let favoriteText = await this.getData("favorites");
+			if(favoriteText){
+				this.favorites = JSON.parse(favoriteText);
+				return this.favorites;
+			}else{
+				return [];
+			}
+		}
+	}
+
+	async setFavorites(favorites){
+		this.favorites = favorites;
+		await this.setData("favorites", JSON.stringify(favorites));
+	}
+
+	async addFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		favorites.push(cardObject);
+
+		await this.setFavorites(favorites);
+		return true;
+	}
+
+	async removeFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		favorites = favorites.filter(f => f.slug != cardObject.slug);
+
+		await this.setFavorites(favorites);
+		return true;
+	}
+
+	async isFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		return favorites.filter(f => f.slug == cardObject.slug).length != 0;
+	}
+
 	localeString(){
 		if(_DEVELOPMENT){
 			return _DEVLOCALE;

@@ -6,6 +6,7 @@ import { Easing, Animated } from 'react-native';
 
 import Home from './layouts/Home'
 import Cards from './layouts/Cards'
+import Favorites from './layouts/Favorites'
 import Settings from './layouts/Settings'
 import Profile from './layouts/Profile'
 import New from './layouts/New'
@@ -28,6 +29,7 @@ import Apps from './layouts/Apps'
 const AppNavigator = createStackNavigator({
     Home:         { screen: Home          },
     Cards:        { screen: Cards         },
+    Favorites:    { screen: Favorites     },
     Settings:     { screen: Settings      },
     Profile:      { screen: Profile       },
     New:          { screen: New           },
