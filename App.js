@@ -65,18 +65,12 @@ export default class App extends React.Component {
       let user = await API.signIn(identifier);
       console.log("Already exists: ", user.language);
       if(user.language){
-        API.ramLanguage(user.language).then(res => {
-          this.setState({screen: "logged"});
-        });
+        this.setState({screen: "logged"});
       }else{
-        API.ramLanguage(Localization.locale.substr(0,2)).then(res => {
-          this.setState({screen: "login"});
-        });
+        this.setState({screen: "login"});
       }
     }else{
-      API.ramLanguage(Localization.locale.substr(0,2), 1).then(res => {
-        this.setState({screen: "login"});
-      });
+      this.setState({screen: "login"});
     }
   }
 
