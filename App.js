@@ -87,9 +87,7 @@ export default class App extends React.Component {
       let user = await API.signIn(credential.user, "apple", credential);
       API.setData("identifier", credential.user);
 
-      API.ramLanguage(user.language).then(res => {
-        this.setState({screen: "logged", activity: false});
-      });
+      this.setState({screen: "logged", activity: false});
 
       // signed in
     } catch (e) {
@@ -114,9 +112,7 @@ export default class App extends React.Component {
         let user = await API.signIn(credential.uid, "google", credential);
         API.setData("identifier", credential.uid);
 
-        API.ramLanguage(user.language).then(res => {
-          this.setState({screen: "logged", activity: false});
-        });
+        this.setState({screen: "logged", activity: false});
       }
     } catch ({ message }) {
       alert('Make sure to have internet connection and try again later:' + message);
