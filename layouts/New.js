@@ -46,7 +46,7 @@ export default class Setting extends React.Component {
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={"#6989FF"} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{flex: 1, backgroundColor: "#6989FF"}}>
-            <View style={[styles.head, {alignItems: API.user.isRTL ? "flex-end" : "flex-start"}]}>
+            <View style={[styles.head, {alignItems: API.isRTL() ? "flex-end" : "flex-start"}]}>
               <Text style={API.styles.h1}>{API.t("settings_selection_new_profile")}</Text>
               <Text style={API.styles.pHome}>{API.t("settings_new_profile_description")}</Text>
             </View>

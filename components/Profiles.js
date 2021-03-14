@@ -29,19 +29,19 @@ export default class App extends React.Component {
         {
           API.user.profiles.map(profile => {
             return (
-              <TouchableOpacity style={[styles.profileItem, {flexDirection: API.user.isRTL ? "row-reverse" : "row"}]} key={profile.id} onPress={() => this.editProfile(profile)}>
+              <TouchableOpacity style={[styles.profileItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} key={profile.id} onPress={() => this.editProfile(profile)}>
                 <View style={styles.child}>
                   <CachedImage uri={`${API.assetEndpoint}cards/avatar/${profile.avatar}.png?v=${API.version}`} resizeMode="contain" style={styles.childImage} />
                 </View>
                 {API.user.active_profile.id == profile.id &&
                   <View style={styles.active}><Text style={{fontWeight: "600", fontSize: 10, color: "#6989FF"}}>{API.t("settings_profile_active")}</Text></View>
                 }
-                <View style={{alignItems: API.user.isRTL ? "flex-end" : "flex-start", marginHorizontal: 10}}>
+                <View style={{alignItems: API.isRTL() ? "flex-end" : "flex-start", marginHorizontal: 10}}>
                   <Text style={{fontSize: 22, color: "#fff", fontWeight: "bold"}}>{profile.name}</Text>
                   <Text style={[API.styles.sub, {marginHorizontal: 0, marginBottom: 0, color: "#fff", fontWeight: "normal"}]}>{API.t("settings_packs", profile.packs.length)}</Text>
                 </View>
-                <View style={{flex: 1, justifyContent: API.user.isRTL ? "flex-start" : "flex-end", alignItems: API.user.isRTL ? "flex-start" : "flex-end", flexDirection: "row", alignItems: "center"}}>
-                  <Svg height={32} width={32} viewBox="0 0 24 24" style={{transform: [{rotateY: API.user.isRTL ? "180deg" : "0deg"}]}}>
+                <View style={{flex: 1, justifyContent: API.isRTL() ? "flex-start" : "flex-end", alignItems: API.isRTL() ? "flex-start" : "flex-end", flexDirection: "row", alignItems: "center"}}>
+                  <Svg height={32} width={32} viewBox="0 0 24 24" style={{transform: [{rotateY: API.isRTL() ? "180deg" : "0deg"}]}}>
                     <Path fill={"#fff"} d="M9.29 15.88L13.17 12 9.29 8.12c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3c-.39.39-1.02.39-1.41 0-.38-.39-.39-1.03 0-1.42z"></Path>
                   </Svg>
                 </View>

@@ -65,7 +65,10 @@
 	"settings_subscriptions_downgrade_notice": "You can't downgrade your lifetime premium subscription.",
 	"settings_subscriptions_oneTimePayment": "One-time payment",
 	"settings_subscriptions_recurringPayment": "Recurring payment",
-
+	
+	"settings_selection_apps": "All Apps",
+	"settings_selection_apps_new": "NEW",
+	"settings_apps_description": "Discover other apps made by Assistive Cards",
 
 	"settings_selection_signout": "Sign Out",
 	"settings_selection_sendFeedback": "Send Feedback",

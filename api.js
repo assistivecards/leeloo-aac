@@ -19,9 +19,9 @@ import makeid from './js/makeid';
 import Event from './js/event';
 import styles from './js/styles';
 import themes from './js/themes';
+import uitext from './uitext';
 
-const fallbackUIText = require("./data/interface/en.json");
-
+const APP = require("./app.json");
 // For test cases
 const _DEVELOPMENT = false;
 
@@ -55,7 +55,6 @@ class Api {
 			CacheManager.clearCache();
 		}
 		this.cards = {};
-		this.uitext = {en: fallbackUIText};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
 		this.styles = styles;
@@ -70,9 +69,9 @@ class Api {
 		this.isTablet = false;
 		this._checkIfTablet();
 
-		this.config = {
-			theme: themes.light
-		}
+		this.config = APP.config;
+		this.config.theme = themes.light;
+
 		this.version = ASSET_VERSION;
 		this.assetEndpoint = ASSET_ENDPOINT;
 
@@ -94,6 +93,14 @@ class Api {
 		}
 		this._initSubscriptions();
   }
+
+	isRTL(){
+		if(this.user.language){
+			return RTL.includes(this.user.language);
+		}else{
+			return false;
+		}
+	}
 
 	requestSpeechInstall(){
 		if(Platform.OS == "android"){
@@ -317,14 +324,7 @@ class Api {
 		}
 
 		this.user = userResponse;
-		if(registerAgain){
-			await this.ramLanguage(Localization.locale.substr(0, 2));
-		}else{
-			if(this.user.language){
-				await this.ramLanguage(this.user.language);
-			}
-		}
-		this.user.isRTL = ["ar","ur","he"].includes(this.user.language);
+
 		if(this.user.premium == "gift"){
 			this.isGift = true;
 		}
@@ -362,8 +362,6 @@ class Api {
 				formData.append(fields[i], values[i]);
 			}
 
-			console.log(formData);
-
 			try {
 				let userResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
@@ -375,11 +373,9 @@ class Api {
 					userResponse.profiles[i].packs = JSON.parse(profile.packs);
 				});
 				this.user = userResponse;
-				await this.ramLanguage(this.user.language);
 				if(this.user.premium == "gift"){
 					this.isGift = true;
 				}
-				this.user.isRTL = RTL.includes(this.user.language);
 				this.user.active_profile = await this.getCurrentProfile();
 			} catch(error){
 				alert("Please check your internet connectivity!");
@@ -648,6 +644,27 @@ class Api {
 		}
 	}
 
+	async getAllApps(){
+		var url = ASSET_ENDPOINT + "apps/metadata.json?v="+this.version;
+		let appsResponse = [];
+		try {
+			appsResponse = await fetch(url, {cache: "no-cache"})
+			.then(res => res.json());
+			appsResponse = appsResponse.apps;
+
+			appsResponse.map(app => {
+				app.tagline = app.tagline[this.user.language];
+				app.description = app.description[this.user.language];
+				return app;
+			})
+
+		} catch(error){
+			console.log("Offline, Falling back to cached cardData!", error);
+		}
+
+		return appsResponse;
+	}
+
 	search(term){
 		if(term.length >= 2){
 			let results = [];
@@ -849,6 +866,46 @@ class Api {
 		return this.cards[pack].filter(ramCard => ramCard.slug == slug)[0];
 	}
 
+	async getFavorites(){
+		if(this.favorites){
+			return this.favorites;
+		}else{
+			let favoriteText = await this.getData("favorites");
+			if(favoriteText){
+				this.favorites = JSON.parse(favoriteText);
+				return this.favorites;
+			}else{
+				return [];
+			}
+		}
+	}
+
+	async setFavorites(favorites){
+		this.favorites = favorites;
+		await this.setData("favorites", JSON.stringify(favorites));
+	}
+
+	async addFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		favorites.push(cardObject);
+
+		await this.setFavorites(favorites);
+		return true;
+	}
+
+	async removeFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		favorites = favorites.filter(f => f.slug != cardObject.slug);
+
+		await this.setFavorites(favorites);
+		return true;
+	}
+
+	async isFavorite(cardObject){
+		let favorites = await this.getFavorites();
+		return favorites.filter(f => f.slug == cardObject.slug).length != 0;
+	}
+
 	localeString(){
 		if(_DEVELOPMENT){
 			return _DEVLOCALE;
@@ -864,49 +921,24 @@ class Api {
 		return await this.getData("identifier");
 	}
 
-	async ramLanguage(langCode, force){
-
-		var url = ASSET_ENDPOINT + "interface/" + langCode +".json?v="+this.version;
-		if(this.uitext[langCode] && force == null){
-			console.log("pulling from ram", "language", langCode);
-			return this.uitext[langCode];
-		}else{
-			let uiLangResponse;
-			try {
-				uiLangResponse = await fetch(url, {cache: "no-cache"})
-				.then(res => res.json());
-				this.setData("lang:"+langCode, JSON.stringify(uiLangResponse));
-
-			} catch(error){
-				console.log("Offline, Falling back to cached ui lang!", error);
-				let uiLangResponseString = await this.getData("lang:"+langCode);
-				if(uiLangResponseString){
-					uiLangResponse = JSON.parse(uiLangResponseString);
-				}
-			}
-			this.uitext[langCode] = uiLangResponse;
-			return uiLangResponse;
-		}
-	}
-
 	t(UITextIdentifier, variableArray){
 		let lang = "en";
 		if(this.user){
-			lang = this.user.language
+			lang = this.user.language ? this.user.language : Localization.locale.substr(0, 2);
 		}else{
 			lang = Localization.locale.substr(0, 2);
 		}
 
-		if(!this.uitext[lang]){
+		if(!uitext[lang + "_json"]){
 			lang = "en";
 		}
 
 		if(typeof variableArray == "string" || typeof variableArray == "number"){
-			let text = this.uitext[lang][UITextIdentifier];
+			let text = uitext[lang + "_json"][UITextIdentifier];
 			if(text) return text.replace("$1", variableArray);
 			return "UnSupportedIdentifier";
 		}else if(typeof variableArray == "array"){
-			let text = this.uitext[lang][UITextIdentifier];
+			let text = uitext[lang + "_json"][UITextIdentifier];
 			if(text){
 				variableArray.forEach((variable, i) => {
 					let variableIdentifier = `${i+1}`;
@@ -918,7 +950,7 @@ class Api {
 			}
 
 		}else{
-			let text = this.uitext[lang][UITextIdentifier];
+			let text = uitext[lang + "_json"][UITextIdentifier];
 			if(text) return text;
 			return "UnSupportedIdentifier";
 		}

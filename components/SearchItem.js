@@ -20,7 +20,7 @@ export default class App extends React.Component {
     let result = this.props.result;
     return (
       <TouchableScale style={{width: this.props.width}} onPress={result.type == 2 ? () => this.speak(result.title) : () => this.openCard(result)}>
-        <View style={[styles.item, {flexDirection: API.user.isRTL ? "row-reverse" : "row", backgroundColor: result.type == 1 ? result.color : "#F7F7F7"}]}>
+        <View style={[styles.item, {flexDirection: API.isRTL() ? "row-reverse" : "row", backgroundColor: result.type == 1 ? result.color : "#F7F7F7"}]}>
           <CachedImage uri={`${API.assetEndpoint}cards/${result.pack}/${result.slug}.png?v=${API.version}`} style={{width: API.isTablet ? 70 : 50, height: API.isTablet ? 70 : 50, margin: 5}}/>
           {result.type == 2 && <Text style={styles.searchItemEmoji}>{result.emoji}</Text>}
           <Text style={[styles.searchItemText, {fontSize: result.type == 2 ? 16 : 19, marginLeft: result.type == 2 ? 0 : 10}]}>{result.title}</Text>
