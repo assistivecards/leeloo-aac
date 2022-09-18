@@ -125,7 +125,7 @@ export default class Setting extends React.Component {
       Animated.timing(this.state.searchToggleAnim, {
         toValue: status ? 1:0,
         duration: 300,
-        useNativeDriver: false
+        useNativeDriver: true
       }).start();
     }
   }
@@ -191,7 +191,7 @@ export default class Setting extends React.Component {
   render() {
     let headerHeight = this.state.searchToggleAnim.interpolate({
     	inputRange: [0, 1],
-    	outputRange: [60, 0]
+    	outputRange: [0, 60]
     });
 
     let headerOpacity = this.state.searchToggleAnim.interpolate({
@@ -215,7 +215,7 @@ export default class Setting extends React.Component {
         <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView stickyHeaderIndices={[1]} contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled" keyboardDismissMode={"on-drag"}>
           <SafeAreaView>
-            <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
+            <Animated.View style={{ height: this.state.search ? 0 : 60, opacity: headerOpacity}}>
                 <View style={{flexDirection: API.isRTL() ? "row-reverse" : "row", justifyContent: "space-between", alignItems: "center", height: 60}}>
                   <View style={{flex: 1}}>
                     <Text style={[API.styles.h2, {padding: 0, margin: 0, color: "#000"}]}>{API.t("hello_you", API.user.active_profile.name)}</Text>
@@ -237,9 +237,9 @@ export default class Setting extends React.Component {
                 </View>
               </Animated.View>
             </SafeAreaView>
-          <SafeAreaView>
-            <Search onFocus={() => this.toggleSearch(true)} term={this.state.term} onBlur={() => this.onBlur(false)} onChangeText={this.onSearch.bind(this)} dismiss={this.dismissSearch.bind(this)}/>
-          </SafeAreaView>
+            <SafeAreaView>
+              <Search onFocus={() => this.toggleSearch(true)} term={this.state.term} onBlur={() => this.onBlur(false)} onChangeText={this.onSearch.bind(this)} dismiss={this.dismissSearch.bind(this)}/>
+            </SafeAreaView>
           <View>
             {(this.state.search && this.state.term != "") &&
               <SearchResults term={this.state.term} orientation={this.state.orientation}/>
