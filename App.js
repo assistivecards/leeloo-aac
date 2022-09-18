@@ -5,6 +5,7 @@ import Switch from './layouts/Switch';
 import ProfileSetup from './layouts/ProfileSetup';
 import EmailSignIn from './layouts/EmailSignIn';
 import Browser from './layouts/Browser';
+import ErrorBoundary from './ErrorBoundary';
 
 import Svg, { Path, Line, Circle, Polyline, Rect } from 'react-native-svg';
 
@@ -286,7 +287,7 @@ export default class App extends React.Component {
     )
   }
 
-  render() {
+  renderAll() {
     let screen = this.state.screen;
 
     if(screen == "login"){
@@ -319,5 +320,13 @@ export default class App extends React.Component {
     }else if(screen == "loading"){
       return this.renderLoading();
     }
+  }
+
+  render(){
+    return (
+      <ErrorBoundary>
+        {this.renderAll()}
+      </ErrorBoundary>
+    )
   }
 }

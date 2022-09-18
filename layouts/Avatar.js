@@ -10,6 +10,7 @@ import Svg, { Path } from 'react-native-svg';
 export default class Setting extends React.Component {
   constructor(props){
     super(props);
+    throw "lala";
     this.avatar = this.props.navigation.getParam("avatar");
   }
 
