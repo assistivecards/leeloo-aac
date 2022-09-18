@@ -61,7 +61,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow Leeloo to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow Leeloo to access your device's accelerometer</string>
+	<string>Allow Leeloo to access your device&apos;s accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give Leeloo periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -83,6 +83,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
