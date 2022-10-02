@@ -37,8 +37,8 @@ export default class Setting extends React.Component {
     }
 
     if(greeding != API.user.greeding){
-    changedFields.push("greeding");
-    changedValues.push(greeding);
+      changedFields.push("greeding");
+      changedValues.push(greeding);
     }
 
     API.update(changedFields, changedValues).then(res => {
