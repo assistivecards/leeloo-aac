@@ -4,8 +4,8 @@
   "analyticsKey": "UA-111111111-1",
   "apiEndpoint": "https://leeloo.dreamoriented.org/",
   "assetEndpoint": "https://api.assistivecards.com/",
-  "assetVersion": 215,
-  "planPrefix": "templateapp_",
+  "assetVersion": 224,
+  "planPrefix": "leeloo_",
   "config": {
     "language": true,
     "tts": true,
@@ -22,7 +22,7 @@
     "name": "Leeloo",
     "slug": "leeloo",
     "icon": "./assets/icon.png",
-    "version": "2.3.0",
+    "version": "2.6.1",
     "platforms": [
       "ios",
       "android"
@@ -35,7 +35,7 @@
     "ios": {
       "bundleIdentifier": "org.dreamoriented.leeloo",
       "usesAppleSignIn": true,
-      "buildNumber": "2.4.0",
+      "buildNumber": "2.6.1",
       "requireFullScreen": true,
       "supportsTablet": true,
       "config": {
@@ -50,7 +50,7 @@
       "permissions": [
         "WAKE_LOCK"
       ],
-      "versionCode": 240,
+      "versionCode": 261,
       "googleServicesFile": "./google-services.json"
     },
     "assetBundlePatterns": [
