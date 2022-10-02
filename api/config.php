@@ -2,7 +2,7 @@
   error_reporting(0);
   $servername = "private-svgrepo-nyc3-do-user-1344855-0.a.db.ondigitalocean.com";
   $username = "svgrepo";
-  $password = "qcpwml6oytsdhqos";
+  $password = "";
   $dbname = "leeloo_db";
   $port = 25060;
 
