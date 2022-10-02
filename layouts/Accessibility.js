@@ -11,7 +11,8 @@ export default class Setting extends React.Component {
     super(props);
     this.state = {
       haptic: API.user.haptic,
-      pressIn: API.user.pressIn
+      pressIn: API.user.pressIn,
+      greeding: API.user.greeding
     }
   }
 
@@ -35,6 +36,11 @@ export default class Setting extends React.Component {
       changedValues.push(pressIn);
     }
 
+    if(greeding != API.user.greeding){
+    changedFields.push("greeding");
+    changedValues.push(greeding);
+    }
+
     API.update(changedFields, changedValues).then(res => {
       this.props.navigation.pop();
       API.haptics("impact");
@@ -42,12 +48,13 @@ export default class Setting extends React.Component {
   }
 
   didChange(){
-    return this.state.haptic != API.user.haptic || this.state.pressIn != API.user.pressIn;
+    return this.state.haptic != API.user.haptic || this.state.pressIn != API.user.pressIn || this.state.greeding != API.user.greeding;
   }
 
   render() {
     let hap = this.state.haptic;
     let pin = this.state.pressIn;
+    let greeding = this.state.greeding;
     return(
       <>
         <TopBar back={() => this.props.navigation.pop()} backgroundColor={API.config.backgroundColor} rightButtonRender={true} rightButtonActive={this.didChange()} rightButtonPress={() => this.save()}/>
@@ -75,6 +82,14 @@ export default class Setting extends React.Component {
                   <Text style={API.styles.p}>{API.t("settings_accessibility_sensory_pressIn_description")}</Text>
                 </View>
                 <View style={[styles.pointerMulti, {backgroundColor: pin == "1" ? API.config.backgroundColor: "#eee"}]}></View>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => { API.haptics("touch"); this.setState({greeding: greeding === "1" ? "0" : "1"})}} style={styles.listItem}>
+                <View style={{width: "80%"}}>
+                  <Text style={[API.styles.h3, {marginVertical: 0}]}>{API.t("settings_accessibility_greeding_on_start")}</Text>
+                  <Text style={API.styles.p}>{API.t("settings_accessibility_greeding_on_start_description")}</Text>
+                </View>
+                <View style={[styles.pointerMulti, {backgroundColor: greeding == "1" ? API.config.backgroundColor: "#eee"}]}></View>
               </TouchableOpacity>
             </View>
             <View style={API.styles.iosBottomPadder}></View>

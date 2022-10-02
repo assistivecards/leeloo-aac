@@ -34,7 +34,11 @@ export default class Setting extends React.Component {
 
   componentDidMount(){
     API.hit("Home");
-    API.speak(API.t("hello_you", API.user.active_profile.name));
+
+    if (API.user.greeding == 1) {
+      API.speak(API.t("hello_you", API.user.name));
+    }
+
     API.event.on("refresh", this._refreshHandler)
     this.getPacks(API.user.active_profile.packs);
     this.orientationSubscription = ScreenOrientation.addOrientationChangeListener(this._orientationChanged.bind(this));
