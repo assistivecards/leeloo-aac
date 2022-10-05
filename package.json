@@ -14,7 +14,8 @@
     "pull": "aws s3 sync s3://api.assistivecards.com data",
     "clean": "cd android && gradlew clean",
     "bundle": "cd android && ./gradlew bundleRelease",
-    "apk": "cd android && ./gradlew assembleRelease"
+    "apk": "cd android && ./gradlew assembleRelease",
+    "test:apk": "adb install /Users/buraktokak/Developer/leeloo-aac/android/app/build/outputs/apk/release/app-release.apk"
   },
   "dependencies": {
     "@google-cloud/translate": "^5.3.0",
