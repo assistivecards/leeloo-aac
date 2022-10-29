@@ -36,7 +36,7 @@ export default class Setting extends React.Component {
     API.hit("Home");
 
     if (API.user.greeding == 1) {
-      API.speak(API.t("hello_you", API.user.name));
+      API.speak(API.t("hello_you", API.user.active_profile.name));
     }
 
     API.event.on("refresh", this._refreshHandler)
