@@ -294,7 +294,7 @@ export default class App extends React.Component {
       return this.signInScreen();
     }else if(screen == "policy"
   ){
-      return (<Browser link={"https://dreamoriented.org/privacypolicy/"} back={() => this.setState({screen: "login"})}/>);
+      return (<Browser link={"https://dreamoriented.org/privacypolicy_textonly"} back={() => this.setState({screen: "login"})}/>);
     }else if(screen == "email"){
       return (<EmailSignIn back={() => this.setState({screen: "login"})}/>);
     }else if(screen == "logged"){
