@@ -25,6 +25,7 @@ public class BasePackageList {
         new expo.modules.notifications.NotificationsPackage(),
         new expo.modules.permissions.PermissionsPackage(),
         new expo.modules.screenorientation.ScreenOrientationPackage(),
+        new expo.modules.securestore.SecureStorePackage(),
         new expo.modules.splashscreen.SplashScreenPackage(),
         new expo.modules.sqlite.SQLitePackage()
     );
