@@ -88,8 +88,8 @@
 	"settings_accessibility_sensory_haptic_description": "If enabled the app will give small haptic feedbacks when using it",
 	"settings_accessibility_sensory_pressIn": "Activate on Press In",
 	"settings_accessibility_sensory_pressIn_description": "If enabled all the touch events gets fired when a pressable is Pressed in, instead of waiting for Press out",
-	"settings_accessibility_greeding_on_start": "Voice Greeding on Start",
-	"settings_accessibility_greeding_on_start_description": "If disabled, app will not greed user with voice",
+	"settings_accessibility_greeding_on_start": "Voice Greeting on Start",
+	"settings_accessibility_greeding_on_start_description": "If disabled, app will not greet user with voice",
 
 	"settings_removeMyData_description": "Learn how we collect data and ask us to remove the collected data",
 	"settings_removeMyData_p1": "We do not collect Personally Identifiable Information (PII) for kids, minors or intellectually disabled users with appointed guardians.",

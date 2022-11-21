@@ -306,6 +306,9 @@ class Api {
 
 		let userResponse;
 
+		let userLocalString = await this.getData("user");
+		let userLocal = JSON.parse(userLocalString);
+
 		try {
 			userResponse = await fetch(url, { method: 'POST', body: formData })
 	    .then(res => res.json());
@@ -315,6 +318,9 @@ class Api {
 			});
 
 			await this.setData("user", JSON.stringify(userResponse));
+
+			console.log("wss", userLocal);
+
 		} catch(error){
 			console.log("Offline, Falling back to cached userdata!", error);
 			let userResponseString = await this.getData("user");
@@ -324,6 +330,7 @@ class Api {
 		}
 
 		this.user = userResponse;
+		this.user.greeding = userLocal.greeding;
 
 		if(this.user.premium == "gift"){
 			this.isGift = true;
@@ -365,14 +372,23 @@ class Api {
 			try {
 				let userResponse = await fetch(url, { method: 'POST', body: formData })
 		    .then(res => res.json());
-				await this.setData("user", JSON.stringify(userResponse));
+
+				this.user = userResponse;
+
+				if(fields[0] == "greeding"){
+					this.user.greeding = values[0];
+				}
+
+				await this.setData("user", JSON.stringify(this.user));
+
 
 				console.log(userResponse);
 
 				userResponse.profiles.forEach((profile, i) => {
 					userResponse.profiles[i].packs = JSON.parse(profile.packs);
 				});
-				this.user = userResponse;
+
+
 				if(this.user.premium == "gift"){
 					this.isGift = true;
 				}

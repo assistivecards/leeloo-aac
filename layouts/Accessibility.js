@@ -22,7 +22,7 @@ export default class Setting extends React.Component {
 
   save(){
     API.haptics("touch");
-    let { haptic, pressIn } = this.state;
+    let { haptic, pressIn, greeding } = this.state;
     let changedFields = [];
     let changedValues = [];
 
