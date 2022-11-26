@@ -62,9 +62,9 @@ class Api {
 		this.setSpeechEngine();
 
 		if(_DEVELOPMENT){
-			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.6.2"});
+			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: "2.6.8"});
 		}else{
-			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.6.2"});
+			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: "2.6.8"});
 		}
 		this.isTablet = false;
 		this._checkIfTablet();
@@ -306,7 +306,7 @@ class Api {
 
 		let userResponse;
 
-		let userLocalString = await this.getData("user");
+		let userLocalString = await this.getData("user") || "{}";
 		let userLocal = JSON.parse(userLocalString);
 
 		try {
