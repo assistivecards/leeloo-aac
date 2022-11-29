@@ -54,6 +54,8 @@ class Api {
 			AsyncStorage.clear();
 			CacheManager.clearCache();
 		}
+
+		this.test();
 		this.cards = {};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
@@ -319,7 +321,6 @@ class Api {
 
 			await this.setData("user", JSON.stringify(userResponse));
 
-			console.log("wss", userLocal);
 
 		} catch(error){
 			console.log("Offline, Falling back to cached userdata!", error);
@@ -971,6 +972,46 @@ class Api {
 			return "UnSupportedIdentifier";
 		}
 	}
+
+	async test(){
+		console.log("testig");
+		let alts = await this.getAltPhrases();
+		console.log(alts);
+
+		await this.addAltPhrase("ppp", "ccc", "kkkk7");
+		alts = await this.getAltPhrases();
+		console.log(alts);
+
+		await this.removeAltPhrase("ppp", "ccc", "kkkk4");
+		alts = await this.getAltPhrases();
+		console.log(alts);
+	}
+
+	// Returns alt object array
+	async getAltPhrases(){
+		let altArray = await this.getData("alternateArray");
+		if(!altArray) return [];
+		return JSON.parse(altArray);
+	}
+
+	async addAltPhrase(packSlug, cardSlug, altText){
+		let altArray = await this.getAltPhrases();
+		if(!altArray) altArray = [];
+
+		altArray.push({packSlug, cardSlug, altText});
+
+		return this.setData("alternateArray", JSON.stringify(altArray));
+	}
+
+	async removeAltPhrase(packSlug, cardSlug, altText){
+		let altArray = await this.getAltPhrases();
+		let filteredArray = altArray.filter(alt => {
+			return !(alt.packSlug == packSlug && alt.cardSlug == cardSlug && alt.altText == altText);
+		});
+
+		return this.setData("alternateArray", JSON.stringify(filteredArray));
+	}
+
 
   setData(key, data){
 		return storage.save({key, data});
