@@ -55,7 +55,7 @@ class Api {
 			CacheManager.clearCache();
 		}
 
-		this.test();
+		//this.test();
 		this.cards = {};
 		this.searchArray = [];
 		this.development = _DEVELOPMENT;
