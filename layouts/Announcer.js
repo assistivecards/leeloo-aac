@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, Animated, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, LayoutAnimation, Platform, RefreshControl, PanResponder, Image as RNImage, Easing, SafeAreaView  } from 'react-native';
+import { Alert, StyleSheet, Text, View, ScrollView, Animated, ActivityIndicator, Dimensions, TouchableWithoutFeedback, TouchableOpacity, LayoutAnimation, Platform, RefreshControl, PanResponder, Image as RNImage, Easing, SafeAreaView  } from 'react-native';
 import Constants from 'expo-constants';
 import Svg, { Path } from 'react-native-svg';
 import { Image } from 'react-native-elements';
@@ -7,6 +7,7 @@ import { Image as CachedImage } from "react-native-expo-image-cache";
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ScreenOrientation from 'expo-screen-orientation';
+import prompt from 'react-native-prompt-android';
 
 import API from '../api'
 import titleCase from '../js/titleCase';
@@ -30,7 +31,8 @@ export default class App extends React.Component {
       pop: new Animated.Value(0),
       pan: new Animated.ValueXY({x: 0, y: this.windowHeight}),
       scrollerHeight: 0,
-      isFavorite: false
+      isFavorite: false,
+      altPhrases: []
     }
 
     this.valueListener = this.state.pan.addListener((value) => {
@@ -93,10 +95,19 @@ export default class App extends React.Component {
 
   }
 
+  syncAltPhrases(){
+    API.getAltPhrases(this.pack.slug, this.card.slug).then((altPhrases) => {
+      console.log(this.pack.slug, this.card.slug, altPhrases);
+      this.setState({altPhrases});
+    });
+  }
+
   componentDidMount(){
     API.isFavorite(this.card).then((isFavorite) => {
       this.setState({isFavorite})
     });
+
+    this.syncAltPhrases();
 
     Animated.timing(
       this.state.pop,
@@ -187,6 +198,52 @@ export default class App extends React.Component {
     }
   }
 
+  async removeAltPhrase(altPhrase){
+    await API.removeAltPhrase(altPhrase.packSlug, altPhrase.cardSlug, altPhrase.altText);
+    Alert.alert(
+      "Removed",
+      "This custom phrase is removed."
+    );
+    this.syncAltPhrases();
+  }
+
+  addAltPhrase(){
+    prompt(
+      'Add new phrase',
+      'Enter your new phrase related to this card',
+      [
+       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+       {text: 'OK', onPress: text => {
+         API.addAltPhrase(this.pack.slug, this.card.slug, text).then(() => {
+           this.syncAltPhrases();
+         })
+       }},
+      ],
+      {
+          type: 'plain-text',
+          cancelable: false,
+          defaultValue: '',
+          placeholder: 'Your new phrase'
+      }
+    )
+  }
+
+  renderAltPhrases(altPhrases){
+    if(altPhrases.length){
+      return altPhrases.map((altPhrase, i) => {
+        return(
+          <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} key={"alt"+i} onLongPress={() => this.speak(altPhrase.altText)} delayLongPress={16}>
+            <TouchableOpacity onPress={() => this.removeAltPhrase(altPhrase)} style={{position: "absolute", left: 0, top: 7}}>
+              <Text style={{fontSize: 10, padding: 20}}>{"❌"}</Text>
+            </TouchableOpacity>
+            <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>{altPhrases.emoji ? altPhrase.emoji : "🗣️"}</Text>
+            <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{altPhrase.altText}</Text>
+          </TouchableOpacity>
+        );
+      });
+    }
+  }
+
   render() {
 
     return (
@@ -236,6 +293,11 @@ export default class App extends React.Component {
                   </TouchableOpacity>
                 );
               })}
+              {this.renderAltPhrases(this.state.altPhrases)}
+              <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} onLongPress={() => this.addAltPhrase()} delayLongPress={16}>
+                <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>➕</Text>
+                <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase("Add new phrase")}</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Animated.View>

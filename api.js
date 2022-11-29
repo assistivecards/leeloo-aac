@@ -978,7 +978,7 @@ class Api {
 		let alts = await this.getAltPhrases();
 		console.log(alts);
 
-		await this.addAltPhrase("ppp", "ccc", "kkkk7");
+		//await this.addAltPhrase("transport", "skateboard", "I want a new skateboard.");
 		alts = await this.getAltPhrases();
 		console.log(alts);
 
@@ -988,10 +988,15 @@ class Api {
 	}
 
 	// Returns alt object array
-	async getAltPhrases(){
+	async getAltPhrases(packSlug, cardSlug){
 		let altArray = await this.getData("alternateArray");
 		if(!altArray) return [];
-		return JSON.parse(altArray);
+
+		let altArrayRendered = JSON.parse(altArray);
+		if(packSlug || cardSlug){
+			return altArrayRendered.filter(alt => alt.packSlug == packSlug && alt.cardSlug == cardSlug);
+		}
+		return altArrayRendered;
 	}
 
 	async addAltPhrase(packSlug, cardSlug, altText){
