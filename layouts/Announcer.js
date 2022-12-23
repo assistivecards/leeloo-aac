@@ -208,24 +208,29 @@ export default class App extends React.Component {
   }
 
   addAltPhrase(){
-    prompt(
-      API.t("custom_phrase_add"),
-      API.t("custom_phrase_add_desc"),
-      [
-       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-       {text: 'OK', onPress: text => {
-         API.addAltPhrase(this.pack.slug, this.card.slug, text).then(() => {
-           this.syncAltPhrases();
-         })
-       }},
-      ],
-      {
-          type: 'plain-text',
-          cancelable: false,
-          defaultValue: '',
-          placeholder: API.t("custom_phrase_add_new_phrase")
-      }
-    )
+    if(API.isPremium()){
+      prompt(
+        API.t("custom_phrase_add"),
+        API.t("custom_phrase_add_desc"),
+        [
+         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+         {text: 'OK', onPress: text => {
+           API.addAltPhrase(this.pack.slug, this.card.slug, text).then(() => {
+             this.syncAltPhrases();
+           })
+         }},
+        ],
+        {
+            type: 'plain-text',
+            cancelable: false,
+            defaultValue: '',
+            placeholder: API.t("custom_phrase_add_new_phrase")
+        }
+      )
+    }else{
+      this.props.navigation.pop();
+      this.props.navigation.push("Premium");
+    }
   }
 
   renderAltPhrases(altPhrases){
@@ -297,6 +302,9 @@ export default class App extends React.Component {
               <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} onLongPress={() => this.addAltPhrase()} delayLongPress={16}>
                 <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>➕</Text>
                 <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase(API.t("custom_phrase_add"))}</Text>
+                <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={[styles.buttonSub, {backgroundColor: "#a2ddfd"}]}>
+                  <Text style={{color: "#3e455b", fontWeight: "bold"}}>Premium</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
             </View>
           </View>
@@ -362,6 +370,14 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center"
+  },
+  buttonSub: {
+    backgroundColor: "#6989FF",
+    height: 30,
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    alignItems: "center",
+    justifyContent: "center"
   },
   cardMid: {
     flexDirection: "column",
