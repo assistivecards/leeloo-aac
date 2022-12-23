@@ -5,6 +5,7 @@
 	"settings_cards": "$1 cards",
 	"settings_profile_active": "ACTIVE",
 	"this_is_test_voice": "This is a test voice!",
+	"get_started": "Get Started",
 
 	"settings_selection_new_profile": "New Profile",
 	"settings_new_profile_description": "Create a new application user profile.",
@@ -135,7 +136,14 @@
 
 	"login_choose_profile_title": "Who is using the app?",
 
-	"search_input_placeholder": "Search cards and phrases...",
+	"search_input_placeholder": "Type your phrases...",
+
+	"custom_phrase_removed": "Removed",
+	"custom_phrase_removed_desc": "This custom phrase is removed.",
+
+	"custom_phrase_add": "Add new phrase",
+	"custom_phrase_add_new_phrase": "Your new phrase",
+	"custom_phrase_add_desc": "Enter your new phrase related to this card.",
 
 	"premium_title": "Unlock Leeloo Premium!",
 	"premium_description": "Functionality of Leeloo AAC will always be free. Leeloo Premium offers +50 additional Assistive Card packs.",

@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>977244603146-870klpgbiahpkoe8d0iq6ls6e4o5qg7l.apps.googleusercontent.com</string>
+	<string>494587339451-h03s4vdtg9g974gstr6m1dg12ekeekhr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.977244603146-870klpgbiahpkoe8d0iq6ls6e4o5qg7l</string>
+	<string>com.googleusercontent.apps.494587339451-h03s4vdtg9g974gstr6m1dg12ekeekhr</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>977244603146-01s395gb6b45k0bp89p7qcd3gcs4sua4.apps.googleusercontent.com</string>
+	<string>494587339451-56jbil93dcoif248evnj52sff1p4b3ca.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAcr5XxENFaEGueMKtNBlRwZB9URr3zb4Q</string>
+	<string>AIzaSyBNTkcqQ245Ix_kirYtfFkafnyTr4QuPs0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>977244603146</string>
+	<string>494587339451</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.dreamoriented.leeloo</string>
 	<key>PROJECT_ID</key>
-	<string>leeloo-aac</string>
+	<string>leeloo-app-372513</string>
 	<key>STORAGE_BUCKET</key>
-	<string>leeloo-aac.appspot.com</string>
+	<string>leeloo-app-372513.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:977244603146:ios:0bae42201cb3ebc788f0f3</string>
-	<key>DATABASE_URL</key>
-	<string>https://leeloo-aac.firebaseio.com</string>
+	<string>1:494587339451:ios:e7e41d6c470b47ec383f9e</string>
 </dict>
 </plist>

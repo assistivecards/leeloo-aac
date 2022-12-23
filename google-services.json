@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "977244603146",
-    "firebase_url": "https://leeloo-aac.firebaseio.com",
-    "project_id": "leeloo-aac",
-    "storage_bucket": "leeloo-aac.appspot.com"
+    "project_number": "494587339451",
+    "project_id": "leeloo-app-372513",
+    "storage_bucket": "leeloo-app-372513.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:977244603146:android:37f04df052c39bde",
+        "mobilesdk_app_id": "1:494587339451:android:7440e8b4daae3c58383f9e",
         "android_client_info": {
           "package_name": "org.dreamoriented.leeloo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+          "client_id": "494587339451-56jbil93dcoif248evnj52sff1p4b3ca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.dreamoriented.leeloo",
+            "certificate_hash": "2ae801a8001a8ae668158eaa3bc1418ce29db1d7"
+          }
+        },
+        {
+          "client_id": "494587339451-1lt2p5kedsv1pi9ob62f42vu7se4odng.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB9nY--XXZ3uF8q7u5KuCyZZCBm4I-jS4Q"
+          "current_key": "AIzaSyBZx_BccM0J3Eoei6W8ncqEznYj2-s1PJE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+              "client_id": "494587339451-1lt2p5kedsv1pi9ob62f42vu7se4odng.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

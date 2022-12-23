@@ -16,6 +16,7 @@ import * as Localization from 'expo-localization';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
 import API from './api';
+import makeid from './js/makeid';
 
 TouchableOpacity.defaultProps = TouchableOpacity.defaultProps || {};
 TouchableOpacity.defaultProps.delayPressIn = 0;
@@ -106,6 +107,11 @@ export default class App extends React.Component {
   async signInWithGoogle(){
     try {
       this.setState({activity: true});
+      let asdas = await GoogleSignIn.initAsync({
+        // You may ommit the clientId when the firebase `googleServicesFile` is configured
+        clientId: '494587339451-56jbil93dcoif248evnj52sff1p4b3ca.apps.googleusercontent.com',
+      });
+      console.log("asdasd",asdas);
       await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
@@ -116,6 +122,7 @@ export default class App extends React.Component {
         this.setState({screen: "logged", activity: false});
       }
     } catch ({ message }) {
+      console.log(message);
       alert('Make sure to have internet connection and try again later:' + message);
       this.setState({activity: false});
     }
@@ -144,6 +151,17 @@ export default class App extends React.Component {
         this.forceUpdate();
       })
     }
+  }
+
+  async getStarted(){
+    this.setState({screen: "loading"});
+    let pass = makeid(10);
+    let email = pass + "@leeloo.com";
+    let identifier = await API.getAuthIdentifier(email, pass);
+    await API.signIn(identifier, "email", {email: email});
+
+    this.checkIdentifier(identifier);
+    API.setData("identifier", identifier);
   }
 
 
@@ -181,7 +199,6 @@ export default class App extends React.Component {
 
   renderSignInButtons(){
     if(this.state.moreSignin){
-
       if(Platform.OS == "android"){
         return (
           <View style={{justifyContent: "center", alignItems: "center", backgroundColor: "#6989FF"}}>
@@ -250,20 +267,12 @@ export default class App extends React.Component {
         return(
           <>
             <TouchableOpacity
-              style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row"}}
-              onPress={this.signInWithGoogle.bind(this)}>
-              <Image source={{uri: "https://developers.google.com/identity/images/g-logo.png"}} style={{width: 18, height: 18, marginRight: 5}}/>
-              <Text style={{fontSize: 18, fontWeight: "500"}}>Sign in with Google</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
               style={{ width: 240, height: 46, alignItems: "center", borderRadius: 25, backgroundColor: "#fff",  justifyContent: "center", flexDirection: "row", marginTop: 10}}
-              onPress={this.signInWithEmail.bind(this)}>
+              onPress={this.getStarted.bind(this)}>
               <Svg height={18} width={18} viewBox="0 0 24 24" style={{marginRight: 5}} strokeWidth="2" stroke="#333" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <Path d="M0 0h24v24H0z" stroke="none"/>
-                <Rect height="14" width="18" rx="2" x="3" y="5"/>
-                <Polyline points="3 7 12 13 21 7"/>
+                <Path fill={"transparent"} d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z"/>
               </Svg>
-              <Text style={{fontSize: 19, fontWeight: "500"}}>Sign in with Email</Text>
+              <Text style={{fontSize: 19, fontWeight: "500", color: "#333"}}>{API.t("get_started")}</Text>
             </TouchableOpacity>
           </>
         );

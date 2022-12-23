@@ -1,62 +1,45 @@
 {
   "project_info": {
-    "project_number": "977244603146",
-    "firebase_url": "https://leeloo-aac.firebaseio.com",
-    "project_id": "leeloo-aac",
-    "storage_bucket": "leeloo-aac.appspot.com"
+    "project_number": "494587339451",
+    "project_id": "leeloo-app-372513",
+    "storage_bucket": "leeloo-app-372513.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:977244603146:android:37f04df052c39bde",
+        "mobilesdk_app_id": "1:494587339451:android:7440e8b4daae3c58383f9e",
         "android_client_info": {
           "package_name": "org.dreamoriented.leeloo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "977244603146-01s395gb6b45k0bp89p7qcd3gcs4sua4.apps.googleusercontent.com",
+          "client_id": "494587339451-56jbil93dcoif248evnj52sff1p4b3ca.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.dreamoriented.leeloo",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "2ae801a8001a8ae668158eaa3bc1418ce29db1d7"
           }
         },
         {
-          "client_id": "977244603146-d3u8o244ta4fdsrb0i6e9sisnuidb2ri.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.dreamoriented.leeloo",
-            "certificate_hash": "de86d9c9530180d1c39f49681b84c299fd38922d"
-          }
-        },
-        {
-          "client_id": "977244603146-fp3qq8bnvqm6kckaottebl1ntu6k7ol9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.dreamoriented.leeloo",
-            "certificate_hash": "f688acd2a31475d00c8e0a67b3b28917ba0d6b5c"
-          }
-        },
-        {
-          "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+          "client_id": "494587339451-1lt2p5kedsv1pi9ob62f42vu7se4odng.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB9nY--XXZ3uF8q7u5KuCyZZCBm4I-jS4Q"
+          "current_key": "AIzaSyBZx_BccM0J3Eoei6W8ncqEznYj2-s1PJE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "977244603146-6qh64s73njit1i1h7bcrkmkidsk9gcpa.apps.googleusercontent.com",
+              "client_id": "494587339451-1lt2p5kedsv1pi9ob62f42vu7se4odng.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "977244603146-870klpgbiahpkoe8d0iq6ls6e4o5qg7l.apps.googleusercontent.com",
+              "client_id": "494587339451-h03s4vdtg9g974gstr6m1dg12ekeekhr.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "org.dreamoriented.leeloo"
