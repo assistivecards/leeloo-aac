@@ -302,9 +302,11 @@ export default class App extends React.Component {
               <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} onLongPress={() => this.addAltPhrase()} delayLongPress={16}>
                 <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>➕</Text>
                 <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase(API.t("custom_phrase_add"))}</Text>
-                <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={[styles.buttonSub, {backgroundColor: "#a2ddfd"}]}>
-                  <Text style={{color: "#3e455b", fontWeight: "bold"}}>Premium</Text>
-                </TouchableOpacity>
+                {!API.isPremium() &&
+                  <TouchableOpacity onPress={() => this.props.navigation.push("Premium")} style={[styles.buttonSub, {backgroundColor: "#a2ddfd"}]}>
+                    <Text style={{color: "#3e455b", fontWeight: "bold", fontSize: 11, lineHeight: 20}}>Premium</Text>
+                  </TouchableOpacity>
+                }
               </TouchableOpacity>
             </View>
           </View>
@@ -373,9 +375,9 @@ const styles = StyleSheet.create({
   },
   buttonSub: {
     backgroundColor: "#6989FF",
-    height: 30,
+    height: 26,
     borderRadius: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     alignItems: "center",
     justifyContent: "center"
   },
