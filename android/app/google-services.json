@@ -37,6 +37,13 @@
             {
               "client_id": "494587339451-1lt2p5kedsv1pi9ob62f42vu7se4odng.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "494587339451-h03s4vdtg9g974gstr6m1dg12ekeekhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.dreamoriented.leeloo"
+              }
             }
           ]
         }
