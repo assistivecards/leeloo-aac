@@ -201,16 +201,16 @@ export default class App extends React.Component {
   async removeAltPhrase(altPhrase){
     await API.removeAltPhrase(altPhrase.packSlug, altPhrase.cardSlug, altPhrase.altText);
     Alert.alert(
-      "Removed",
-      "This custom phrase is removed."
+      API.t("custom_phrase_removed"),
+      API.t("custom_phrase_removed_desc")
     );
     this.syncAltPhrases();
   }
 
   addAltPhrase(){
     prompt(
-      'Add new phrase',
-      'Enter your new phrase related to this card',
+      API.t("custom_phrase_add"),
+      API.t("custom_phrase_add_desc"),
       [
        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
        {text: 'OK', onPress: text => {
@@ -223,7 +223,7 @@ export default class App extends React.Component {
           type: 'plain-text',
           cancelable: false,
           defaultValue: '',
-          placeholder: 'Your new phrase'
+          placeholder: API.t("custom_phrase_add_new_phrase")
       }
     )
   }
@@ -296,7 +296,7 @@ export default class App extends React.Component {
               {this.renderAltPhrases(this.state.altPhrases)}
               <TouchableOpacity style={[styles.selectionItem, {flexDirection: API.isRTL() ? "row-reverse" : "row"}]} onLongPress={() => this.addAltPhrase()} delayLongPress={16}>
                 <Text style={{fontSize: 24, marginRight: 20, marginLeft: 20}}>➕</Text>
-                <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase("Add new phrase")}</Text>
+                <Text style={[API.styles.bBig, {textAlign: API.isRTL() ? "right" : "left"}]}>{API.phrase(API.t("custom_phrase_add"))}</Text>
               </TouchableOpacity>
             </View>
           </View>
