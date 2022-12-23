@@ -40,7 +40,7 @@
       "supportsTablet": true,
       "config": {
         "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.977244603146-870klpgbiahpkoe8d0iq6ls6e4o5qg7l"
+          "reservedClientId": "com.googleusercontent.apps.494587339451-h03s4vdtg9g974gstr6m1dg12ekeekhr"
         }
       },
       "googleServicesFile": "./GoogleService-Info.plist"

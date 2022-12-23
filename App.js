@@ -106,7 +106,7 @@ export default class App extends React.Component {
   async signInWithGoogle(){
     try {
       this.setState({activity: true});
-      await GoogleSignIn.askForPlayServicesAsync();
+      let as = await GoogleSignIn.askForPlayServicesAsync();
       const { type, user } = await GoogleSignIn.signInAsync();
       if (type === 'success') {
         const credential = await GoogleSignIn.signInSilentlyAsync();
@@ -116,6 +116,7 @@ export default class App extends React.Component {
         this.setState({screen: "logged", activity: false});
       }
     } catch ({ message }) {
+      console.log(message);
       alert('Make sure to have internet connection and try again later:' + message);
       this.setState({activity: false});
     }
