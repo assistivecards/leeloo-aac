@@ -1,3 +1,8 @@
+# v2.7.0
+
+- Added custom phrase feature for cards
+- Added express login system
+
 # v2.2.4
 
 - Changes on premium presentation based on Apple review
