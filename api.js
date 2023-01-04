@@ -67,7 +67,7 @@ class Api {
 		if(_DEVELOPMENT){
 			this.analytics = new Analytics("DEVELOPMENT", {slug: "leeloo", name: "Leeloo", version: APP_VERSION});
 		}else{
-			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: API_VERSION});
+			this.analytics = new Analytics(ANALYTICS_KEY, {slug: "leeloo", name: "Leeloo", version: APP_VERSION});
 		}
 		this.isTablet = false;
 		this._checkIfTablet();
