@@ -14,6 +14,7 @@
     "sync": "aws s3 sync data s3://api.assistivecards.com --delete",
     "pull": "aws s3 sync s3://api.assistivecards.com data",
     "clean": "cd android && gradlew clean",
+    "clean:mac": "cd android && ./gradlew clean",
     "bundle": "cd android && ./gradlew bundleRelease",
     "apk": "cd android && ./gradlew assembleRelease",
     "test:emu": "emulator -avd Pixel_3a_API_32_arm64-v8a",

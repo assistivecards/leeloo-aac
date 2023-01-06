@@ -132,8 +132,8 @@ android {
         applicationId 'org.dreamoriented.leeloo'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 272
-        versionName "2.7.2"
+        versionCode 273
+        versionName "2.7.3"
         multiDexEnabled true
     }
     splits {
