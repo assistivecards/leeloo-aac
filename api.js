@@ -34,7 +34,7 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 223;
+const ASSET_VERSION = 224;
 const APP_VERSION = "2.7.4";
 const RTL = ["ar","ur","he"];
 
