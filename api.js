@@ -34,8 +34,8 @@ const _ISPREMIUM = false;
 const API_ENDPOINT = "https://leeloo.dreamoriented.org/";
 const ASSET_ENDPOINT = "https://api.assistivecards.com/";
 const ANALYTICS_KEY = 'UA-110111146-1';
-const ASSET_VERSION = 224;
-const APP_VERSION = "2.7.4";
+const ASSET_VERSION = 275;
+const APP_VERSION = "2.7.5";
 const RTL = ["ar","ur","he"];
 
 let storage;
@@ -582,7 +582,7 @@ class Api {
 
 	async getAvailableVoicesAsync(recall){
 		let voices = await Speech.voices();
-		voices = voices.filter(voice => !voice.id.includes("synthesis") || !voice.id.includes("eloquence"));
+		voices = voices.filter(voice => !voice.id.includes("synthesis") && !voice.id.includes("eloquence"));
 		if(voices.length == 0){
 			if(recall){
 				return [];
