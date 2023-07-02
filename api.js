@@ -582,6 +582,7 @@ class Api {
 
 	async getAvailableVoicesAsync(recall){
 		let voices = await Speech.voices();
+		voices = voices.filter(voice => !voice.id.includes("synthesis"));
 		if(voices.length == 0){
 			if(recall){
 				return [];
