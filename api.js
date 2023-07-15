@@ -504,6 +504,33 @@ class Api {
 		}
 	}
 
+	async removeData(){
+		if(this.user.identifier){
+	    var url = API_ENDPOINT + "profile/remove/?account=true";
+	    var formData = new FormData();
+			formData.append('identifier', this.user.identifier);
+
+			try {
+				let profileResponse = await fetch(url, { method: 'POST', body: formData })
+		    .then(res => res.json());
+				console.log(profileResponse);
+				if(profileResponse == "deleted"){
+
+					// deleted
+
+				}else{
+					alert("A problem occured while trying to remove your data.");
+				}
+			} catch(error){
+				alert("Please check your internet connectivity!");
+			}
+
+			this.event.emit("refresh");
+
+			return true;
+		}
+	}
+
 	async getCurrentProfile(){
 		if(this.user){
 			let profiles = this.user.profiles;

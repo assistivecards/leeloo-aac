@@ -15,6 +15,15 @@ export default class Setting extends React.Component {
     API.hit("RemoveData");
   }
 
+  removeData(){
+    API.removeData().then(res => {
+      alert("Your data is removed, and you are logged out!");
+      API.signout();
+    });
+    this.props.navigation.pop();
+
+  }
+
   render() {
     return(
       <>
@@ -29,7 +38,7 @@ export default class Setting extends React.Component {
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p2")}</Text>
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p3")}</Text>
             <Text style={API.styles.p}>{API.t("settings_removeMyData_p4")}</Text>
-            <TouchableOpacity onPress={() => this.props.navigation.push("Browser", {link: "https://dreamoriented.org/removemydata/"})}><Text style={[API.styles.h3, {color: "red"}]}>{API.t("settings_removeMyData_button")}</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => this.removeData()}><Text style={[API.styles.h3, {color: "red"}]}>{API.t("settings_removeMyData_button")}</Text></TouchableOpacity>
             <View style={API.styles.iosBottomPadder}></View>
           </View>
         </ScrollView>
